@@ -1,0 +1,996 @@
+<html>
+  <head>
+    <title>Welcome to Our Service</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/typescript@4"></script>
+    <link rel="stylesheet" href="./assets/css/PPTEditor.css" />
+    <link rel="stylesheet" href="./assets/css/PPTModal.css" />
+    <link rel="stylesheet" href="./assets/css/SlideSettingsModal.css" />
+    <link rel="stylesheet" href="./assets/css/ThemeColorPicker.css" />
+    <link rel="stylesheet" href="./assets/css/ThemeFontsEditor.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lucide-static@latest/font/lucide.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/4.5.4/typescript.min.js"></script>
+    <script src="./assets/ts/script.ts"></script>
+  </head>
+  <body>
+    <div
+      class="container d-flex flex-column justify-content-center align-items-center"
+    >
+      <div class="row align-items-center justify-content-center">
+        <div class="text-center">
+          <button
+            class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
+            <i
+              class="icon-presentation"
+              style="
+                font-size: 24px;
+                height: 1em;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                vertical-align: middle;
+              "
+            ></i>
+            Open settings
+          </button>
+        </div>
+      </div>
+      <div
+        class="modal fade rounded-5 ppt-editor-modal"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header border-0 px-4 pt-4 pb-0">
+              <div
+                class="d-flex justify-content-between align-items-center w-100"
+              >
+                <div class="d-flex align-items-center gap-2">
+                  <i
+                    class="icon-settings text-primary"
+                    style="font-size: 24px"
+                  ></i>
+                  <h5 class="modal-title mb-0 h4">Presentation Settings</h5>
+                </div>
+                <button
+                  type="button"
+                  class="btn-close-custom"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <i class="icon-x" style="font-size: 24px"></i>
+                </button>
+              </div>
+            </div>
+            <div class="modal-body px-4 py-3">
+              <div class="settings-container">
+                <div class="position-relative editor-container">
+                  <div class="ppt-editor">
+                    <div class="editor-toolbar">
+                      <div class="toolbar-section">
+                        <button class="toolbar-btn" disabled="">
+                          <i
+                            class="icon-chevron-left"
+                            style="font-size: 20px"
+                          ></i>
+                        </button>
+                        <span class="slide-counter">1 / 1</span>
+                        <button class="toolbar-btn" disabled="">
+                          <i
+                            class="icon-chevron-right"
+                            style="font-size: 20px"
+                          ></i>
+                        </button>
+                      </div>
+                      <div class="toolbar-section">
+                        <button class="toolbar-btn success">
+                          <i class="icon-save" style="font-size: 20px"></i>
+                          <span><strong>Save</strong></span>
+                        </button>
+                      </div>
+                      <div class="toolbar-section">
+                        <button
+                          class="toolbar-btn add-dropdown-menu"
+                          id="toggleSettingsBtn"
+                        >
+                          <i class="icon-settings" style="font-size: 20px"></i>
+                          <span><strong>Settings</strong></span>
+                        </button>
+                        <button class="toolbar-btn" id="themePickerBtn">
+                          <i class="icon-palette" style="font-size: 20px"></i>
+                          <span><strong>Theme</strong></span>
+                        </button>
+                        <div class="theme-fonts-dropdown position-relative">
+                          <button
+                            class="btn btn-primary d-flex align-items-center gap-1"
+                          >
+                            <i class="icon-plus" style="font-size: 16px"></i>
+                            Create New Theme Fonts
+                            <i
+                              class="icon-chevron-down"
+                              style="font-size: 16px"
+                            ></i>
+                          </button>
+                          <div
+                            class="dropdown-menu show position-absolute w-100"
+                            style="display: none"
+                            style="min-width: 250px"
+                          >
+                            <button
+                              class="dropdown-item d-flex align-items-center gap-2"
+                              id="dropdown-fonts-edit-overlay"
+                            >
+                              <i class="icon-plus" style="font-size: 16px"></i>
+                              Custom Theme Selection
+                            </button>
+                          </div>
+                          <div
+                            class="fonts-editor-overlay"
+                            style="display: none"
+                          >
+                            <div class="fonts-editor-container m-auto">
+                              <div class="fonts-editor-content">
+                                <div class="fonts-editor-header pt-0">
+                                  <div class="header-content">
+                                    <i
+                                      class="icon-type header-icon text-primary"
+                                      style="font-size: 24px"
+                                    ></i>
+                                    <div>
+                                      <h4>Theme Fonts Editor</h4>
+                                      <p>
+                                        Customize your presentation's typography
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <button class="close-button">
+                                    <i
+                                      class="icon-x"
+                                      style="font-size: 16px"
+                                    ></i>
+                                  </button>
+                                </div>
+                                <form>
+                                  <div class="fonts-editor-body">
+                                    <div class="theme-name-section">
+                                      <label for="themeName">Theme Name</label
+                                      ><input
+                                        id="themeName"
+                                        placeholder="Enter theme name"
+                                        type="text"
+                                        value=""
+                                      />
+                                    </div>
+                                    <div class="fonts-section">
+                                      <div class="font-group">
+                                        <label for="titleFont"
+                                          >Heading Font</label
+                                        ><select id="titleFont">
+                                          <option value="Arial">
+                                            Arial (Sans-serif)
+                                          </option>
+                                          <option value="Calibri">
+                                            Calibri (Sans-serif)
+                                          </option>
+                                          <option value="Times New Roman">
+                                            Times New Roman (Serif)
+                                          </option>
+                                          <option value="Helvetica">
+                                            Helvetica (Sans-serif)
+                                          </option>
+                                          <option value="Georgia">
+                                            Georgia (Serif)
+                                          </option>
+                                          <option value="Verdana">
+                                            Verdana (Sans-serif)
+                                          </option>
+                                          <option value="Tahoma">
+                                            Tahoma (Sans-serif)
+                                          </option>
+                                          <option value="Trebuchet MS">
+                                            Trebuchet MS (Sans-serif)
+                                          </option>
+                                          <option value="Century Gothic">
+                                            Century Gothic (Sans-serif)
+                                          </option>
+                                          <option value="Garamond">
+                                            Garamond (Serif)
+                                          </option>
+                                        </select>
+                                        <div class="font-preview">
+                                          <div class="font-info">
+                                            <div class="font-name">Arial</div>
+                                            <div class="font-category">
+                                              Sans-serif
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="preview-text"
+                                            style="
+                                              font-family: Arial;
+                                              font-size: 24px;
+                                            "
+                                          >
+                                            Main Heading Sample
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="font-group">
+                                        <label for="bodyFont">Body Font</label
+                                        ><select id="bodyFont">
+                                          <option value="Arial">
+                                            Arial (Sans-serif)
+                                          </option>
+                                          <option value="Calibri">
+                                            Calibri (Sans-serif)
+                                          </option>
+                                          <option value="Times New Roman">
+                                            Times New Roman (Serif)
+                                          </option>
+                                          <option value="Helvetica">
+                                            Helvetica (Sans-serif)
+                                          </option>
+                                          <option value="Georgia">
+                                            Georgia (Serif)
+                                          </option>
+                                          <option value="Verdana">
+                                            Verdana (Sans-serif)
+                                          </option>
+                                          <option value="Tahoma">
+                                            Tahoma (Sans-serif)
+                                          </option>
+                                          <option value="Trebuchet MS">
+                                            Trebuchet MS (Sans-serif)
+                                          </option>
+                                          <option value="Century Gothic">
+                                            Century Gothic (Sans-serif)
+                                          </option>
+                                          <option value="Garamond">
+                                            Garamond (Serif)
+                                          </option>
+                                        </select>
+                                        <div class="font-preview">
+                                          <div class="font-info">
+                                            <div class="font-name">Calibri</div>
+                                            <div class="font-category">
+                                              Sans-serif
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="preview-text"
+                                            style="
+                                              font-family: Calibri;
+                                              font-size: 16px;
+                                            "
+                                          >
+                                            Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit. Sed do
+                                            eiusmod tempor incididunt ut labore.
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="fonts-editor-footer pt-0">
+                                    <button
+                                      type="button"
+                                      class="btn btn-cancel"
+                                    >
+                                      Cancel</button
+                                    ><button type="submit" class="btn btn-save">
+                                      <i
+                                        class="icon-save"
+                                        style="font-size: 24px"
+                                      ></i>
+                                      Save Theme Fonts
+                                    </button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="settings-panel"
+                      id="settingsPanel"
+                      style="display: none"
+                    >
+                      <div class="settings-content">
+                        <div class="settings-section">
+                          <h6>Presentation Theme</h6>
+                          <div class="theme-grid">
+                            <button
+                              class="theme-btn active"
+                              style="
+                                background-color: rgb(255, 255, 255);
+                                color: rgb(0, 0, 0);
+                              "
+                            >
+                              <div class="theme-preview">
+                                <div
+                                  class="theme-title"
+                                  style="color: rgb(0, 0, 0)"
+                                >
+                                  Default
+                                </div>
+                                <div
+                                  class="theme-content"
+                                  style="color: rgb(51, 51, 51)"
+                                >
+                                  Sample Text
+                                </div>
+                              </div>
+                            </button>
+                            <button
+                              class="theme-btn"
+                              style="
+                                background-color: rgb(44, 62, 80);
+                                color: rgb(255, 255, 255);
+                              "
+                            >
+                              <div class="theme-preview">
+                                <div
+                                  class="theme-title"
+                                  style="color: rgb(255, 255, 255)"
+                                >
+                                  Dark
+                                </div>
+                                <div
+                                  class="theme-content"
+                                  style="color: rgb(236, 240, 241)"
+                                >
+                                  Sample Text
+                                </div>
+                              </div>
+                            </button>
+                            <button
+                              class="theme-btn"
+                              style="
+                                background-color: rgb(248, 249, 250);
+                                color: rgb(44, 62, 80);
+                              "
+                            >
+                              <div class="theme-preview">
+                                <div
+                                  class="theme-title"
+                                  style="color: rgb(44, 62, 80)"
+                                >
+                                  Professional
+                                </div>
+                                <div
+                                  class="theme-content"
+                                  style="color: rgb(52, 73, 94)"
+                                >
+                                  Sample Text
+                                </div>
+                              </div></button
+                            ><button
+                              class="theme-btn"
+                              style="
+                                background-color: rgb(240, 243, 244);
+                                color: rgb(231, 76, 60);
+                              "
+                            >
+                              <div class="theme-preview">
+                                <div
+                                  class="theme-title"
+                                  style="color: rgb(231, 76, 60)"
+                                >
+                                  Creative
+                                </div>
+                                <div
+                                  class="theme-content"
+                                  style="color: rgb(44, 62, 80)"
+                                >
+                                  Sample Text
+                                </div>
+                              </div>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="settings-section">
+                          <h6>Background Color</h6>
+                          <div class="color-picker">
+                            <input type="color" value="#ffffff" />
+                            <span>#FFFFFF</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="editor-content">
+                      <div class="slides-sidebar">
+                        <div class="slide-thumbnail new-slide-thumbnail">
+                          <div
+                            class="thumbnail-preview"
+                            style="
+                              background-color: rgb(255, 255, 255);
+                              display: flex;
+                              align-items: center;
+                              justify-content: center;
+                            "
+                          >
+                            <div class="new-slide-content">
+                              <i
+                                class="icon-plus"
+                                style="
+                                  font-size: 16px;
+                                  color: black;
+                                  height: 1em;
+                                "
+                              ></i>
+                              <span
+                                class="thumbnail-title"
+                                style="color: rgb(0, 0, 0)"
+                              >
+                                Create New
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="slide-thumbnail active">
+                          <div
+                            class="thumbnail-preview"
+                            style="
+                              background-color: rgb(255, 255, 255);
+                              cursor: pointer;
+                            "
+                          >
+                            <div
+                              class="thumbnail-content"
+                              data-editing="false"
+                              style="color: rgb(0, 0, 0)"
+                            >
+                              <div class="thumbnail-title">
+                                Sales Performance
+                              </div>
+                              <div
+                                class="thumbnail-text"
+                                style="color: rgb(51, 51, 51)"
+                              >
+                                This chart shows quarterly sales pe...
+                              </div>
+                            </div>
+                          </div>
+                          <div class="thumbnail-footer">
+                            <div class="thumbnail-number">Theme 1</div>
+                            <button class="edit-button">
+                              <i class="icon-pen" style="font-size: 16px"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="slide-editor">
+                        <div class="slide-container">
+                          <div
+                            class="slide-content mb-4"
+                            style="
+                              background-color: rgb(255, 255, 255);
+                              position: relative;
+                            "
+                          >
+                            <input
+                              class="slide-title"
+                              placeholder="Click to add title"
+                              readonly=""
+                              type="text"
+                              value="Sales Performance"
+                              style="color: rgb(0, 0, 0); font-family: Arial"
+                            />
+                            <textarea
+                              class="slide-body"
+                              placeholder="Click to add content"
+                              readonly=""
+                              style="
+                                color: rgb(51, 51, 51);
+                                font-family: Calibri;
+                                min-height: 80px;
+                                height: auto;
+                                overflow: auto;
+                                resize: vertical;
+                              "
+                            >This chart shows quarterly sales performance comparison.
+                            </textarea>
+                            <div
+                              class="chart-container"
+                              style="width: 100%; height: 75%"
+                            >
+                              <div class="chart-editor preview-mode card mb-3">
+                                <div class="card-body">
+                                  <canvas id="bar-chart" style="width:100%;max-width:100%"></canvas>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="slide-content mb-4"
+                            style="
+                              background-color: rgb(255, 255, 255);
+                              position: relative;
+                            "
+                          >
+                            <input
+                              class="slide-title"
+                              placeholder="Click to add title"
+                              readonly=""
+                              type="text"
+                              value="Monthly Trends"
+                              style="color: rgb(0, 0, 0); font-family: Arial"
+                            />
+                            <textarea
+                              class="slide-body"
+                              placeholder="Click to add content"
+                              readonly=""
+                              style="
+                                color: rgb(51, 51, 51);
+                                font-family: Calibri;
+                                min-height: 80px;
+                                height: auto;
+                                overflow: auto;
+                                resize: vertical;
+                              "
+                            >Visualizing the monthly growth trends across different series.
+                            </textarea>
+                            <div
+                              class="chart-container"
+                              style="width: 100%; height: 75%"
+                            >
+                              <div class="chart-editor preview-mode card mb-3">
+                                <div class="card-body"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="slide-content mb-4"
+                            style="
+                              background-color: rgb(255, 255, 255);
+                              position: relative;
+                            "
+                          >
+                            <input
+                              class="slide-title"
+                              placeholder="Click to add title"
+                              readonly=""
+                              type="text"
+                              value="Market Distribution"
+                              style="color: rgb(0, 0, 0); font-family: Arial"
+                            />
+                            <textarea
+                              class="slide-body"
+                              placeholder="Click to add content"
+                              readonly=""
+                              style="
+                                color: rgb(51, 51, 51);
+                                font-family: Calibri;
+                                min-height: 80px;
+                                height: auto;
+                                overflow: auto;
+                                resize: vertical;
+                              "
+                            >Breakdown of market share across different products.
+                            </textarea>
+                            <div
+                              class="chart-container"
+                              style="width: 100%; height: 75%"
+                            >
+                              <div class="chart-editor preview-mode card mb-3">
+                                <div class="card-body"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="theme-picker-overlay"
+                      style="display: none"
+                      id="themePickerOverlay"
+                    >
+                      <div class="theme-picker-container" style="margin: auto">
+                        <div class="theme-picker-content">
+                          <div
+                            class="theme-picker-header"
+                            style="padding-top: 0"
+                          >
+                            <div class="header-content">
+                              <i
+                                class="icon-paintbrush header-icon text-primary"
+                                style="font-size: 24px"
+                              ></i>
+
+                              <div>
+                                <h4>Theme Color Editor</h4>
+                                <p>
+                                  Customize your presentation's color scheme
+                                </p>
+                              </div>
+                            </div>
+                            <button class="close-button">
+                              <i class="icon-x" style="font-size: 24px"></i>
+                            </button>
+                          </div>
+                          <div class="theme-picker-body">
+                            <div class="row g-4">
+                              <div class="col-md-7">
+                                <div class="color-sections">
+                                  <div class="section-tabs">
+                                    <button class="section-tab active">
+                                      Text Colors</button
+                                    ><button class="section-tab">
+                                      Accent Colors</button
+                                    ><button class="section-tab">
+                                      Links Colors
+                                    </button>
+                                  </div>
+                                  <div class="color-inputs">
+                                    <div class="color-input-group">
+                                      <label class="color-label"
+                                        >Text Dark1</label
+                                      >
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#44546A"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#44546A"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label"
+                                        >Text Light1</label
+                                      >
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#FFFFFF"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#FFFFFF"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label"
+                                        >Text Dark2</label
+                                      >
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#44546A"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#44546A"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label"
+                                        >Text Light2</label
+                                      >
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#E7E6E6"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#E7E6E6"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="theme-name-input">
+                                  <label>Theme Name</label
+                                  ><input
+                                    placeholder="Enter theme name"
+                                    class="form-control"
+                                    type="text"
+                                    value="Custom 1"
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-md-5">
+                                <div class="preview-section">
+                                  <h6>Preview</h6>
+                                  <div class="preview-container">
+                                    <div class="preview-item">
+                                      <label>Dark Theme</label>
+                                      <div
+                                        class="p-3"
+                                        style="
+                                          background-color: rgb(68, 84, 106);
+                                          color: rgb(255, 255, 255);
+                                          height: 200px;
+                                          border-radius: 4px;
+                                        "
+                                      >
+                                        <div class="mb-2">Text</div>
+                                        <div style="height: 100px">
+                                          <div
+                                            class="recharts-responsive-container"
+                                            style="
+                                              width: 100%;
+                                              height: 100%;
+                                              min-width: 0px;
+                                            "
+                                          >
+                                            <div
+                                              class="recharts-wrapper"
+                                              style="
+                                                position: relative;
+                                                cursor: default;
+                                                width: 100%;
+                                                height: 100%;
+                                                max-height: 100px;
+                                                max-width: 344px;
+                                              "
+                                            ></div>
+                                          </div>
+                                        </div>
+                                        <div style="color: rgb(5, 99, 193)">
+                                          Hyperlink
+                                        </div>
+                                        <div style="color: rgb(149, 79, 114)">
+                                          Hyperlink
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="preview-item">
+                                      <label>Light Theme</label>
+                                      <div
+                                        class="p-3"
+                                        style="
+                                          background-color: rgb(255, 255, 255);
+                                          color: rgb(68, 84, 106);
+                                          height: 200px;
+                                          border-radius: 4px;
+                                        "
+                                      >
+                                        <div class="mb-2">Text</div>
+                                        <div style="height: 100px">
+                                          <div
+                                            class="recharts-responsive-container"
+                                            style="
+                                              width: 100%;
+                                              height: 100%;
+                                              min-width: 0px;
+                                            "
+                                          >
+                                            <div
+                                              class="recharts-wrapper"
+                                              style="
+                                                position: relative;
+                                                cursor: default;
+                                                width: 100%;
+                                                height: 100%;
+                                                max-height: 100px;
+                                                max-width: 344px;
+                                              "
+                                            ></div>
+                                          </div>
+                                        </div>
+                                        <div style="color: rgb(5, 99, 193)">
+                                          Hyperlink
+                                        </div>
+                                        <div style="color: rgb(149, 79, 114)">
+                                          Hyperlink
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="theme-picker-footer">
+                            <button class="btn btn-reset">
+                              <i
+                                class="icon-rotate-ccw"
+                                style="font-size: 16px"
+                              ></i>
+                              Reset
+                            </button>
+                            <div class="footer-actions">
+                              <button class="btn btn-cancel">Cancel</button
+                              ><button class="btn btn-save">
+                                <i class="lucide-save" style="font-size: 16px;"></i>
+                                Save Theme
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="border-0 px-4 pb-4 pt-2 modal-footer d-flex justify-content-between align-items-center"
+            >
+              <button
+                type="button"
+                class="btn-cancel btn btn-light"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button type="button" class="btn btn-primary">
+                <i class="icon-save" style="font-size: 24px"></i>
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/typescript">
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.getElementById("toggleSettingsBtn") as HTMLButtonElement | null;
+        const panel = document.getElementById("settingsPanel") as HTMLElement | null;
+        if (toggleBtn && panel) {
+          toggleBtn.addEventListener("click", function () {
+            panel.style.display =
+              panel.style.display === "none" || panel.style.display === ""
+                ? "block"
+                : "none";
+          });
+        }
+        // Theme picker overlay toggle
+        const themeBtn = document.getElementById("themePickerBtn") as HTMLButtonElement | null;
+        const overlay = document.getElementById("themePickerOverlay") as HTMLElement | null;
+        if (themeBtn && overlay) {
+          themeBtn.addEventListener("click", function () {
+            overlay.style.display =
+              overlay.style.display === "none" || overlay.style.display === ""
+                ? "block"
+                : "none";
+          });
+        }
+
+        // Optional: close overlay when clicking the close button inside overlay
+        const closeBtn = document.querySelector<HTMLButtonElement>("#themePickerOverlay .close-button");
+        if (closeBtn && overlay) {
+          closeBtn.addEventListener("click", function () {
+            overlay.style.display = "none";
+          });
+        }
+        // Add slide functionality
+        const newSlideBtn = document.querySelector<HTMLButtonElement>(".new-slide-thumbnail");
+        const slidesSidebar = document.querySelector<HTMLElement>(".slides-sidebar");
+        let num = 2;
+        if (newSlideBtn && slidesSidebar) {
+          newSlideBtn.addEventListener("click", function () {
+            // Create new slide-thumbnail div
+            const slide = document.createElement("div");
+            slide.className = "slide-thumbnail";
+            slide.innerHTML = `
+              <div class="thumbnail-preview" style="background-color: #fff; cursor: pointer;">
+                <div class="thumbnail-content" data-editing="false" style="color: #000;">
+                  <div class="thumbnail-title">Sales Performance</div>
+                  <div class="thumbnail-text" style="color: #333;">This chart shows quarterly sales pe...</div>
+                </div>
+              </div>
+              <div class="thumbnail-footer">
+                <div class="thumbnail-number">Theme ${num}</div>
+                <button class="edit-button">
+                  <i class="icon-pen" style="font-size: 16px"></i>
+                </button>
+              </div>
+            `;
+            num++;
+            slidesSidebar.appendChild(slide);
+          });
+        }
+          // Theme fonts dropdown mouseover/mouseout
+        const fontsDropdown = document.querySelector('.theme-fonts-dropdown') as HTMLElement | null;
+        const dropdownMenu = fontsDropdown?.querySelector('.dropdown-menu') as HTMLElement | null;
+        if (fontsDropdown && dropdownMenu) {
+          fontsDropdown.addEventListener('mouseenter', function () {
+            dropdownMenu.style.display = 'block';
+          });
+          fontsDropdown.addEventListener('mouseleave', function () {
+            dropdownMenu.style.display = 'none';
+          });
+        }
+
+          // Show fonts-editor-overlay when clicking the Create New Theme Fonts button
+        const createFontsBtn = document.querySelector<HTMLButtonElement>('#dropdown-fonts-edit-overlay');
+        const fontsOverlay = document.querySelector<HTMLElement>('.fonts-editor-overlay');
+        if (createFontsBtn && fontsOverlay) {
+          createFontsBtn.addEventListener('click', function () {
+            fontsOverlay.style.display = 'block';
+          });
+          // Optional: close overlay when clicking the close button inside overlay
+          const closeFontsBtn = fontsOverlay.querySelector<HTMLButtonElement>('.close-button');
+          if (closeFontsBtn) {
+            closeFontsBtn.addEventListener('click', function () {
+              fontsOverlay.style.display = 'none';
+            });
+          }
+        }
+      });
+      var xValues = ["Q1", "Q2", "Q3", "Q4"];
+      var yValues1 = [55, 49, 44, 24]; // First bar values
+      var yValues2 = [35, 40, 30, 20]; // Second bar values (example)
+      var barColors1 = "rgb(68, 114, 196)";
+      var barColors2 = "rgb(231, 76, 60)";
+
+      new Chart("bar-chart", {
+        type: "bar",
+        data: {
+          labels: xValues,
+          datasets: [
+            {
+              label: "Product A",
+              backgroundColor: barColors1,
+              data: yValues1
+            },
+            {
+              label: "Product B",
+              backgroundColor: barColors2,
+              data: yValues2
+            }
+          ]
+        },
+        options: {
+          legend: { display: true },
+          title: {
+            display: true,
+            text: "World Wine Production 2018"
+          }
+        }
+      });
+    </script>
+    <script>
+      // Transpile TypeScript to JavaScript
+      const tsCode = document.querySelector(
+        'script[type="text/typescript"]'
+      ).textContent;
+      const jsCode = ts.transpileModule(tsCode, {
+        compilerOptions: { module: ts.ModuleKind.CommonJS },
+      });
+      eval(jsCode.outputText);
+    </script>
+  </body>
+</html>
