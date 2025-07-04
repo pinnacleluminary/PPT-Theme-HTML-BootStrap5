@@ -437,3 +437,6 @@ i {
   align-items: center;
   justify-content: center;
 }
+.custom-toast {
+  pointer-events: none;
+}

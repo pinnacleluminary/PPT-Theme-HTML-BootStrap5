@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Welcome to Our Service</title>
+    <title>Welcome</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/typescript@4"></script>
@@ -30,7 +30,6 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/4.5.4/typescript.min.js"></script>
-    <script src="./assets/ts/script.ts"></script>
   </head>
   <body>
     <div
@@ -2377,155 +2376,927 @@ Breakdown of market share across different products.
     <script type="text/typescript">
       document.addEventListener("DOMContentLoaded", function () {
 
-        const saveBtn = document.querySelector<HTMLButtonElement>('.toolbar-btn.success');
-  if (saveBtn) {
-    saveBtn.addEventListener('click', function () {
-      // Gather theme data from DOM
-      const slides: any[] = [];
-      document.querySelectorAll('.slide-thumbnail').forEach((thumb, idx) => {
-        const slideContent = document.querySelectorAll('.slide-content')[idx];
-        if (!slideContent) return;
-
-        // Slide background, title, content, fonts
-        const background = slideContent.style.backgroundColor || "#ffffff";
-        const titleInput = slideContent.querySelector<HTMLInputElement>('.slide-title');
-        const bodyTextarea = slideContent.querySelector<HTMLTextAreaElement>('.slide-body');
-        const titleColor = titleInput?.style.color || "#000000";
-        const contentColor = bodyTextarea?.style.color || "#333333";
-        const titleFont = titleInput?.style.fontFamily || "Arial";
-        const bodyFont = bodyTextarea?.style.fontFamily || "Calibri";
-
-        // Slide size
-        const generalForm = document.getElementById('general-form');
-        let slideSize = "standard";
-        let customWidth = 1024, customHeight = 768;
-        if (generalForm) {
-          const select = generalForm.querySelector<HTMLSelectElement>('select.mb-2.form-select');
-          const widthInput = generalForm.querySelector<HTMLInputElement>('input[type="number"]:first-child');
-          const heightInput = generalForm.querySelector<HTMLInputElement>('input[type="number"]:last-child');
-          if (select) slideSize = select.value;
-          if (widthInput) customWidth = Number(widthInput.value);
-          if (heightInput) customHeight = Number(heightInput.value);
+        // Toast utility (simple, similar to react-toastify)
+        function showToast(message: string, type: 'success' | 'error' = 'success') {
+          let toast = document.createElement('div');
+          toast.className = `custom-toast custom-toast-${type}`;
+          toast.textContent = message;
+          Object.assign(toast.style, {
+            position: 'fixed',
+            top: '32px',
+            right: '32px',
+            zIndex: '9999',
+            background: type === 'success' ? '#198754' : '#dc3545',
+            color: '#fff',
+            padding: '14px 28px',
+            borderRadius: '6px',
+            fontSize: '1rem',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+            opacity: '0',
+            transition: 'opacity 0.3s'
+          });
+          document.body.appendChild(toast);
+          setTimeout(() => { toast.style.opacity = '1'; }, 10);
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => { toast.remove(); }, 300);
+          }, 2500);
         }
 
-        // Theme colors from colors-form
-        const colorsForm = document.getElementById('colors-form');
-        let themeColors: any = {};
-        if (colorsForm) {
-          const colorInputs = colorsForm.querySelectorAll<HTMLInputElement>('input[type="color"]');
-          const colorKeys = [
-            "background", "titleColor", "contentColor",
-            "textDark1", "textLight1", "textDark2", "textLight2",
-            "accent1", "accent2", "accent3", "accent4", "accent5", "accent6",
-            "hyperlink", "followedHyperlink"
-          ];
-          colorInputs.forEach((input, i) => {
-            if (colorKeys[i]) themeColors[colorKeys[i]] = input.value;
+        // Find the Save Settings button in the custom modal-footer
+        const saveBtn = document.querySelector<HTMLButtonElement>(
+          '.border-0.px-4.pb-4.pt-2.modal-footer.d-flex.justify-content-between.align-items-center .btn.btn-primary'
+        );
+        if (saveBtn) {
+          saveBtn.addEventListener('click', async function () {
+            // 1. Gather settings from the DOM (similar to your PPTModal logic)
+            // Example: You may need to adjust selectors to match your HTML structure
+
+            // Theme
+            const themeName = "Default";
+            const background = document.querySelector<HTMLInputElement>('#background-color')?.value ||
+              document.querySelector<HTMLElement>('.slide-content')?.style.backgroundColor || "#ffffff";
+            const titleColor = document.querySelector<HTMLInputElement>('#title-color')?.value ||
+              document.querySelector<HTMLElement>('.slide-title')?.style.color || "#000000";
+            const contentColor = document.querySelector<HTMLInputElement>('#content-color')?.value ||
+              document.querySelector<HTMLElement>('.slide-body')?.style.color || "#333333";
+
+            // ThemeColors (optional, based on your color input structure)
+            let themeColors: any = {};
+            const colorsForm = document.getElementById('colors-form');
+            if (colorsForm) {
+              const colorInputs = colorsForm.querySelectorAll<HTMLInputElement>('input[type="color"]');
+              const colorKeys = [
+                "background", "titleColor", "contentColor",
+                "textDark1", "textLight1", "textDark2", "textLight2",
+                "accent1", "accent2", "accent3", "accent4", "accent5", "accent6",
+                "hyperlink", "followedHyperlink"
+              ];
+              colorInputs.forEach((input, i) => {
+                if (colorKeys[i]) themeColors[colorKeys[i]] = input.value;
+              });
+            }
+
+            // Slides
+            const slides: any[] = [];
+            document.querySelectorAll('.slide-thumbnail').forEach((thumb, idx) => {
+              const slideContent = document.querySelectorAll('.slide-content')[idx];
+              if (!slideContent) return;
+
+              const slideBackground = slideContent.style.backgroundColor || "#ffffff";
+              const slideTitle = slideContent.querySelector<HTMLInputElement>('.slide-title');
+              const slideBody = slideContent.querySelector<HTMLTextAreaElement>('.slide-body');
+              const slideTitleColor = slideTitle?.style.color || "#000000";
+              const slideContentColor = slideBody?.style.color || "#333333";
+              const slideTitleFont = slideTitle?.style.fontFamily || "Arial";
+              const slideBodyFont = slideBody?.style.fontFamily || "Calibri";
+
+              // Logo (if any)
+              let logoBase64: string | null = null;
+              const logoPreview = document.querySelector('.logo-preview img') as HTMLImageElement | null;
+              if (logoPreview && logoPreview.src && logoPreview.src.startsWith('data:image')) {
+                logoBase64 = logoPreview.src;
+              }
+
+              // Subslides (charts) - you can expand this as needed
+              const subSlides: any[] = [];
+
+              slides.push({
+                id: idx + 1,
+                background: slideBackground,
+                titleColor: slideTitleColor,
+                contentColor: slideContentColor,
+                titleFont: slideTitleFont,
+                bodyFont: slideBodyFont,
+                logo: logoBase64,
+                subSlides,
+                themeColors
+              });
+            });
+
+            // Compose settings object
+            const settings = {
+              theme: {
+                name: themeName,
+                background,
+                titleColor,
+                contentColor,
+                colors: themeColors
+              },
+              slides
+            };
+
+            // 2. Validate settings (basic check)
+            if (!settings.theme || !settings.slides || !Array.isArray(settings.slides) || settings.slides.length === 0) {
+              showToast('Invalid settings configuration', 'error');
+              return;
+            }
+
+            saveBtn.disabled = true;
+            try {
+              const response = await fetch('/api/ppttheme/settings', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify(settings),
+                credentials: 'include'
+              });
+              if (response.ok) {
+                showToast('Settings saved successfully', 'success');
+                // Optionally close modal or update UI
+              } else {
+                showToast('Failed to save settings', 'error');
+              }
+            } catch (error) {
+              showToast('Failed to save settings', 'error');
+              console.error('Save error:', error);
+            } finally {
+              saveBtn.disabled = false;
+            }
+
           });
         }
 
-        // Logo image (base64) if exists in .logo-preview
-        let logoBase64: string | null = null;
-        const logoPreview = document.querySelector('.logo-preview img') as HTMLImageElement | null;
-        if (logoPreview && logoPreview.src && logoPreview.src.startsWith('data:image')) {
-          logoBase64 = logoPreview.src;
+        const colorsForm = document.getElementById('colors-form');
+        if (colorsForm) {
+          // Get the second mb-4 card (index 1)
+          const cards = colorsForm.querySelectorAll('.mb-4.card');
+          if (cards.length >= 5) {
+            const secondCard = cards[1];
+            // Find the first .theme-variant-preview.mb-2 inside the second card
+            const firstThemeVariant = secondCard.querySelector('.theme-variant-preview.mb-2');
+            if (firstThemeVariant) {
+              firstThemeVariant.addEventListener('click', function () {
+                // 1. First mb-4 card (index 0)
+                const firstCard = cards[0];
+                const firstRows = firstCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                let colorInput = firstRows[0]?.querySelector('input[type="color"]');
+                let textInput = firstRows[0]?.querySelector('input[type="text"]');
+                let colorPreview = firstRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#FFFFFF";
+                if (textInput) textInput.value = "#FFFFFF";
+                if (colorPreview) colorPreview.style.backgroundColor = "#FFFFFF";
+                // Second row
+                colorInput = firstRows[1]?.querySelector('input[type="color"]');
+                textInput = firstRows[1]?.querySelector('input[type="text"]');
+                colorPreview = firstRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#000000";
+                if (textInput) textInput.value = "#000000";
+                if (colorPreview) colorPreview.style.backgroundColor = "#000000";
+                // Third row
+                colorInput = firstRows[2]?.querySelector('input[type="color"]');
+                textInput = firstRows[2]?.querySelector('input[type="text"]');
+                colorPreview = firstRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#333333";
+                if (textInput) textInput.value = "#333333";
+                if (colorPreview) colorPreview.style.backgroundColor = "#333333";
+
+                // 2. Third mb-4 card (index 2)
+                const thirdCard = cards[2];
+                const thirdRows = thirdCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = thirdRows[0]?.querySelector('input[type="color"]');
+                textInput = thirdRows[0]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#000000";
+                if (textInput) textInput.value = "#000000";
+                if (colorPreview) colorPreview.style.backgroundColor = "#000000";
+                // Second row
+                colorInput = thirdRows[1]?.querySelector('input[type="color"]');
+                textInput = thirdRows[1]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#FFFFFF";
+                if (textInput) textInput.value = "#FFFFFF";
+                if (colorPreview) colorPreview.style.backgroundColor = "#FFFFFF";
+                // Third row
+                colorInput = thirdRows[2]?.querySelector('input[type="color"]');
+                textInput = thirdRows[2]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#333333";
+                if (textInput) textInput.value = "#333333";
+                if (colorPreview) colorPreview.style.backgroundColor = "#333333";
+                // Fourth row
+                colorInput = thirdRows[3]?.querySelector('input[type="color"]');
+                textInput = thirdRows[3]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[3]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#F5F5F5";
+                if (textInput) textInput.value = "#F5F5F5";
+                if (colorPreview) colorPreview.style.backgroundColor = "#F5F5F5";
+
+                // 3. Fourth mb-4 card (index 3)
+                const fourthCard = cards[3];
+                const fourthRows = fourthCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = fourthRows[0]?.querySelector('input[type="color"]');
+                textInput = fourthRows[0]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#E74C3C";
+                if (textInput) textInput.value = "#E74C3C";
+                if (colorPreview) colorPreview.style.backgroundColor = "#E74C3C";
+                // Second row
+                colorInput = fourthRows[1]?.querySelector('input[type="color"]');
+                textInput = fourthRows[1]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#F39C12";
+                if (textInput) textInput.value = "#F39C12";
+                if (colorPreview) colorPreview.style.backgroundColor = "#F39C12";
+                // Third row
+                colorInput = fourthRows[2]?.querySelector('input[type="color"]');
+                textInput = fourthRows[2]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#F1C40F";
+                if (textInput) textInput.value = "#F1C40F";
+                if (colorPreview) colorPreview.style.backgroundColor = "#F1C40F";
+                // Fourth row
+                colorInput = fourthRows[3]?.querySelector('input[type="color"]');
+                textInput = fourthRows[3]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[3]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#2ECC71";
+                if (textInput) textInput.value = "#2ECC71";
+                if (colorPreview) colorPreview.style.backgroundColor = "#2ECC71";
+                // Fifth row
+                colorInput = fourthRows[4]?.querySelector('input[type="color"]');
+                textInput = fourthRows[4]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[4]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#3498DB";
+                if (textInput) textInput.value = "#3498DB";
+                if (colorPreview) colorPreview.style.backgroundColor = "#3498DB";
+                // Sixth row
+                colorInput = fourthRows[5]?.querySelector('input[type="color"]');
+                textInput = fourthRows[5]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[5]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#9B59B6";
+                if (textInput) textInput.value = "#9B59B6";
+                if (colorPreview) colorPreview.style.backgroundColor = "#9B59B6";
+
+                // 4. Fifth mb-4 card (index 4)
+                const fifthCard = cards[4];
+                const fifthRows = fifthCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = fifthRows[0]?.querySelector('input[type="color"]');
+                textInput = fifthRows[0]?.querySelector('input[type="text"]');
+                colorPreview = fifthRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#3498DB";
+                if (textInput) textInput.value = "#3498DB";
+                if (colorPreview) colorPreview.style.backgroundColor = "#3498DB";
+                // Second row
+                colorInput = fifthRows[1]?.querySelector('input[type="color"]');
+                textInput = fifthRows[1]?.querySelector('input[type="text"]');
+                colorPreview = fifthRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#8E44AD";
+                if (textInput) textInput.value = "#8E44AD";
+                if (colorPreview) colorPreview.style.backgroundColor = "#8E44AD";
+
+                // Trigger input events to update any listeners
+                [firstRows, thirdRows, fourthRows, fifthRows].forEach(rows => {
+                  rows.forEach(row => {
+                    const cInput = row.querySelector('input[type="color"]');
+                    const tInput = row.querySelector('input[type="text"]');
+                    if (cInput) cInput.dispatchEvent(new Event('input'));
+                    if (tInput) tInput.dispatchEvent(new Event('input'));
+                  });
+                });
+              });
+            }
+          }
         }
 
-        // Helper to extract chart data
-        function extractChartData(chart: any) {
-          if (!chart || !chart.data) return {};
-          return {
-            labels: chart.data.labels || [],
-            datasets: (chart.data.datasets || []).map((ds: any) => ({
-              label: ds.label,
-              data: ds.data,
-              backgroundColor: ds.backgroundColor,
-              borderColor: ds.borderColor,
-              fill: ds.fill,
-              type: ds.type
-            }))
-          };
+        const colorsForm = document.getElementById('colors-form');
+        if (colorsForm) {
+          // Get the second mb-4 card (index 1)
+          const cards = colorsForm.querySelectorAll('.mb-4.card');
+          if (cards.length >= 5) {
+            const secondCard = cards[1];
+            // Find the second .theme-variant-preview.mb-2 inside the second card
+            const themeVariants = secondCard.querySelectorAll('.theme-variant-preview.mb-2');
+            const secondThemeVariant = themeVariants[1];
+            if (secondThemeVariant) {
+              secondThemeVariant.addEventListener('click', function () {
+                // 1. First mb-4 card (index 0)
+                const firstCard = cards[0];
+                const firstRows = firstCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                let colorInput = firstRows[0]?.querySelector('input[type="color"]');
+                let textInput = firstRows[0]?.querySelector('input[type="text"]');
+                let colorPreview = firstRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#FFFFFF";
+                if (textInput) textInput.value = "#FFFFFF";
+                if (colorPreview) colorPreview.style.backgroundColor = "#FFFFFF";
+                // Second row
+                colorInput = firstRows[1]?.querySelector('input[type="color"]');
+                textInput = firstRows[1]?.querySelector('input[type="text"]');
+                colorPreview = firstRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#000000";
+                if (textInput) textInput.value = "#000000";
+                if (colorPreview) colorPreview.style.backgroundColor = "#000000";
+                // Third row
+                colorInput = firstRows[2]?.querySelector('input[type="color"]');
+                textInput = firstRows[2]?.querySelector('input[type="text"]');
+                colorPreview = firstRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#333333";
+                if (textInput) textInput.value = "#333333";
+                if (colorPreview) colorPreview.style.backgroundColor = "#333333";
+
+                // 2. Third mb-4 card (index 2)
+                const thirdCard = cards[2];
+                const thirdRows = thirdCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = thirdRows[0]?.querySelector('input[type="color"]');
+                textInput = thirdRows[0]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#000000";
+                if (textInput) textInput.value = "#000000";
+                if (colorPreview) colorPreview.style.backgroundColor = "#000000";
+                // Second row
+                colorInput = thirdRows[1]?.querySelector('input[type="color"]');
+                textInput = thirdRows[1]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#FFFFFF";
+                if (textInput) textInput.value = "#FFFFFF";
+                if (colorPreview) colorPreview.style.backgroundColor = "#FFFFFF";
+                // Third row
+                colorInput = thirdRows[2]?.querySelector('input[type="color"]');
+                textInput = thirdRows[2]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#333333";
+                if (textInput) textInput.value = "#333333";
+                if (colorPreview) colorPreview.style.backgroundColor = "#333333";
+                // Fourth row
+                colorInput = thirdRows[3]?.querySelector('input[type="color"]');
+                textInput = thirdRows[3]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[3]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#F5F5F5";
+                if (textInput) textInput.value = "#F5F5F5";
+                if (colorPreview) colorPreview.style.backgroundColor = "#F5F5F5";
+
+                // 3. Fourth mb-4 card (index 3)
+                const fourthCard = cards[3];
+                const fourthRows = fourthCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = fourthRows[0]?.querySelector('input[type="color"]');
+                textInput = fourthRows[0]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#E74C3C";
+                if (textInput) textInput.value = "#E74C3C";
+                if (colorPreview) colorPreview.style.backgroundColor = "#E74C3C";
+                // Second row
+                colorInput = fourthRows[1]?.querySelector('input[type="color"]');
+                textInput = fourthRows[1]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#F39C12";
+                if (textInput) textInput.value = "#F39C12";
+                if (colorPreview) colorPreview.style.backgroundColor = "#F39C12";
+                // Third row
+                colorInput = fourthRows[2]?.querySelector('input[type="color"]');
+                textInput = fourthRows[2]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#F1C40F";
+                if (textInput) textInput.value = "#F1C40F";
+                if (colorPreview) colorPreview.style.backgroundColor = "#F1C40F";
+                // Fourth row
+                colorInput = fourthRows[3]?.querySelector('input[type="color"]');
+                textInput = fourthRows[3]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[3]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#2ECC71";
+                if (textInput) textInput.value = "#2ECC71";
+                if (colorPreview) colorPreview.style.backgroundColor = "#2ECC71";
+                // Fifth row
+                colorInput = fourthRows[4]?.querySelector('input[type="color"]');
+                textInput = fourthRows[4]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[4]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#3498DB";
+                if (textInput) textInput.value = "#3498DB";
+                if (colorPreview) colorPreview.style.backgroundColor = "#3498DB";
+                // Sixth row
+                colorInput = fourthRows[5]?.querySelector('input[type="color"]');
+                textInput = fourthRows[5]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[5]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#9B59B6";
+                if (textInput) textInput.value = "#9B59B6";
+                if (colorPreview) colorPreview.style.backgroundColor = "#9B59B6";
+
+                // 4. Fifth mb-4 card (index 4)
+                const fifthCard = cards[4];
+                const fifthRows = fifthCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = fifthRows[0]?.querySelector('input[type="color"]');
+                textInput = fifthRows[0]?.querySelector('input[type="text"]');
+                colorPreview = fifthRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#3498DB";
+                if (textInput) textInput.value = "#3498DB";
+                if (colorPreview) colorPreview.style.backgroundColor = "#3498DB";
+                // Second row
+                colorInput = fifthRows[1]?.querySelector('input[type="color"]');
+                textInput = fifthRows[1]?.querySelector('input[type="text"]');
+                colorPreview = fifthRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#8E44AD";
+                if (textInput) textInput.value = "#8E44AD";
+                if (colorPreview) colorPreview.style.backgroundColor = "#8E44AD";
+
+                // Trigger input events to update any listeners
+                [firstRows, thirdRows, fourthRows, fifthRows].forEach(rows => {
+                  rows.forEach(row => {
+                    const cInput = row.querySelector('input[type="color"]');
+                    const tInput = row.querySelector('input[type="text"]');
+                    if (cInput) cInput.dispatchEvent(new Event('input'));
+                    if (tInput) tInput.dispatchEvent(new Event('input'));
+                  });
+                });
+              });
+            }
+          }
         }
 
-        // Subslides (charts)
-        const subSlides: any[] = [];
-        // Bar chart
-        subSlides.push({
-          id: `slide${idx + 1}-bar`,
-          title: titleInput?.value || "Sales Performance",
-          content: bodyTextarea?.value || "",
-          chart: {
-            id: `theme${idx + 1}-bar-chart`,
-            type: "bar",
-            title: titleInput?.value || "Sales Performance",
-            data: extractChartData((window as any).barChart)
+        const colorsForm = document.getElementById('colors-form');
+        if (colorsForm) {
+          // Get the second mb-4 card (index 1)
+          const cards = colorsForm.querySelectorAll('.mb-4.card');
+          if (cards.length >= 5) {
+            const secondCard = cards[1];
+            // Find the third .theme-variant-preview.mb-2 inside the second card
+            const themeVariants = secondCard.querySelectorAll('.theme-variant-preview.mb-2');
+            const thirdThemeVariant = themeVariants[2];
+            if (thirdThemeVariant) {
+              thirdThemeVariant.addEventListener('click', function () {
+                // 1. First mb-4 card (index 0)
+                const firstCard = cards[0];
+                const firstRows = firstCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                let colorInput = firstRows[0]?.querySelector('input[type="color"]');
+                let textInput = firstRows[0]?.querySelector('input[type="text"]');
+                let colorPreview = firstRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#FFFFFF";
+                if (textInput) textInput.value = "#FFFFFF";
+                if (colorPreview) colorPreview.style.backgroundColor = "#FFFFFF";
+                // Second row
+                colorInput = firstRows[1]?.querySelector('input[type="color"]');
+                textInput = firstRows[1]?.querySelector('input[type="text"]');
+                colorPreview = firstRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#1F4E79";
+                if (textInput) textInput.value = "#1F4E79";
+                if (colorPreview) colorPreview.style.backgroundColor = "#1F4E79";
+                // Third row
+                colorInput = firstRows[2]?.querySelector('input[type="color"]');
+                textInput = firstRows[2]?.querySelector('input[type="text"]');
+                colorPreview = firstRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#2F5F8F";
+                if (textInput) textInput.value = "#2F5F8F";
+                if (colorPreview) colorPreview.style.backgroundColor = "#2F5F8F";
+
+                // 2. Third mb-4 card (index 2)
+                const thirdCard = cards[2];
+                const thirdRows = thirdCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = thirdRows[0]?.querySelector('input[type="color"]');
+                textInput = thirdRows[0]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#1F4E79";
+                if (textInput) textInput.value = "#1F4E79";
+                if (colorPreview) colorPreview.style.backgroundColor = "#1F4E79";
+                // Second row
+                colorInput = thirdRows[1]?.querySelector('input[type="color"]');
+                textInput = thirdRows[1]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#FFFFFF";
+                if (textInput) textInput.value = "#FFFFFF";
+                if (colorPreview) colorPreview.style.backgroundColor = "#FFFFFF";
+                // Third row
+                colorInput = thirdRows[2]?.querySelector('input[type="color"]');
+                textInput = thirdRows[2]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#2F5F8F";
+                if (textInput) textInput.value = "#2F5F8F";
+                if (colorPreview) colorPreview.style.backgroundColor = "#2F5F8F";
+                // Fourth row
+                colorInput = thirdRows[3]?.querySelector('input[type="color"]');
+                textInput = thirdRows[3]?.querySelector('input[type="text"]');
+                colorPreview = thirdRows[3]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#F2F8FF";
+                if (textInput) textInput.value = "#F2F8FF";
+                if (colorPreview) colorPreview.style.backgroundColor = "#F2F8FF";
+
+                // 3. Fourth mb-4 card (index 3)
+                const fourthCard = cards[3];
+                const fourthRows = fourthCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = fourthRows[0]?.querySelector('input[type="color"]');
+                textInput = fourthRows[0]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#4472C4";
+                if (textInput) textInput.value = "#4472C4";
+                if (colorPreview) colorPreview.style.backgroundColor = "#4472C4";
+                // Second row
+                colorInput = fourthRows[1]?.querySelector('input[type="color"]');
+                textInput = fourthRows[1]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#5B9BD5";
+                if (textInput) textInput.value = "#5B9BD5";
+                if (colorPreview) colorPreview.style.backgroundColor = "#5B9BD5";
+                // Third row
+                colorInput = fourthRows[2]?.querySelector('input[type="color"]');
+                textInput = fourthRows[2]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[2]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#A5A5A5";
+                if (textInput) textInput.value = "#A5A5A5";
+                if (colorPreview) colorPreview.style.backgroundColor = "#A5A5A5";
+                // Fourth row
+                colorInput = fourthRows[3]?.querySelector('input[type="color"]');
+                textInput = fourthRows[3]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[3]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#70AD47";
+                if (textInput) textInput.value = "#70AD47";
+                if (colorPreview) colorPreview.style.backgroundColor = "#70AD47";
+                // Fifth row
+                colorInput = fourthRows[4]?.querySelector('input[type="color"]');
+                textInput = fourthRows[4]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[4]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#FFC000";
+                if (textInput) textInput.value = "#FFC000";
+                if (colorPreview) colorPreview.style.backgroundColor = "#FFC000";
+                // Sixth row
+                colorInput = fourthRows[5]?.querySelector('input[type="color"]');
+                textInput = fourthRows[5]?.querySelector('input[type="text"]');
+                colorPreview = fourthRows[5]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#C55A11";
+                if (textInput) textInput.value = "#C55A11";
+                if (colorPreview) colorPreview.style.backgroundColor = "#C55A11";
+
+                // 4. Fifth mb-4 card (index 4)
+                const fifthCard = cards[4];
+                const fifthRows = fifthCard.querySelectorAll('.mb-3.align-items-center.row');
+                // First row
+                colorInput = fifthRows[0]?.querySelector('input[type="color"]');
+                textInput = fifthRows[0]?.querySelector('input[type="text"]');
+                colorPreview = fifthRows[0]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#0563C1";
+                if (textInput) textInput.value = "#0563C1";
+                if (colorPreview) colorPreview.style.backgroundColor = "#0563C1";
+                // Second row
+                colorInput = fifthRows[1]?.querySelector('input[type="color"]');
+                textInput = fifthRows[1]?.querySelector('input[type="text"]');
+                colorPreview = fifthRows[1]?.querySelector('.color-preview');
+                if (colorInput) colorInput.value = "#954F72";
+                if (textInput) textInput.value = "#954F72";
+                if (colorPreview) colorPreview.style.backgroundColor = "#954F72";
+
+                // Trigger input events to update any listeners
+                [firstRows, thirdRows, fourthRows, fifthRows].forEach(rows => {
+                  rows.forEach(row => {
+                    const cInput = row.querySelector('input[type="color"]');
+                    const tInput = row.querySelector('input[type="text"]');
+                    if (cInput) cInput.dispatchEvent(new Event('input'));
+                    if (tInput) tInput.dispatchEvent(new Event('input'));
+                  });
+                });
+              });
+            }
           }
-        });
-        // Line chart
-        subSlides.push({
-          id: `slide${idx + 1}-line`,
-          title: "Monthly Trends",
-          content: "Visualizing the monthly growth trends across different series.",
-          chart: {
-            id: `theme${idx + 1}-line-chart`,
-            type: "line",
-            title: "Monthly Trends",
-            data: extractChartData((window as any).lineChart)
+        }
+
+
+        const colorsForm = document.getElementById('colors-form');
+          if (colorsForm) {
+            // Get the second mb-4 card (index 1)
+            const cards = colorsForm.querySelectorAll('.mb-4.card');
+            if (cards.length >= 5) {
+              const secondCard = cards[1];
+              // Find the fourth .theme-variant-preview.mb-2 inside the second card
+              const themeVariants = secondCard.querySelectorAll('.theme-variant-preview.mb-2');
+              const fourthThemeVariant = themeVariants[3];
+              if (fourthThemeVariant) {
+                fourthThemeVariant.addEventListener('click', function () {
+                  // 1. First mb-4 card (index 0)
+                  const firstCard = cards[0];
+                  const firstRows = firstCard.querySelectorAll('.mb-3.align-items-center.row');
+                  // First row
+                  let colorInput = firstRows[0]?.querySelector('input[type="color"]');
+                  let textInput = firstRows[0]?.querySelector('input[type="text"]');
+                  let colorPreview = firstRows[0]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#FFFFFF";
+                  if (textInput) textInput.value = "#FFFFFF";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#FFFFFF";
+                  // Second row
+                  colorInput = firstRows[1]?.querySelector('input[type="color"]');
+                  textInput = firstRows[1]?.querySelector('input[type="text"]');
+                  colorPreview = firstRows[1]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#0F5132";
+                  if (textInput) textInput.value = "#0F5132";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#0F5132";
+                  // Third row
+                  colorInput = firstRows[2]?.querySelector('input[type="color"]');
+                  textInput = firstRows[2]?.querySelector('input[type="text"]');
+                  colorPreview = firstRows[2]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#198754";
+                  if (textInput) textInput.value = "#198754";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#198754";
+
+                  // 2. Third mb-4 card (index 2)
+                  const thirdCard = cards[2];
+                  const thirdRows = thirdCard.querySelectorAll('.mb-3.align-items-center.row');
+                  // First row
+                  colorInput = thirdRows[0]?.querySelector('input[type="color"]');
+                  textInput = thirdRows[0]?.querySelector('input[type="text"]');
+                  colorPreview = thirdRows[0]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#0F5132";
+                  if (textInput) textInput.value = "#0F5132";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#0F5132";
+                  // Second row
+                  colorInput = thirdRows[1]?.querySelector('input[type="color"]');
+                  textInput = thirdRows[1]?.querySelector('input[type="text"]');
+                  colorPreview = thirdRows[1]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#FFFFFF";
+                  if (textInput) textInput.value = "#FFFFFF";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#FFFFFF";
+                  // Third row
+                  colorInput = thirdRows[2]?.querySelector('input[type="color"]');
+                  textInput = thirdRows[2]?.querySelector('input[type="text"]');
+                  colorPreview = thirdRows[2]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#198754";
+                  if (textInput) textInput.value = "#198754";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#198754";
+                  // Fourth row
+                  colorInput = thirdRows[3]?.querySelector('input[type="color"]');
+                  textInput = thirdRows[3]?.querySelector('input[type="text"]');
+                  colorPreview = thirdRows[3]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#F8FFF9";
+                  if (textInput) textInput.value = "#F8FFF9";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#F8FFF9";
+
+                  // 3. Fourth mb-4 card (index 3)
+                  const fourthCard = cards[3];
+                  const fourthRows = fourthCard.querySelectorAll('.mb-3.align-items-center.row');
+                  // First row
+                  colorInput = fourthRows[0]?.querySelector('input[type="color"]');
+                  textInput = fourthRows[0]?.querySelector('input[type="text"]');
+                  colorPreview = fourthRows[0]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#70AD47";
+                  if (textInput) textInput.value = "#70AD47";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#70AD47";
+                  // Second row
+                  colorInput = fourthRows[1]?.querySelector('input[type="color"]');
+                  textInput = fourthRows[1]?.querySelector('input[type="text"]');
+                  colorPreview = fourthRows[1]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#4472C4";
+                  if (textInput) textInput.value = "#4472C4";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#4472C4";
+                  // Third row
+                  colorInput = fourthRows[2]?.querySelector('input[type="color"]');
+                  textInput = fourthRows[2]?.querySelector('input[type="text"]');
+                  colorPreview = fourthRows[2]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#A5A5A5";
+                  if (textInput) textInput.value = "#A5A5A5";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#A5A5A5";
+                  // Fourth row
+                  colorInput = fourthRows[3]?.querySelector('input[type="color"]');
+                  textInput = fourthRows[3]?.querySelector('input[type="text"]');
+                  colorPreview = fourthRows[3]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#FFC000";
+                  if (textInput) textInput.value = "#FFC000";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#FFC000";
+                  // Fifth row
+                  colorInput = fourthRows[4]?.querySelector('input[type="color"]');
+                  textInput = fourthRows[4]?.querySelector('input[type="text"]');
+                  colorPreview = fourthRows[4]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#5B9BD5";
+                  if (textInput) textInput.value = "#5B9BD5";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#5B9BD5";
+                  // Sixth row
+                  colorInput = fourthRows[5]?.querySelector('input[type="color"]');
+                  textInput = fourthRows[5]?.querySelector('input[type="text"]');
+                  colorPreview = fourthRows[5]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#ED7D31";
+                  if (textInput) textInput.value = "#ED7D31";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#ED7D31";
+
+                  // 4. Fifth mb-4 card (index 4)
+                  const fifthCard = cards[4];
+                  const fifthRows = fifthCard.querySelectorAll('.mb-3.align-items-center.row');
+                  // First row
+                  colorInput = fifthRows[0]?.querySelector('input[type="color"]');
+                  textInput = fifthRows[0]?.querySelector('input[type="text"]');
+                  colorPreview = fifthRows[0]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#0563C1";
+                  if (textInput) textInput.value = "#0563C1";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#0563C1";
+                  // Second row
+                  colorInput = fifthRows[1]?.querySelector('input[type="color"]');
+                  textInput = fifthRows[1]?.querySelector('input[type="text"]');
+                  colorPreview = fifthRows[1]?.querySelector('.color-preview');
+                  if (colorInput) colorInput.value = "#954F72";
+                  if (textInput) textInput.value = "#954F72";
+                  if (colorPreview) colorPreview.style.backgroundColor = "#954F72";
+
+                  // Trigger input events to update any listeners
+                  [firstRows, thirdRows, fourthRows, fifthRows].forEach(rows => {
+                    rows.forEach(row => {
+                      const cInput = row.querySelector('input[type="color"]');
+                      const tInput = row.querySelector('input[type="text"]');
+                      if (cInput) cInput.dispatchEvent(new Event('input'));
+                      if (tInput) tInput.dispatchEvent(new Event('input'));
+                    });
+                  });
+                });
+              }
+            }
           }
-        });
-        // Pie chart
-        subSlides.push({
-          id: `slide${idx + 1}-pie`,
-          title: "Market Distribution",
-          content: "Breakdown of market share across different products.",
-          chart: {
-            id: `theme${idx + 1}-pie-chart`,
-            type: "pie",
-            title: "Market Distribution",
-            data: extractChartData((window as any).pieChart)
+
+        const colorsForm = document.getElementById('colors-form');
+        if (colorsForm) {
+          // Find the third mb-4 card (index 2)
+          const cards = colorsForm.querySelectorAll('.mb-4.card');
+          if (cards.length >= 3) {
+            const thirdCard = cards[2];
+            const resetBtn = thirdCard.querySelector<HTMLButtonElement>('.btn-outline-secondary.btn-sm');
+            if (resetBtn) {
+              resetBtn.addEventListener('click', function () {
+                const colorInputs = thirdCard.querySelectorAll<HTMLInputElement>('input[type="color"]');
+                const textInputs = thirdCard.querySelectorAll<HTMLInputElement>('input[type="text"]');
+                const colorPreviews = thirdCard.querySelectorAll<HTMLElement>('.color-preview');
+
+                // 1st input: #000000
+                if (colorInputs[0]) colorInputs[0].value = "#000000";
+                if (textInputs[0]) textInputs[0].value = "#000000";
+                if (colorPreviews[0]) colorPreviews[0].style.backgroundColor = "#000000";
+
+                // 2nd input: #FFFFFF
+                if (colorInputs[1]) colorInputs[1].value = "#FFFFFF";
+                if (textInputs[1]) textInputs[1].value = "#FFFFFF";
+                if (colorPreviews[1]) colorPreviews[1].style.backgroundColor = "#FFFFFF";
+
+                // 3rd input: #333333
+                if (colorInputs[2]) colorInputs[2].value = "#333333";
+                if (textInputs[2]) textInputs[2].value = "#333333";
+                if (colorPreviews[2]) colorPreviews[2].style.backgroundColor = "#333333";
+
+                // 4th input: #F5F5F5
+                if (colorInputs[3]) colorInputs[3].value = "#F5F5F5";
+                if (textInputs[3]) textInputs[3].value = "#F5F5F5";
+                if (colorPreviews[3]) colorPreviews[3].style.backgroundColor = "#F5F5F5";
+
+                // Trigger input events to update any listeners
+                [0, 1, 2, 3].forEach(i => {
+                  if (colorInputs[i]) colorInputs[i].dispatchEvent(new Event('input'));
+                  if (textInputs[i]) textInputs[i].dispatchEvent(new Event('input'));
+                });
+              });
+            }
           }
-        });
+        }
 
-        slides.push({
-          id: idx + 1,
-          background,
-          titleColor,
-          contentColor,
-          titleFont,
-          bodyFont,
-          slideSize,
-          customWidth,
-          customHeight,
-          themeColors,
-          logo: logoBase64,
-          subSlides
-        });
-      });
+        const saveBtn = document.querySelector<HTMLButtonElement>('.toolbar-btn.success');
+        if (saveBtn) {
+          saveBtn.addEventListener('click', function () {
+            // Gather theme data from DOM
+            const slides: any[] = [];
+            document.querySelectorAll('.slide-thumbnail').forEach((thumb, idx) => {
+              const slideContent = document.querySelectorAll('.slide-content')[idx];
+              if (!slideContent) return;
 
-      // Theme summary
-      const theme = {
-        name: "Default",
-        background: slides[0]?.background || "#ffffff",
-        titleColor: slides[0]?.titleColor || "#000000",
-        contentColor: slides[0]?.contentColor || "#333333",
-        colors: slides[0]?.themeColors || {},
-        logo: slides[0]?.logo || null
-      };
+              // Slide background, title, content, fonts
+              const background = slideContent.style.backgroundColor || "#ffffff";
+              const titleInput = slideContent.querySelector<HTMLInputElement>('.slide-title');
+              const bodyTextarea = slideContent.querySelector<HTMLTextAreaElement>('.slide-body');
+              const titleColor = titleInput?.style.color || "#000000";
+              const contentColor = bodyTextarea?.style.color || "#333333";
+              const titleFont = titleInput?.style.fontFamily || "Arial";
+              const bodyFont = bodyTextarea?.style.fontFamily || "Calibri";
 
-      const json = JSON.stringify({ slides, theme }, null, 2);
+              // Slide size
+              const generalForm = document.getElementById('general-form');
+              let slideSize = "standard";
+              let customWidth = 1024, customHeight = 768;
+              if (generalForm) {
+                const select = generalForm.querySelector<HTMLSelectElement>('select.mb-2.form-select');
+                const widthInput = generalForm.querySelector<HTMLInputElement>('input[type="number"]:first-child');
+                const heightInput = generalForm.querySelector<HTMLInputElement>('input[type="number"]:last-child');
+                if (select) slideSize = select.value;
+                if (widthInput) customWidth = Number(widthInput.value);
+                if (heightInput) customHeight = Number(heightInput.value);
+              }
 
-      // Download as file
-      const blob = new Blob([json], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = "presentation.json";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
-  }
+              // Theme colors from colors-form
+              const colorsForm = document.getElementById('colors-form');
+              let themeColors: any = {};
+              if (colorsForm) {
+
+                
+                const colorInputs = colorsForm.querySelectorAll<HTMLInputElement>('input[type="color"]');
+                const colorKeys = [
+                  "background", "titleColor", "contentColor",
+                  "textDark1", "textLight1", "textDark2", "textLight2",
+                  "accent1", "accent2", "accent3", "accent4", "accent5", "accent6",
+                  "hyperlink", "followedHyperlink"
+                ];
+                colorInputs.forEach((input, i) => {
+                  if (colorKeys[i]) themeColors[colorKeys[i]] = input.value;
+                });
+              }
+
+              // Logo image (base64) if exists in .logo-preview
+              let logoBase64: string | null = null;
+              const logoPreview = document.querySelector('.logo-preview img') as HTMLImageElement | null;
+              if (logoPreview && logoPreview.src && logoPreview.src.startsWith('data:image')) {
+                logoBase64 = logoPreview.src;
+              }
+
+              // Helper to extract chart data
+              function extractChartData(chart: any) {
+                if (!chart || !chart.data) return {};
+                return {
+                  labels: chart.data.labels || [],
+                  datasets: (chart.data.datasets || []).map((ds: any) => ({
+                    label: ds.label,
+                    data: ds.data,
+                    backgroundColor: ds.backgroundColor,
+                    borderColor: ds.borderColor,
+                    fill: ds.fill,
+                    type: ds.type
+                  }))
+                };
+              }
+
+              // Subslides (charts)
+              const subSlides: any[] = [];
+              // Bar chart
+              subSlides.push({
+                id: `slide${idx + 1}-bar`,
+                title: titleInput?.value || "Sales Performance",
+                content: bodyTextarea?.value || "",
+                chart: {
+                  id: `theme${idx + 1}-bar-chart`,
+                  type: "bar",
+                  title: titleInput?.value || "Sales Performance",
+                  data: extractChartData((window as any).barChart)
+                }
+              });
+              // Line chart
+              subSlides.push({
+                id: `slide${idx + 1}-line`,
+                title: "Monthly Trends",
+                content: "Visualizing the monthly growth trends across different series.",
+                chart: {
+                  id: `theme${idx + 1}-line-chart`,
+                  type: "line",
+                  title: "Monthly Trends",
+                  data: extractChartData((window as any).lineChart)
+                }
+              });
+              // Pie chart
+              subSlides.push({
+                id: `slide${idx + 1}-pie`,
+                title: "Market Distribution",
+                content: "Breakdown of market share across different products.",
+                chart: {
+                  id: `theme${idx + 1}-pie-chart`,
+                  type: "pie",
+                  title: "Market Distribution",
+                  data: extractChartData((window as any).pieChart)
+                }
+              });
+
+              slides.push({
+                id: idx + 1,
+                background,
+                titleColor,
+                contentColor,
+                titleFont,
+                bodyFont,
+                slideSize,
+                customWidth,
+                customHeight,
+                themeColors,
+                logo: logoBase64,
+                subSlides
+              });
+            });
+
+            // Theme summary
+            const theme = {
+              name: "Default",
+              background: slides[0]?.background || "#ffffff",
+              titleColor: slides[0]?.titleColor || "#000000",
+              contentColor: slides[0]?.contentColor || "#333333",
+              colors: slides[0]?.themeColors || {},
+              logo: slides[0]?.logo || null
+            };
+
+            const json = JSON.stringify({ slides, theme }, null, 2);
+
+            // Download as file
+            const blob = new Blob([json], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "presentation.json";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          });
+        }
 
         // Show settingModal above staticBackdrop when edit-button is clicked
         document.querySelectorAll<HTMLButtonElement>('.edit-button').forEach(btn => {
@@ -2665,21 +3436,24 @@ Breakdown of market share across different products.
 
                         // Update pieChart and pieChartOnEdit (preview pie charts)
                         if (window.pieChart && window.pieChart.data && window.pieChart.data.datasets[0].backgroundColor) {
+                          console.log('1------------------->', window.pieChart.data.datasets[0].backgroundColor[idx])
                           window.pieChart.data.datasets[0].backgroundColor[idx] = colorValue;
                           window.pieChart.update();
                         }
                         if (window.pieChartOnEdit && window.pieChartOnEdit.data && window.pieChartOnEdit.data.datasets[0].backgroundColor) {
+                          
                           window.pieChartOnEdit.data.datasets[0].backgroundColor[idx] = colorValue;
                           window.pieChartOnEdit.update();
                         }
 
+                      
                         // Update barChart and barChartOnEdit (main bar charts, if you want to sync them)
-                        if (window.barChart && window.barChart.data && window.barChart.data.datasets[0].backgroundColor) {
-                          window.barChart.data.datasets[0].backgroundColor[idx] = colorValue;
+                        if (window.barChart && window.barChart.data && window.barChart.data.datasets[idx].backgroundColor) {
+                          window.barChart.data.datasets[idx].backgroundColor = colorValue;
                           window.barChart.update();
                         }
-                        if (window.barChartOnEdit && window.barChartOnEdit.data && window.barChartOnEdit.data.datasets[0].backgroundColor) {
-                          window.barChartOnEdit.data.datasets[0].backgroundColor[idx] = colorValue;
+                        if (window.barChartOnEdit && window.barChartOnEdit.data && window.barChartOnEdit.data.datasets[idx].backgroundColor) {
+                          window.barChartOnEdit.data.datasets[idx].backgroundColor = colorValue;
                           window.barChartOnEdit.update();
                         }
 
