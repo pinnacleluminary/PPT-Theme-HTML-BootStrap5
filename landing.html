@@ -305,7 +305,10 @@
                                       class="btn btn-cancel"
                                     >
                                       Cancel</button
-                                    ><button type="submit" class="btn btn-save save-fonts">
+                                    ><button
+                                      type="submit"
+                                      class="btn btn-save save-fonts"
+                                    >
                                       <i
                                         class="icon-save"
                                         style="font-size: 24px"
@@ -483,7 +486,11 @@
                           </div>
                           <div class="thumbnail-footer">
                             <div class="thumbnail-number">Theme 1</div>
-                            <button class="edit-button">
+                            <button
+                              class="edit-button"
+                              data-bs-toggle="modal"
+                              data-bs-target="#settingModal"
+                            >
                               <i class="icon-pen" style="font-size: 16px"></i>
                             </button>
                           </div>
@@ -775,7 +782,11 @@ Breakdown of market share across different products.
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="color-inputs" style="display: none" id="account-colors">
+                                  <div
+                                    class="color-inputs"
+                                    style="display: none"
+                                    id="account-colors"
+                                  >
                                     <div class="color-input-group">
                                       <label class="color-label">Accent1</label>
                                       <div class="color-input-wrapper">
@@ -861,9 +872,15 @@ Breakdown of market share across different products.
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="color-inputs"  style="display: none" id="links-colors">
+                                  <div
+                                    class="color-inputs"
+                                    style="display: none"
+                                    id="links-colors"
+                                  >
                                     <div class="color-input-group">
-                                      <label class="color-label">Hyperlink</label>
+                                      <label class="color-label"
+                                        >Hyperlink</label
+                                      >
                                       <div class="color-input-wrapper">
                                         <input
                                           class="color-input"
@@ -1061,10 +1078,2034 @@ Breakdown of market share across different products.
           </div>
         </div>
       </div>
+      <div
+        class="fade settings-modal modal rounded-5"
+        id="settingModal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="settingModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="modal-title h4">Edit Slide</div>
+              <button
+                type="button"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                class="btn-close"
+              ></button>
+            </div>
+            <div class="p-0 modal-body">
+              <div class="d-flex h-100">
+                <div class="flex-column settings-sidebar nav nav-pills">
+                  <div class="nav-item">
+                    <a
+                      role="button"
+                      class="nav-link active"
+                      tabindex="0"
+                      href="#"
+                      >General</a
+                    >
+                  </div>
+                  <div class="nav-item">
+                    <a role="button" class="nav-link" tabindex="0" href="#"
+                      >Colors</a
+                    >
+                  </div>
+                  <div class="nav-item">
+                    <a role="button" class="nav-link" tabindex="0" href="#"
+                      >Fonts</a
+                    >
+                  </div>
+                </div>
+                <div class="settings-main flex-grow-1 p-3">
+                  <div class="settings-form mt-4" id="general-form">
+                    <form class="">
+                      <div class="mb-4">
+                        <label class="form-label">Slide Size</label
+                        ><select class="mb-2 form-select">
+                          <option value="standard">Standard (4:3)</option>
+                          <option value="widescreen">Widescreen (16:9)</option>
+                          <option value="custom">Custom</option>
+                        </select>
+                        <div class="gap-3 mt-2">
+                          <div>
+                            <label class="form-label">Width (px)</label
+                            ><input
+                              min="100"
+                              max="3840"
+                              class="form-control"
+                              type="number"
+                              value="1024"
+                            />
+                          </div>
+                          <div>
+                            <label class="form-label">Height (px)</label
+                            ><input
+                              min="100"
+                              max="2160"
+                              class="form-control"
+                              type="number"
+                              value="768"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-4">
+                        <label class="form-label">Logo</label>
+                        <div class="d-flex gap-3 align-items-start">
+                          <div class="logo-upload-container">
+                            <div
+                              class="logo-preview"
+                              style="
+                                width: 100px;
+                                height: 100px;
+                                border: 1px dashed rgb(204, 204, 204);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin-bottom: 10px;
+                                background-color: rgb(248, 249, 250);
+                              "
+                            >
+                              <span class="text-muted">No logo</span>
+                            </div>
+                            <input
+                              accept="image/*"
+                              class="mb-2 form-control"
+                              type="file"
+                            />
+                          </div>
+                          <div>
+                            <label class="form-label">Logo Position</label
+                            ><select class="form-select">
+                              <option value="top-left">Top Left</option>
+                              <option value="top-center">Top Center</option>
+                              <option value="top-right">Top Right</option>
+                              <option value="bottom-left">Bottom Left</option>
+                              <option value="bottom-center">
+                                Bottom Center
+                              </option>
+                              <option value="bottom-right">Bottom Right</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="settings-form mt-4" id="colors-form">
+                    <div class="theme-color-editor">
+                      <div class="mb-4 card">
+                        <div class="card-header">
+                          <h6 class="mb-0">Slide Colors</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Background</label
+                              ><small class="text-muted d-block"
+                                >Slide background color</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#f0f3f4"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(240, 243, 244);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#f0f3f4"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Title Color</label
+                              ><small class="text-muted d-block"
+                                >Color for slide titles</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#c25b5b"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(194, 91, 91);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#c25b5b"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label"
+                                >Content Color</label
+                              ><small class="text-muted d-block"
+                                >Color for slide content text</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#2c3e50"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(44, 62, 80);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#2c3e50"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-4 card">
+                        <div class="card-header">
+                          <h6 class="mb-0 d-flex align-items-center">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="lucide lucide-palette me-2"
+                            >
+                              <circle
+                                cx="13.5"
+                                cy="6.5"
+                                r=".5"
+                                fill="currentColor"
+                              ></circle>
+                              <circle
+                                cx="17.5"
+                                cy="10.5"
+                                r=".5"
+                                fill="currentColor"
+                              ></circle>
+                              <circle
+                                cx="8.5"
+                                cy="7.5"
+                                r=".5"
+                                fill="currentColor"
+                              ></circle>
+                              <circle
+                                cx="6.5"
+                                cy="12.5"
+                                r=".5"
+                                fill="currentColor"
+                              ></circle>
+                              <path
+                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
+                              ></path>
+                            </svg>
+                            Theme Variants
+                          </h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="mb-3 col-md-3 col-6">
+                              <div
+                                class="theme-variant"
+                                style="cursor: pointer"
+                              >
+                                <div class="theme-variant-preview mb-2">
+                                  <div class="d-flex" style="height: 40px">
+                                    <div
+                                      style="
+                                        background-color: rgb(0, 0, 0);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(68, 114, 196);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(237, 125, 49);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(165, 165, 165);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(255, 192, 0);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                  </div>
+                                </div>
+                                <small class="text-center d-block"
+                                  >Office</small
+                                >
+                              </div>
+                            </div>
+                            <div class="mb-3 col-md-3 col-6">
+                              <div
+                                class="theme-variant"
+                                style="cursor: pointer"
+                              >
+                                <div class="theme-variant-preview mb-2">
+                                  <div class="d-flex" style="height: 40px">
+                                    <div
+                                      style="
+                                        background-color: rgb(0, 0, 0);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(231, 76, 60);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(243, 156, 18);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(241, 196, 15);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(46, 204, 113);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                  </div>
+                                </div>
+                                <small class="text-center d-block"
+                                  >Colorful</small
+                                >
+                              </div>
+                            </div>
+                            <div class="mb-3 col-md-3 col-6">
+                              <div
+                                class="theme-variant"
+                                style="cursor: pointer"
+                              >
+                                <div class="theme-variant-preview mb-2">
+                                  <div class="d-flex" style="height: 40px">
+                                    <div
+                                      style="
+                                        background-color: rgb(31, 78, 121);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(68, 114, 196);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(91, 155, 213);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(165, 165, 165);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(112, 173, 71);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                  </div>
+                                </div>
+                                <small class="text-center d-block">Blue</small>
+                              </div>
+                            </div>
+                            <div class="mb-3 col-md-3 col-6">
+                              <div
+                                class="theme-variant"
+                                style="cursor: pointer"
+                              >
+                                <div class="theme-variant-preview mb-2">
+                                  <div class="d-flex" style="height: 40px">
+                                    <div
+                                      style="
+                                        background-color: rgb(15, 81, 50);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(112, 173, 71);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(68, 114, 196);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(165, 165, 165);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                    <div
+                                      style="
+                                        background-color: rgb(255, 192, 0);
+                                        width: 20%;
+                                      "
+                                    ></div>
+                                  </div>
+                                </div>
+                                <small class="text-center d-block">Green</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-4 card">
+                        <div
+                          class="d-flex justify-content-between align-items-center card-header"
+                        >
+                          <h6 class="mb-0">Text Colors</h6>
+                          <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="lucide lucide-rotate-ccw me-1"
+                            >
+                              <path
+                                d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                              ></path>
+                              <path d="M3 3v5h5"></path>
+                            </svg>
+                            Reset
+                          </button>
+                        </div>
+                        <div class="card-body">
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Dark 1</label
+                              ><small class="text-muted d-block"
+                                >Primary text</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#c25b5b"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(194, 91, 91);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#c25b5b"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Light 1</label
+                              ><small class="text-muted d-block"
+                                >Background</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#FFFFFF"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(255, 255, 255);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#FFFFFF"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Dark 2</label
+                              ><small class="text-muted d-block"
+                                >Secondary text</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#44546A"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(68, 84, 106);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#44546A"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Light 2</label
+                              ><small class="text-muted d-block"
+                                >Light background</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#E7E6E6"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(231, 230, 230);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#E7E6E6"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-4 card">
+                        <div class="card-header">
+                          <h6 class="mb-0">Accent Colors</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Accent 1</label>
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#4472C4"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(68, 114, 196);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#4472C4"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Accent 2</label>
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#ED7D31"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(237, 125, 49);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#ED7D31"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Accent 3</label>
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#A5A5A5"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(165, 165, 165);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#A5A5A5"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Accent 4</label>
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#FFC000"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(255, 192, 0);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#FFC000"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Accent 5</label>
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#5B9BD5"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(91, 155, 213);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#5B9BD5"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Accent 6</label>
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#70AD47"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(112, 173, 71);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#70AD47"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-4 card">
+                        <div class="card-header">
+                          <h6 class="mb-0">Link Colors</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label">Hyperlink</label
+                              ><small class="text-muted d-block"
+                                >Unvisited links</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#0563C1"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(5, 99, 193);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#0563C1"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 align-items-center row">
+                            <div class="col-4">
+                              <label class="mb-0 form-label"
+                                >Followed Hyperlink</label
+                              ><small class="text-muted d-block"
+                                >Visited links</small
+                              >
+                            </div>
+                            <div class="col-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <input
+                                  class="form-control form-control-color"
+                                  type="color"
+                                  value="#954F72"
+                                  style="width: 50px; height: 38px"
+                                />
+                                <div
+                                  class="color-preview"
+                                  style="
+                                    width: 30px;
+                                    height: 30px;
+                                    background-color: rgb(149, 79, 114);
+                                    border: 1px solid rgb(221, 221, 221);
+                                    border-radius: 4px;
+                                  "
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <input
+                                class="font-monospace form-control"
+                                type="text"
+                                value="#954F72"
+                                style="font-size: 0.875rem"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="settings-form mt-4" id="fonts-form">
+                    <form class="">
+                      <div class="mb-3">
+                        <label class="form-label">Title Font</label
+                        ><select class="form-select">
+                          <option value="Arial">Arial</option>
+                          <option value="Helvetica">Helvetica</option>
+                          <option value="Times New Roman">
+                            Times New Roman
+                          </option>
+                          <option value="Calibri">Calibri</option>
+                          <option value="Georgia">Georgia</option>
+                          <option value="Verdana">Verdana</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="form-label">Body Font</label
+                        ><select class="form-select">
+                          <option value="Calibri">Calibri</option>
+                          <option value="Arial">Arial</option>
+                          <option value="Georgia">Georgia</option>
+                          <option value="Times New Roman">
+                            Times New Roman
+                          </option>
+                          <option value="Helvetica">Helvetica</option>
+                          <option value="Verdana">Verdana</option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="preview-container">
+                    <div class="preview-header">
+                      <h6 class="preview-title">Preview</h6>
+                      <div class="preview-size-info">1024 x 768px</div>
+                    </div>
+                    <div class="slides-preview-wrapper">
+                      <div
+                        class="preview-wrapper mb-4"
+                        style="
+                          width: 800px;
+                          height: 600px;
+                          overflow: hidden;
+                          position: relative;
+                          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                          border-radius: 8px;
+                          margin: 0px auto;
+                          transition: 0.3s;
+                        "
+                      >
+                        <div
+                          class="slide-content"
+                          style="
+                            background-color: rgb(255, 255, 255);
+                            transition: background-color 0.3s;
+                          "
+                        >
+                          <div
+                            class="editable-title"
+                            contenteditable="true"
+                            style="
+                              color: rgb(0, 0, 0);
+                              font-family: Arial;
+                              transition: color 0.3s, font-family 0.3s;
+                            "
+                          >
+                            Sales Performance
+                          </div>
+                          <div
+                            class="editable-content"
+                            contenteditable="true"
+                            style="
+                              color: rgb(51, 51, 51);
+                              font-family: Calibri;
+                              transition: color 0.3s, font-family 0.3s;
+                            "
+                          >
+                            This chart shows quarterly sales performance
+                            comparison.
+                          </div>
+                          <div class="chart-container">
+                            <div class="chart-editor preview-mode card mb-3">
+                              <div class="card-body">
+                                <div
+                                  class="d-flex justify-content-between align-items-center mb-3"
+                                >
+                                  <h5
+                                    class="card-title mb-0"
+                                    style="
+                                      color: rgb(68, 84, 106);
+                                      transition: color 0.3s;
+                                    "
+                                  >
+                                    Sales Performance
+                                  </h5>
+                                </div>
+                                <div class="chart-container d-flex flex-column">
+                                  <h5
+                                    class="text-center mb-3"
+                                    style="
+                                      color: rgb(68, 84, 106);
+                                      transition: color 0.3s;
+                                      font-weight: 600;
+                                    "
+                                  >
+                                    Sales Performance
+                                  </h5>
+                                  <div
+                                    style="
+                                      width: 100%;
+                                      height: 250px;
+                                      transition: 0.3s;
+                                    "
+                                  >
+                                    <div
+                                      class="recharts-responsive-container"
+                                      style="
+                                        width: 100%;
+                                        height: 100%;
+                                        min-width: 0px;
+                                      "
+                                    >
+                                      <div
+                                        class="recharts-wrapper d-flex justify-content-center align-items-center"
+                                        style="
+                                          position: relative;
+                                          cursor: default;
+                                          width: 100%;
+                                          height: 100%;
+                                          max-height: 250px;
+                                          max-width: 654px;
+                                          transition: 0.3s;
+                                        "
+                                      >
+                                        <canvas id="bar-chart-on-edit"></canvas>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="preview-wrapper mb-4"
+                        style="
+                          width: 800px;
+                          height: 600px;
+                          overflow: hidden;
+                          position: relative;
+                          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                          border-radius: 8px;
+                          margin: 0px auto;
+                          transition: 0.3s;
+                        "
+                      >
+                        <div
+                          class="slide-content"
+                          style="
+                            background-color: rgb(255, 255, 255);
+                            transition: background-color 0.3s;
+                          "
+                        >
+                          <div
+                            class="editable-title"
+                            contenteditable="true"
+                            style="
+                              color: rgb(0, 0, 0);
+                              font-family: Arial;
+                              transition: color 0.3s, font-family 0.3s;
+                            "
+                          >
+                            Monthly Trends
+                          </div>
+                          <div
+                            class="editable-content"
+                            contenteditable="true"
+                            style="
+                              color: rgb(51, 51, 51);
+                              font-family: Calibri;
+                              transition: color 0.3s, font-family 0.3s;
+                            "
+                          >
+                            Visualizing the monthly growth trends across
+                            different series.
+                          </div>
+                          <div class="chart-container">
+                            <div class="chart-editor preview-mode card mb-3">
+                              <div class="card-body">
+                                <div
+                                  class="d-flex justify-content-between align-items-center mb-3"
+                                >
+                                  <h5
+                                    class="card-title mb-0"
+                                    style="
+                                      color: rgb(68, 84, 106);
+                                      transition: color 0.3s;
+                                    "
+                                  >
+                                    Monthly Trends
+                                  </h5>
+                                </div>
+                                <div class="chart-container d-flex flex-column">
+                                  <h5
+                                    class="text-center mb-3"
+                                    style="
+                                      color: rgb(68, 84, 106);
+                                      transition: color 0.3s;
+                                      font-weight: 600;
+                                    "
+                                  >
+                                    Monthly Stends
+                                  </h5>
+                                  <div
+                                    style="
+                                      width: 100%;
+                                      height: 250px;
+                                      transition: 0.3s;
+                                    "
+                                  >
+                                    <div
+                                      class="recharts-responsive-container"
+                                      style="
+                                        width: 100%;
+                                        height: 100%;
+                                        min-width: 0px;
+                                      "
+                                    >
+                                      <div
+                                        class="recharts-wrapper d-flex justify-content-center align-items-center"
+                                        style="
+                                          position: relative;
+                                          cursor: default;
+                                          width: 100%;
+                                          height: 100%;
+                                          max-height: 250px;
+                                          max-width: 654px;
+                                          transition: 0.3s;
+                                        "
+                                      >
+                                        <canvas
+                                          id="line-chart-on-edit"
+                                        ></canvas>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="preview-wrapper mb-4"
+                        style="
+                          width: 800px;
+                          height: 600px;
+                          overflow: hidden;
+                          position: relative;
+                          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                          border-radius: 8px;
+                          margin: 0px auto;
+                          transition: 0.3s;
+                        "
+                      >
+                        <div
+                          class="slide-content"
+                          style="
+                            background-color: rgb(255, 255, 255);
+                            transition: background-color 0.3s;
+                          "
+                        >
+                          <div
+                            class="editable-title"
+                            contenteditable="true"
+                            style="
+                              color: rgb(0, 0, 0);
+                              font-family: Arial;
+                              transition: color 0.3s, font-family 0.3s;
+                            "
+                          >
+                            Market Distribution
+                          </div>
+                          <div
+                            class="editable-content"
+                            contenteditable="true"
+                            style="
+                              color: rgb(51, 51, 51);
+                              font-family: Calibri;
+                              transition: color 0.3s, font-family 0.3s;
+                            "
+                          >
+                            Breakdown of market share across different products.
+                          </div>
+                          <div class="chart-container">
+                            <div class="chart-editor preview-mode card mb-3">
+                              <div class="card-body">
+                                <div
+                                  class="d-flex justify-content-between align-items-center mb-3"
+                                >
+                                  <h5
+                                    class="card-title mb-0"
+                                    style="
+                                      color: rgb(68, 84, 106);
+                                      transition: color 0.3s;
+                                    "
+                                  >
+                                    Market Distribution
+                                  </h5>
+                                </div>
+                                <div class="chart-container d-flex flex-column">
+                                  <h5
+                                    class="text-center mb-3"
+                                    style="
+                                      color: rgb(68, 84, 106);
+                                      transition: color 0.3s;
+                                      font-weight: 600;
+                                    "
+                                  >
+                                    Market Distribution
+                                  </h5>
+                                  <div
+                                    style="
+                                      width: 100%;
+                                      height: 250px;
+                                      transition: 0.3s;
+                                    "
+                                  >
+                                    <div
+                                      class="recharts-responsive-container"
+                                      style="
+                                        width: 100%;
+                                        height: 100%;
+                                        min-width: 0px;
+                                      "
+                                    >
+                                      <div
+                                        class="recharts-wrapper d-flex justify-content-center align-items-center"
+                                        style="
+                                          position: relative;
+                                          cursor: default;
+                                          width: 100%;
+                                          height: 100%;
+                                          max-height: 250px;
+                                          max-width: 654px;
+                                          transition: 0.3s;
+                                        "
+                                      >
+                                        <canvas id="pie-chart-on-edit"></canvas>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary">Cancel</button
+              ><button type="button" class="btn btn-primary">
+                Save Settings
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script type="text/typescript">
       document.addEventListener("DOMContentLoaded", function () {
+
+        const saveBtn = document.querySelector<HTMLButtonElement>('.toolbar-btn.success');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', function () {
+      // Gather theme data from DOM
+      const slides: any[] = [];
+      document.querySelectorAll('.slide-thumbnail').forEach((thumb, idx) => {
+        const slideContent = document.querySelectorAll('.slide-content')[idx];
+        if (!slideContent) return;
+
+        // Slide background, title, content, fonts
+        const background = slideContent.style.backgroundColor || "#ffffff";
+        const titleInput = slideContent.querySelector<HTMLInputElement>('.slide-title');
+        const bodyTextarea = slideContent.querySelector<HTMLTextAreaElement>('.slide-body');
+        const titleColor = titleInput?.style.color || "#000000";
+        const contentColor = bodyTextarea?.style.color || "#333333";
+        const titleFont = titleInput?.style.fontFamily || "Arial";
+        const bodyFont = bodyTextarea?.style.fontFamily || "Calibri";
+
+        // Slide size
+        const generalForm = document.getElementById('general-form');
+        let slideSize = "standard";
+        let customWidth = 1024, customHeight = 768;
+        if (generalForm) {
+          const select = generalForm.querySelector<HTMLSelectElement>('select.mb-2.form-select');
+          const widthInput = generalForm.querySelector<HTMLInputElement>('input[type="number"]:first-child');
+          const heightInput = generalForm.querySelector<HTMLInputElement>('input[type="number"]:last-child');
+          if (select) slideSize = select.value;
+          if (widthInput) customWidth = Number(widthInput.value);
+          if (heightInput) customHeight = Number(heightInput.value);
+        }
+
+        // Theme colors from colors-form
+        const colorsForm = document.getElementById('colors-form');
+        let themeColors: any = {};
+        if (colorsForm) {
+          const colorInputs = colorsForm.querySelectorAll<HTMLInputElement>('input[type="color"]');
+          const colorKeys = [
+            "background", "titleColor", "contentColor",
+            "textDark1", "textLight1", "textDark2", "textLight2",
+            "accent1", "accent2", "accent3", "accent4", "accent5", "accent6",
+            "hyperlink", "followedHyperlink"
+          ];
+          colorInputs.forEach((input, i) => {
+            if (colorKeys[i]) themeColors[colorKeys[i]] = input.value;
+          });
+        }
+
+        // Logo image (base64) if exists in .logo-preview
+        let logoBase64: string | null = null;
+        const logoPreview = document.querySelector('.logo-preview img') as HTMLImageElement | null;
+        if (logoPreview && logoPreview.src && logoPreview.src.startsWith('data:image')) {
+          logoBase64 = logoPreview.src;
+        }
+
+        // Helper to extract chart data
+        function extractChartData(chart: any) {
+          if (!chart || !chart.data) return {};
+          return {
+            labels: chart.data.labels || [],
+            datasets: (chart.data.datasets || []).map((ds: any) => ({
+              label: ds.label,
+              data: ds.data,
+              backgroundColor: ds.backgroundColor,
+              borderColor: ds.borderColor,
+              fill: ds.fill,
+              type: ds.type
+            }))
+          };
+        }
+
+        // Subslides (charts)
+        const subSlides: any[] = [];
+        // Bar chart
+        subSlides.push({
+          id: `slide${idx + 1}-bar`,
+          title: titleInput?.value || "Sales Performance",
+          content: bodyTextarea?.value || "",
+          chart: {
+            id: `theme${idx + 1}-bar-chart`,
+            type: "bar",
+            title: titleInput?.value || "Sales Performance",
+            data: extractChartData((window as any).barChart)
+          }
+        });
+        // Line chart
+        subSlides.push({
+          id: `slide${idx + 1}-line`,
+          title: "Monthly Trends",
+          content: "Visualizing the monthly growth trends across different series.",
+          chart: {
+            id: `theme${idx + 1}-line-chart`,
+            type: "line",
+            title: "Monthly Trends",
+            data: extractChartData((window as any).lineChart)
+          }
+        });
+        // Pie chart
+        subSlides.push({
+          id: `slide${idx + 1}-pie`,
+          title: "Market Distribution",
+          content: "Breakdown of market share across different products.",
+          chart: {
+            id: `theme${idx + 1}-pie-chart`,
+            type: "pie",
+            title: "Market Distribution",
+            data: extractChartData((window as any).pieChart)
+          }
+        });
+
+        slides.push({
+          id: idx + 1,
+          background,
+          titleColor,
+          contentColor,
+          titleFont,
+          bodyFont,
+          slideSize,
+          customWidth,
+          customHeight,
+          themeColors,
+          logo: logoBase64,
+          subSlides
+        });
+      });
+
+      // Theme summary
+      const theme = {
+        name: "Default",
+        background: slides[0]?.background || "#ffffff",
+        titleColor: slides[0]?.titleColor || "#000000",
+        contentColor: slides[0]?.contentColor || "#333333",
+        colors: slides[0]?.themeColors || {},
+        logo: slides[0]?.logo || null
+      };
+
+      const json = JSON.stringify({ slides, theme }, null, 2);
+
+      // Download as file
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "presentation.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
+
+        // Show settingModal above staticBackdrop when edit-button is clicked
+        document.querySelectorAll<HTMLButtonElement>('.edit-button').forEach(btn => {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Show settingModal
+            const settingModal = document.getElementById('settingModal');
+              // Sync color input changes in #colors-form
+              const colorsForm = document.getElementById('colors-form');
+              if (colorsForm) {
+                // For every color input in colors-form
+                colorsForm.querySelectorAll<HTMLInputElement>('input[type="color"]').forEach(colorInput => {
+                  colorInput.addEventListener('input', function () {
+                    // Set background of next .color-preview
+                    const colorPreview = colorInput.parentElement?.querySelector<HTMLElement>('.color-preview');
+                    if (colorPreview) {
+                      colorPreview.style.backgroundColor = colorInput.value;
+                    }
+                    // Set value of input[type="text"] in the next sibling div of the parent of parent
+                    const parentDiv = colorInput.parentElement?.parentElement;
+                    const nextDiv = parentDiv?.nextElementSibling as HTMLElement | null;
+                    const textInput = nextDiv?.querySelector<HTMLInputElement>('input[type="text"]');
+                    if (textInput) {
+                      textInput.value = colorInput.value;
+                    }
+                  });
+                });
+
+                // Sync font-family when selects in fonts-form change
+                const fontsForm = document.getElementById('fonts-form');
+                if (fontsForm) {
+                  const selects = fontsForm.querySelectorAll<HTMLSelectElement>('select.form-select');
+                  // 1. Title font
+                  if (selects[0]) {
+                    selects[0].addEventListener('change', function () {
+                      const font = selects[0].value;
+                      document.querySelectorAll<HTMLElement>('.editable-title').forEach(el => {
+                        el.style.fontFamily = font;
+                      });
+                      document.querySelectorAll<HTMLInputElement>('.slide-title').forEach(el => {
+                        el.style.fontFamily = font;
+                      });
+                    });
+                  }
+                  // 2. Body font
+                  if (selects[1]) {
+                    selects[1].addEventListener('change', function () {
+                      const font = selects[1].value;
+                      document.querySelectorAll<HTMLElement>('.editable-content').forEach(el => {
+                        el.style.fontFamily = font;
+                      });
+                      document.querySelectorAll<HTMLTextAreaElement>('.slide-body').forEach(el => {
+                        el.style.fontFamily = font;
+                      });
+                    });
+                  }
+                }
+
+                  // Slide size logic
+                  const generalForm = document.getElementById('general-form');
+                  const previewSizeInfo = document.querySelector<HTMLElement>('.preview-size-info');
+                  const slideContent = document.querySelector<HTMLElement>('.slide-content');
+                    console.log('slide-content', slideContent)
+                  if (generalForm && previewSizeInfo && slideContent) {
+                    const select = generalForm.querySelector<HTMLSelectElement>('select.mb-2.form-select');
+                    const customSizeDiv = generalForm.querySelector<HTMLDivElement>('.gap-3.mt-2');
+                    if (select && customSizeDiv) {
+                      const widthInput = customSizeDiv.querySelectorAll<HTMLInputElement>('input')[0];
+                      const heightInput = customSizeDiv.querySelectorAll<HTMLInputElement>('input')[1];
+
+                      // Helper to update slide-content height
+                      function updateSlideContentHeight() {
+                        const width = Number(widthInput.value);
+                        let height = 0;
+                        if (select.value === 'standard') {
+                          height = Math.round(width / 4 * 3);
+                        } else if (select.value === 'widescreen') {
+                          height = Math.round(width / 16 * 9);
+                        } else if (select.value === 'custom') {
+                          const customWidth = Number(widthInput.value);
+                          const customHeight = Number(heightInput.value);
+                          if (customWidth > 0 && customHeight > 0) {
+                            height = Math.round(width / customWidth * customHeight);
+                          }
+                        }
+                        if (height > 0) {
+                          slideContent.style.height = `${height}px`;
+                        }
+                      }
+
+                      // Helper to update preview-size-info text
+                      function updatePreviewSizeInfo() {
+                        const w = widthInput.value;
+                        const h = heightInput.value;
+                        previewSizeInfo.textContent = `${w} x ${h}px`;
+                      }
+
+                      // On select change
+                      select.addEventListener('change', function () {
+                        updateSlideContentHeight();
+                      });
+
+                      // On width/height input change
+                      widthInput.addEventListener('input', function () {
+                        updateSlideContentHeight();
+                        updatePreviewSizeInfo();
+                      });
+                      heightInput.addEventListener('input', function () {
+                        updateSlideContentHeight();
+                        updatePreviewSizeInfo();
+                      });
+
+                      // Initial set
+                      updateSlideContentHeight();
+                      updatePreviewSizeInfo();
+                    }
+                  }
+
+                    // Get the forth mb-4 card (Accent Colors)
+                  const accentColorsCard = colorsForm.querySelectorAll('.mb-4.card')[3];
+                  if (accentColorsCard) {
+                    const colorInputs = accentColorsCard.querySelectorAll<HTMLInputElement>('input[type="color"]');
+                    colorInputs.forEach((colorInput, idx) => {
+                      colorInput.addEventListener('input', function () {
+                        // Update bar chart colors (exampleChart, exampleChart1, barChart, barChartOnEdit)
+                        const colorValue = colorInput.value;
+
+                        // Update exampleChart and exampleChart1 (preview bar charts)
+                        if (window.exampleChart && window.exampleChart.data && window.exampleChart.data.datasets[0].backgroundColor) {
+                          window.exampleChart.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.exampleChart.update();
+                        }
+                        if (window.exampleChart1 && window.exampleChart1.data && window.exampleChart1.data.datasets[0].backgroundColor) {
+                          window.exampleChart1.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.exampleChart1.update();
+                        }
+
+                        // Update pieChart and pieChartOnEdit (preview pie charts)
+                        if (window.pieChart && window.pieChart.data && window.pieChart.data.datasets[0].backgroundColor) {
+                          window.pieChart.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.pieChart.update();
+                        }
+                        if (window.pieChartOnEdit && window.pieChartOnEdit.data && window.pieChartOnEdit.data.datasets[0].backgroundColor) {
+                          window.pieChartOnEdit.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.pieChartOnEdit.update();
+                        }
+
+                        // Update barChart and barChartOnEdit (main bar charts, if you want to sync them)
+                        if (window.barChart && window.barChart.data && window.barChart.data.datasets[0].backgroundColor) {
+                          window.barChart.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.barChart.update();
+                        }
+                        if (window.barChartOnEdit && window.barChartOnEdit.data && window.barChartOnEdit.data.datasets[0].backgroundColor) {
+                          window.barChartOnEdit.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.barChartOnEdit.update();
+                        }
+
+                        // Update lineChart and lineChartOnEdit (lines color)
+                        if (window.lineChart && window.lineChart.data && window.lineChart.data.datasets[idx]) {
+                          window.lineChart.data.datasets[idx].borderColor = colorValue;
+                          window.lineChart.update();
+                        }
+                        if (window.lineChartOnEdit && window.lineChartOnEdit.data && window.lineChartOnEdit.data.datasets[idx]) {
+                          window.lineChartOnEdit.data.datasets[idx].borderColor = colorValue;
+                          window.lineChartOnEdit.update();
+                        }
+                      });
+                    });
+                  }
+              }
+
+              if (colorsForm) {
+              // Get the first mb-4 card (Slide Colors)
+              const slideColorsCard = colorsForm.querySelector('.mb-4.card');
+              if (slideColorsCard) {
+                const colorInputs = slideColorsCard.querySelectorAll<HTMLInputElement>('input[type="color"]');
+                // 1. Background color (first input)
+                if (colorInputs[0]) {
+                  colorInputs[0].addEventListener('input', function () {
+                    document.querySelectorAll<HTMLElement>('.slide-content').forEach(sc => {
+                      sc.style.backgroundColor = colorInputs[0].value;
+                    });
+                    const activeThumb = document.querySelector('.slide-thumbnail.active .thumbnail-preview') as HTMLElement | null;
+                    if (activeThumb) {
+                      activeThumb.style.backgroundColor = colorInputs[0].value;
+                    }
+                  });
+                }
+                // 2. Title color (second input)
+                if (colorInputs[1]) {
+                  colorInputs[1].addEventListener('input', function () {
+                    document.querySelectorAll<HTMLElement>('.editable-title').forEach(title => {
+                      title.style.color = colorInputs[1].value;
+                    });
+                    document.querySelectorAll<HTMLElement>('.slide-title').forEach(title => {
+                      title.style.color = colorInputs[1].value;
+                    });
+                    const activeTitle = document.querySelector('.slide-thumbnail.active .thumbnail-title') as HTMLElement | null;
+                    if (activeTitle) {
+                      activeTitle.style.color = colorInputs[1].value;
+                    }
+                  });
+                }
+                // 3. Content color (third input)
+                if (colorInputs[2]) {
+                  colorInputs[2].addEventListener('input', function () {
+                    document.querySelectorAll<HTMLElement>('.editable-content').forEach(content => {
+                      content.style.color = colorInputs[2].value;
+                    });
+                    document.querySelectorAll<HTMLElement>('.slide-body').forEach(title => {
+                      title.style.color = colorInputs[1].value;
+                    });
+                    const activeContent = document.querySelector('.slide-thumbnail.active .thumbnail-text') as HTMLElement | null;
+                    if (activeContent) {
+                      activeContent.style.color = colorInputs[2].value;
+                    }
+                  });
+                }
+              }
+            }
+
+              // Save Settings button in settingModal: close settingModal and show staticBackdrop
+              const settingModal = document.getElementById('settingModal');
+              const staticBackdrop = document.getElementById('staticBackdrop');
+              if (settingModal && staticBackdrop) {
+                const saveBtn = settingModal.querySelector<HTMLButtonElement>('.modal-footer .btn.btn-primary');
+                if (saveBtn) {
+                  saveBtn.addEventListener('click', function () {
+                    // Use Bootstrap's modal API if available
+                    // @ts-ignore
+                    if (window.bootstrap && window.bootstrap.Modal) {
+                      // Hide settingModal
+                      // @ts-ignore
+                      const bsModal = window.bootstrap.Modal.getOrCreateInstance(settingModal);
+                      bsModal.hide();
+
+                      // Show staticBackdrop
+                      // @ts-ignore
+                      const staticBackdropModal = window.bootstrap.Modal.getOrCreateInstance(staticBackdrop);
+                      staticBackdropModal && staticBackdropModal.show();
+                    } else {
+                      // Fallback: manual show/hide
+                      settingModal.style.display = 'none';
+                      settingModal.classList.remove('show');
+                      settingModal.setAttribute('aria-hidden', 'true');
+                      staticBackdrop.style.display = 'block';
+                      staticBackdrop.classList.add('show');
+                      staticBackdrop.removeAttribute('aria-hidden');
+                    }
+                  });
+                }
+              }
+
+
+              const logoInput = document.querySelector<HTMLInputElement>('input[type="file"]');
+              const logoPreview = document.querySelector<HTMLElement>('.logo-preview');
+              const logoPositionSelect = logoInput?.closest('.d-flex')?.parentElement?.querySelector('select.form-select');
+              const previewWrappers = document.querySelectorAll<HTMLElement>('.preview-wrapper');
+              const slideContents = document.querySelectorAll<HTMLElement>('.slide-content.mb-4');
+
+              // Helper to update logo position class for all logo images in preview
+              function updateLogoPositionClass(position: string) {
+                previewWrappers.forEach(wrapper => {
+                  const logoDiv = wrapper.querySelector('.logo-container');
+                  if (logoDiv) {
+                    logoDiv.className = `logo-container logo-${position}`;
+                  }
+                });
+                slideContents.forEach(content => {
+                  const logoDiv = content.querySelector('.logo-container');
+                  if (logoDiv) {
+                    logoDiv.className = `logo-container logo-${position}`;
+                  }
+                });
+              }
+
+              if (logoInput && logoPreview && logoPositionSelect && previewWrappers.length > 0 && slideContents.length > 0) {
+                logoInput.addEventListener('change', function () {
+                  const file = logoInput.files && logoInput.files[0];
+                  if (!file) return;
+
+                  const reader = new FileReader();
+                  reader.onload = function (event) {
+                    const base64 = event.target?.result as string;
+                    // Show image in logo-preview
+                    logoPreview.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:100%;max-height:100%;">`;
+
+                    // Remove any existing logo-container in all preview-wrappers
+                    previewWrappers.forEach(wrapper => {
+                      const oldLogo = wrapper.querySelector('.logo-container');
+                      if (oldLogo) oldLogo.remove();
+
+                      // Get logo position (default to top-left if not found)
+                      const posValue = logoPositionSelect.value || 'top-left';
+                      const logoDiv = document.createElement('div');
+                      logoDiv.className = `logo-container logo-${posValue}`;
+                      logoDiv.style.position = 'absolute';
+                      // You can add more position logic here if needed
+                      logoDiv.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:80px;max-height:80px;">`;
+                      wrapper.prepend(logoDiv);
+                    });
+                    // Remove any existing logo-container in all slide-contents
+                    slideContents.forEach(wrapper => {
+                      const oldLogo = wrapper.querySelector('.logo-container');
+                      if (oldLogo) oldLogo.remove();
+
+                      // Get logo position (default to top-left if not found)
+                      const posValue = logoPositionSelect.value || 'top-left';
+                      const logoDiv = document.createElement('div');
+                      logoDiv.className = `logo-container logo-${posValue}`;
+                      logoDiv.style.position = 'absolute';
+                      // You can add more position logic here if needed
+                      logoDiv.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:80px;max-height:80px;">`;
+                      wrapper.prepend(logoDiv);
+                    });
+                  };
+                  reader.readAsDataURL(file);
+                });
+
+                // When logo position select changes, update class for all logo images in preview
+                logoPositionSelect.addEventListener('change', function () {
+                  const posValue = logoPositionSelect.value || 'top-left';
+                  updateLogoPositionClass(posValue);
+                });
+              }
+
+            if (settingModal) {
+              // Use Bootstrap's modal API if available
+              // @ts-ignore
+              if (window.bootstrap && window.bootstrap.Modal) {
+                // Hide staticBackdrop but keep it in DOM
+                // @ts-ignore
+                const staticBackdropModal = window.bootstrap.Modal.getOrCreateInstance(document.getElementById('staticBackdrop'));
+                staticBackdropModal && staticBackdropModal.hide();
+
+                // Show settingModal
+                // @ts-ignore
+                const bsModal = window.bootstrap.Modal.getOrCreateInstance(settingModal);
+                bsModal.show();
+              } else {
+                // Fallback: manual show/hide
+                settingModal.style.display = 'block';
+                settingModal.classList.add('show');
+                settingModal.removeAttribute('aria-hidden');
+              }
+            }
+          });
+        });
+
+        
+        const settingModal = document.getElementById('settingModal');
+        const staticBackdrop = document.getElementById('staticBackdrop');
+            // Store initial values for both settingModal and staticBackdrop
+        let initialSettingModalState: {
+          colorInputs: string[],
+          textInputs: string[],
+          selectInputs: string[],
+          fontSelects: string[],
+          slideContentStyles: {bg: string, title: string, content: string, titleFont: string, contentFont: string}[],
+          logoPreview: string,
+          logoContainers: string[],
+          logoPosition: string,
+          // StaticBackdrop state
+          staticSlideContents: {bg: string, title: string, content: string, titleFont: string, contentFont: string}[],
+          staticThumbPreviewBg: string,
+          staticThumbTitleColor: string,
+          staticThumbContentColor: string
+        } | null = null;
+
+        function saveInitialSettingModalState() {
+          if (!settingModal || !staticBackdrop) return;
+          // SettingModal state
+          const colorInputs = Array.from(settingModal.querySelectorAll<HTMLInputElement>('input[type="color"]')).map(i => i.value);
+          const textInputs = Array.from(settingModal.querySelectorAll<HTMLInputElement>('input[type="text"]')).map(i => i.value);
+          const selectInputs = Array.from(settingModal.querySelectorAll<HTMLSelectElement>('select')).map(s => s.value);
+          const fontsForm = settingModal.querySelector('#fonts-form');
+          const fontSelects = fontsForm ? Array.from(fontsForm.querySelectorAll<HTMLSelectElement>('select')).map(s => s.value) : [];
+          const slideContents = Array.from(settingModal.querySelectorAll<HTMLElement>('.slide-content'));
+          const slideContentStyles = slideContents.map(sc => ({
+            bg: sc.style.backgroundColor,
+            title: (sc.querySelector('.editable-title') as HTMLElement)?.style.color || '',
+            content: (sc.querySelector('.editable-content') as HTMLElement)?.style.color || '',
+            titleFont: (sc.querySelector('.editable-title') as HTMLElement)?.style.fontFamily || '',
+            contentFont: (sc.querySelector('.editable-content') as HTMLElement)?.style.fontFamily || ''
+          }));
+          const logoPreview = settingModal.querySelector('.logo-preview')?.innerHTML || '';
+          const logoContainers = Array.from(settingModal.querySelectorAll('.preview-wrapper .logo-container')).map(div => div.outerHTML);
+          const logoPosition = settingModal.querySelector('select.form-select')?.value || 'top-left';
+
+          // StaticBackdrop state
+          // Save all .slide-content in staticBackdrop
+          const staticSlideContents = Array.from(staticBackdrop.querySelectorAll<HTMLElement>('.slide-content')).map(sc => ({
+            bg: sc.style.backgroundColor,
+            title: (sc.querySelector('.slide-title') as HTMLElement)?.style.color || '',
+            content: (sc.querySelector('.slide-body') as HTMLElement)?.style.color || '',
+            titleFont: (sc.querySelector('.slide-title') as HTMLElement)?.style.fontFamily || '',
+            contentFont: (sc.querySelector('.slide-body') as HTMLElement)?.style.fontFamily || ''
+          }));
+          // Save active thumbnail preview and text colors
+          const staticThumbPreview = staticBackdrop.querySelector<HTMLElement>('.slide-thumbnail.active .thumbnail-preview');
+          const staticThumbTitle = staticBackdrop.querySelector<HTMLElement>('.slide-thumbnail.active .thumbnail-title');
+          const staticThumbContent = staticBackdrop.querySelector<HTMLElement>('.slide-thumbnail.active .thumbnail-text');
+          const staticThumbPreviewBg = staticThumbPreview ? staticThumbPreview.style.backgroundColor : '';
+          const staticThumbTitleColor = staticThumbTitle ? staticThumbTitle.style.color : '';
+          const staticThumbContentColor = staticThumbContent ? staticThumbContent.style.color : '';
+
+          initialSettingModalState = {
+            colorInputs,
+            textInputs,
+            selectInputs,
+            fontSelects,
+            slideContentStyles,
+            logoPreview,
+            logoContainers,
+            logoPosition,
+            staticSlideContents,
+            staticThumbPreviewBg,
+            staticThumbTitleColor,
+            staticThumbContentColor
+          };
+        }
+
+        // Save initial state when opening settingModal
+        document.querySelectorAll<HTMLButtonElement>('.edit-button').forEach(btn => {
+          btn.addEventListener('click', function () {
+            saveInitialSettingModalState();
+          });
+        });
+
+        // Restore all values and styles when Cancel is clicked
+        if (settingModal && staticBackdrop) {
+          const cancelBtn = settingModal.querySelector<HTMLButtonElement>('.btn.btn-secondary');
+          if (cancelBtn) {
+            cancelBtn.addEventListener('click', function () {
+              if (!initialSettingModalState) return;
+              // Restore settingModal values (as before)
+              const colorInputs = settingModal.querySelectorAll<HTMLInputElement>('input[type="color"]');
+              const textInputs = settingModal.querySelectorAll<HTMLInputElement>('input[type="text"]');
+              colorInputs.forEach((input, idx) => { input.value = initialSettingModalState!.colorInputs[idx]; input.dispatchEvent(new Event('input')); });
+              textInputs.forEach((input, idx) => { input.value = initialSettingModalState!.textInputs[idx]; });
+
+              const selectInputs = settingModal.querySelectorAll<HTMLSelectElement>('select');
+              selectInputs.forEach((select, idx) => { select.value = initialSettingModalState!.selectInputs[idx]; select.dispatchEvent(new Event('change')); });
+
+              const fontsForm = settingModal.querySelector('#fonts-form');
+              if (fontsForm) {
+                const fontSelects = fontsForm.querySelectorAll<HTMLSelectElement>('select');
+                fontSelects.forEach((select, idx) => { select.value = initialSettingModalState!.fontSelects[idx]; select.dispatchEvent(new Event('change')); });
+              }
+
+              const slideContents = settingModal.querySelectorAll<HTMLElement>('.slide-content');
+              slideContents.forEach((sc, idx) => {
+                const state = initialSettingModalState!.slideContentStyles[idx];
+                sc.style.backgroundColor = state.bg;
+                const title = sc.querySelector('.editable-title') as HTMLElement | null;
+                if (title) {
+                  title.style.color = state.title;
+                  title.style.fontFamily = state.titleFont;
+                }
+                const content = sc.querySelector('.editable-content') as HTMLElement | null;
+                if (content) {
+                  content.style.color = state.content;
+                  content.style.fontFamily = state.contentFont;
+                }
+              });
+
+              const logoPreview = settingModal.querySelector('.logo-preview');
+              if (logoPreview) logoPreview.innerHTML = initialSettingModalState!.logoPreview;
+
+              settingModal.querySelectorAll('.preview-wrapper .logo-container').forEach(div => div.remove());
+              const previewWrappers = settingModal.querySelectorAll('.preview-wrapper');
+              initialSettingModalState!.logoContainers.forEach((html, idx) => {
+                if (previewWrappers[idx]) {
+                  previewWrappers[idx].insertAdjacentHTML('afterbegin', html);
+                }
+              });
+
+              const logoPositionSelect = settingModal.querySelector('select.form-select');
+              if (logoPositionSelect) {
+                logoPositionSelect.value = initialSettingModalState!.logoPosition;
+                logoPositionSelect.dispatchEvent(new Event('change'));
+              }
+
+              // --- Restore staticBackdrop Modal values/styles ---
+              // Restore all .slide-content styles in staticBackdrop
+              const staticSlideContents = staticBackdrop.querySelectorAll<HTMLElement>('.slide-content');
+              staticSlideContents.forEach((sc, idx) => {
+                const state = initialSettingModalState!.staticSlideContents[idx];
+                sc.style.backgroundColor = state.bg;
+                const title = sc.querySelector('.slide-title') as HTMLElement | null;
+                if (title) {
+                  title.style.color = state.title;
+                  title.style.fontFamily = state.titleFont;
+                }
+                const content = sc.querySelector('.slide-body') as HTMLElement | null;
+                if (content) {
+                  content.style.color = state.content;
+                  content.style.fontFamily = state.contentFont;
+                }
+                // Remove any logo-container in staticBackdrop slide-content
+                const logoDiv = sc.querySelector('.logo-container');
+                if (logoDiv) logoDiv.remove();
+              });
+              // Restore active thumbnail preview and text colors
+              const staticThumbPreview = staticBackdrop.querySelector<HTMLElement>('.slide-thumbnail.active .thumbnail-preview');
+              const staticThumbTitle = staticBackdrop.querySelector<HTMLElement>('.slide-thumbnail.active .thumbnail-title');
+              const staticThumbContent = staticBackdrop.querySelector<HTMLElement>('.slide-thumbnail.active .thumbnail-text');
+              if (staticThumbPreview) staticThumbPreview.style.backgroundColor = initialSettingModalState!.staticThumbPreviewBg;
+              if (staticThumbTitle) staticThumbTitle.style.color = initialSettingModalState!.staticThumbTitleColor;
+              if (staticThumbContent) staticThumbContent.style.color = initialSettingModalState!.staticThumbContentColor;
+            });
+          }
+        }
+
+        
+        // When close button in settingModal is clicked, hide settingModal and show staticBackdrop
+        const settingModal = document.getElementById('settingModal');
+        if (settingModal) {
+          const cancelBtn = settingModal.querySelector<HTMLButtonElement>('.btn.btn-secondary');
+          if (cancelBtn) {
+            cancelBtn.addEventListener('click', function () {
+              // Use Bootstrap's modal API if available
+              // @ts-ignore
+              if (window.bootstrap && window.bootstrap.Modal) {
+                // Hide settingModal
+                // @ts-ignore
+                const bsModal = window.bootstrap.Modal.getOrCreateInstance(settingModal);
+                bsModal.hide();
+
+                // Show staticBackdrop
+                // @ts-ignore
+                const staticBackdropModal = window.bootstrap.Modal.getOrCreateInstance(document.getElementById('staticBackdrop'));
+                staticBackdropModal && staticBackdropModal.show();
+              } else {
+                // Fallback: manual show/hide
+                settingModal.style.display = 'none';
+                settingModal.classList.remove('show');
+                settingModal.setAttribute('aria-hidden', 'true');
+                // Show staticBackdrop
+                const staticBackdrop = document.getElementById('staticBackdrop');
+                if (staticBackdrop) {
+                  staticBackdrop.style.display = 'block';
+                  staticBackdrop.classList.add('show');
+                  staticBackdrop.removeAttribute('aria-hidden');
+                }
+              }
+            });
+          }
+          const closeBtn = settingModal.querySelector<HTMLButtonElement>('.btn-close');
+          if (closeBtn) {
+            closeBtn.addEventListener('click', function () {
+              // Use Bootstrap's modal API if available
+              // @ts-ignore
+              if (window.bootstrap && window.bootstrap.Modal) {
+                // Hide settingModal
+                // @ts-ignore
+                const bsModal = window.bootstrap.Modal.getOrCreateInstance(settingModal);
+                bsModal.hide();
+
+                // Show staticBackdrop
+                // @ts-ignore
+                const staticBackdropModal = window.bootstrap.Modal.getOrCreateInstance(document.getElementById('staticBackdrop'));
+                staticBackdropModal && staticBackdropModal.show();
+              } else {
+                // Fallback: manual show/hide
+                settingModal.style.display = 'none';
+                settingModal.classList.remove('show');
+                settingModal.setAttribute('aria-hidden', 'true');
+                // Show staticBackdrop
+                const staticBackdrop = document.getElementById('staticBackdrop');
+                if (staticBackdrop) {
+                  staticBackdrop.style.display = 'block';
+                  staticBackdrop.classList.add('show');
+                  staticBackdrop.removeAttribute('aria-hidden');
+                }
+              }
+            });
+          }
+        }
+
         function handleThemeBtnClick(this: HTMLButtonElement) {
           // Remove active from all
           document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
@@ -1165,6 +3206,51 @@ Breakdown of market share across different products.
         // Initial setup
         updatePagination();
         setSlideClickHandlers();
+
+        // Show the corresponding .settings-form when clicking sidebar nav items
+        const sidebarNav = document.querySelector('.settings-sidebar.nav.nav-pills');
+        const settingsForms = document.querySelectorAll<HTMLElement>('.settings-form');
+
+        if (sidebarNav && settingsForms.length > 0) {
+          const navItems = sidebarNav.querySelectorAll<HTMLElement>('.nav-item');
+          navItems.forEach((item, idx) => {
+            item.addEventListener('click', function () {
+              // Remove active from all nav-links
+              navItems.forEach(i => {
+                const link = i.querySelector('.nav-link');
+                if (link) link.classList.remove('active');
+              });
+              // Add active to clicked nav-link
+              const link = item.querySelector('.nav-link');
+              if (link) link.classList.add('active');
+
+              // Show only the corresponding settings-form, hide others
+              settingsForms.forEach((form, i) => {
+                form.style.display = (i === idx) ? 'block' : 'none';
+              });
+            });
+          });
+          // On load, show only the first settings-form
+          settingsForms.forEach((form, i) => {
+            form.style.display = (i === 0) ? 'block' : 'none';
+          });
+        }
+
+
+        // Show/hide custom size inputs in general-form based on select value
+        const generalForm = document.getElementById('general-form');
+        if (generalForm) {
+          const select = generalForm.querySelector<HTMLSelectElement>('select.form-select');
+            const customSizeDiv = generalForm.querySelector<HTMLDivElement>('.gap-3.mt-2');
+              if (select && customSizeDiv) {
+                // Initial state
+                customSizeDiv.style.display = select.value === 'custom' ? 'flex' : 'none';
+                select.addEventListener('change', function () {
+              console.log('select-------------->', customSizeDiv)
+              customSizeDiv.style.display = select.value === 'custom' ? 'flex' : 'none';
+            });
+          }
+        }
 
 
         // Toolbar navigation for slides
@@ -1283,7 +3369,22 @@ Breakdown of market share across different products.
         }
 
 
-
+        const colorPickerInput = document.querySelector<HTMLInputElement>('.color-picker input[type="color"]');
+        if (colorPickerInput) {
+          colorPickerInput.addEventListener('input', function () {
+            const nextSpan = colorPickerInput.nextElementSibling as HTMLSpanElement | null;
+            if (nextSpan) {
+              nextSpan.textContent = colorPickerInput.value.toUpperCase();
+              // Set background color of all .slide-content
+              document.querySelectorAll<HTMLElement>('.slide-content').forEach(sc => {
+                sc.style.backgroundColor = colorPickerInput.value;
+              });
+              const activeThumbnail = document.querySelectorAll<HTMLElement>('.slide-thumbnail.active > .thumbnail-preview');
+                console.log("==========>", activeThumbnail)
+              if (activeThumbnail) activeThumbnail[0].style.backgroundColor = colorPickerInput.value;
+            }
+          });
+        }
 
 
         // When adding a new slide, update pagination and handlers
@@ -1305,7 +3406,7 @@ Breakdown of market share across different products.
                 </div>
                 <div class="thumbnail-footer">
                   <div class="thumbnail-number">Theme ${num}</div>
-                  <button class="edit-button">
+                  <button class="edit-button" data-bs-toggle="modal" data-bs-target="#settingModal">
                     <i class="icon-pen" style="font-size: 16px"></i>
                   </button>
                 </div>
@@ -1433,12 +3534,12 @@ Breakdown of market share across different products.
               if (newContentIcon) newContentIcon.style.color = themeContentColor;
               if (newContentSpan) newContentSpan.style.color = themeContentColor;
             }
-            const firstSlide = document.querySelector<HTMLElement>('.slide-thumbnail .thumbnail-preview');
+            const firstSlide = document.querySelector<HTMLElement>('.slide-thumbnail.active .thumbnail-preview');
+
             if (firstSlide) {
               firstSlide.style.backgroundColor = bgColor;
               const firstSlideTitle = firstSlide.querySelector('.thumbnail-content .thumbnail-title') as HTMLElement | null;
               const firstSlideContent = firstSlide.querySelector('.thumbnail-content .thumbnail-text') as HTMLElement | null;
-
               firstSlideTitle.style.color = themeTitleColor;
               firstSlideContent.style.color = themeContentColor;
             }
@@ -1574,247 +3675,190 @@ Breakdown of market share across different products.
         }
 
 
-      // Store initial values of all color and text inputs in .color-inputs
-      const colorInputsGroups = document.querySelectorAll<HTMLElement>('.color-inputs');
-      const initialInputValues: {color: string[], text: string[]}[] = [];
+        // Store initial values of all color and text inputs in .color-inputs
+        const colorInputsGroups = document.querySelectorAll<HTMLElement>('.color-inputs');
+        const initialInputValues: {color: string[], text: string[]}[] = [];
 
-      colorInputsGroups.forEach(group => {
-        const colorInputs = Array.from(group.querySelectorAll<HTMLInputElement>('input[type="color"]')).map(input => input.value);
-        const textInputs = Array.from(group.querySelectorAll<HTMLInputElement>('input[type="text"]')).map(input => input.value);
-        initialInputValues.push({ color: colorInputs, text: textInputs });
-      });
+        colorInputsGroups.forEach(group => {
+          const colorInputs = Array.from(group.querySelectorAll<HTMLInputElement>('input[type="color"]')).map(input => input.value);
+          const textInputs = Array.from(group.querySelectorAll<HTMLInputElement>('input[type="text"]')).map(input => input.value);
+          initialInputValues.push({ color: colorInputs, text: textInputs });
+        });
 
-      // Reset button logic
-      const resetBtn = document.querySelector<HTMLButtonElement>('.btn-reset');
-      if (resetBtn) {
-        resetBtn.addEventListener('click', function () {
-          colorInputsGroups.forEach((group, groupIdx) => {
-            const colorInputs = group.querySelectorAll<HTMLInputElement>('input[type="color"]');
-            const textInputs = group.querySelectorAll<HTMLInputElement>('input[type="text"]');
-            // Restore initial values
-            colorInputs.forEach((input, idx) => {
-              input.value = initialInputValues[groupIdx].color[idx];
-              input.dispatchEvent(new Event('input')); // Trigger input event to update preview
-            });
-            textInputs.forEach((input, idx) => {
-              input.value = initialInputValues[groupIdx].text[idx];
+        // Reset button logic
+        const resetBtn = document.querySelector<HTMLButtonElement>('.btn-reset');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', function () {
+            colorInputsGroups.forEach((group, groupIdx) => {
+              const colorInputs = group.querySelectorAll<HTMLInputElement>('input[type="color"]');
+              const textInputs = group.querySelectorAll<HTMLInputElement>('input[type="text"]');
+              // Restore initial values
+              colorInputs.forEach((input, idx) => {
+                input.value = initialInputValues[groupIdx].color[idx];
+                input.dispatchEvent(new Event('input')); // Trigger input event to update preview
+              });
+              textInputs.forEach((input, idx) => {
+                input.value = initialInputValues[groupIdx].text[idx];
+              });
             });
           });
-        });
-      }
+        }
 
 
-      // Toggle dropdown menu on hover for the theme fonts button
-      const fontsDropdownBtn = document.querySelector<HTMLButtonElement>('.btn.btn-primary.d-flex.align-items-center.gap-1');
-      const dropdownMenu = document.querySelector<HTMLElement>('.dropdown-menu.show.position-absolute');
+        // Toggle dropdown menu on hover for the theme fonts button
+        const fontsDropdownBtn = document.querySelector<HTMLButtonElement>('.btn.btn-primary.d-flex.align-items-center.gap-1');
+        const dropdownMenu = document.querySelector<HTMLElement>('.dropdown-menu.show.position-absolute');
 
-      if (fontsDropdownBtn && dropdownMenu) {
-        let dropdownTimeout: number | undefined;
+        if (fontsDropdownBtn && dropdownMenu) {
+          let dropdownTimeout: number | undefined;
 
-        // Show dropdown on button hover
-        fontsDropdownBtn.addEventListener('mouseenter', () => {
-          if (dropdownTimeout) clearTimeout(dropdownTimeout);
-          dropdownMenu.style.display = 'block';
-        });
+          // Show dropdown on button hover
+          fontsDropdownBtn.addEventListener('mouseenter', () => {
+            if (dropdownTimeout) clearTimeout(dropdownTimeout);
+            dropdownMenu.style.display = 'block';
+          });
 
-        // Hide dropdown when mouse leaves button (but wait in case mouse enters menu)
-        fontsDropdownBtn.addEventListener('mouseleave', () => {
-          dropdownTimeout = window.setTimeout(() => {
-            if (!dropdownMenu.matches(':hover')) {
+          // Hide dropdown when mouse leaves button (but wait in case mouse enters menu)
+          fontsDropdownBtn.addEventListener('mouseleave', () => {
+            dropdownTimeout = window.setTimeout(() => {
+              if (!dropdownMenu.matches(':hover')) {
+                dropdownMenu.style.display = 'none';
+              }
+            }, 150);
+          });
+
+          // Keep dropdown open when mouse is over the menu
+          dropdownMenu.addEventListener('mouseenter', () => {
+            if (dropdownTimeout) clearTimeout(dropdownTimeout);
+            dropdownMenu.style.display = 'block';
+          });
+
+          // Hide dropdown when mouse leaves the menu
+          dropdownMenu.addEventListener('mouseleave', () => {
+            dropdownTimeout = window.setTimeout(() => {
               dropdownMenu.style.display = 'none';
-            }
-          }, 150);
-        });
-
-        // Keep dropdown open when mouse is over the menu
-        dropdownMenu.addEventListener('mouseenter', () => {
-          if (dropdownTimeout) clearTimeout(dropdownTimeout);
-          dropdownMenu.style.display = 'block';
-        });
-
-        // Hide dropdown when mouse leaves the menu
-        dropdownMenu.addEventListener('mouseleave', () => {
-          dropdownTimeout = window.setTimeout(() => {
-            dropdownMenu.style.display = 'none';
-          }, 150);
-        });
-      }
-
-      // Sync color input and preview background for text-colors
-      const textColorsDiv = document.getElementById('text-colors');
-      if (textColorsDiv) {
-        const colorInputs = textColorsDiv.querySelectorAll<HTMLInputElement>('input[type="color"]');
-        const textInputs = textColorsDiv.querySelectorAll<HTMLInputElement>('input[type="text"]');
-        const previewItems = document.querySelectorAll<HTMLElement>('.preview-item>div');
-
-        colorInputs.forEach((colorInput, idx) => {
-          colorInput.addEventListener('input', function () {
-            // Update the corresponding text input value
-            if (textInputs[idx]) textInputs[idx].value = colorInput.value;
-
-            // Update the background color of the corresponding preview item
-            if (previewItems[idx]) {
-              previewItems[idx].style.backgroundColor = colorInput.value;
-              if (idx === 0) {
-                // Update text color for the first preview item
-                previewItems[idx + 1].style.color = colorInput.value;
-              } 
-              if (idx === 1) {
-                previewItems[idx - 1].style.color = colorInput.value;
-              }
-            }
+            }, 150);
           });
-        });
-      }
-
-
-      // Show fonts-editor-overlay modal when dropdown-fonts-edit-overlay is clicked
-      const fontsEditBtn = document.getElementById('dropdown-fonts-edit-overlay');
-      const fontsEditorOverlay = document.querySelector<HTMLElement>('.fonts-editor-overlay');
-
-      if (fontsEditBtn && fontsEditorOverlay) {
-        fontsEditBtn.addEventListener('click', function () {
-          fontsEditorOverlay.style.display = 'block';
-        });
-      }
-
-      // Optional: close the overlay when clicking the close button inside it
-      const fontsEditorCloseBtn = document.querySelector<HTMLButtonElement>('.fonts-editor-overlay .close-button');
-      if (fontsEditorCloseBtn && fontsEditorOverlay) {
-        fontsEditorCloseBtn.addEventListener('click', function () {
-          fontsEditorOverlay.style.display = 'none';
-        });
-      }
-
-      function customTooltip(tooltip) {
-        let tooltipEl = document.getElementById('chartjs-tooltip');
-        if (!tooltipEl) {
-          tooltipEl = document.createElement('div');
-          tooltipEl.id = 'chartjs-tooltip';
-          tooltipEl.className = 'chartjs-tooltip hidden';
-          document.body.appendChild(tooltipEl);
         }
 
-        // Hide if no tooltip
-        if (tooltip.opacity === 0) {
-          tooltipEl.classList.add('hidden');
-          return;
+        // Sync color input and preview background for text-colors
+        const textColorsDiv = document.getElementById('text-colors');
+        if (textColorsDiv) {
+          const colorInputs = textColorsDiv.querySelectorAll<HTMLInputElement>('input[type="color"]');
+          const textInputs = textColorsDiv.querySelectorAll<HTMLInputElement>('input[type="text"]');
+          const previewItems = document.querySelectorAll<HTMLElement>('.preview-item>div');
+
+          colorInputs.forEach((colorInput, idx) => {
+            colorInput.addEventListener('input', function () {
+              // Update the corresponding text input value
+              if (textInputs[idx]) textInputs[idx].value = colorInput.value;
+
+              // Update the background color of the corresponding preview item
+              if (previewItems[idx]) {
+                previewItems[idx].style.backgroundColor = colorInput.value;
+                if (idx === 0) {
+                  // Update text color for the first preview item
+                  previewItems[idx + 1].style.color = colorInput.value;
+                }
+                if (idx === 1) {
+                  previewItems[idx - 1].style.color = colorInput.value;
+                }
+              }
+            });
+          });
         }
 
-        // Set caret Position
-        tooltipEl.classList.remove('hidden');
 
-        if (tooltip.body) {
-          const titleLines = tooltip.title || [];
-          const bodyLines = tooltip.body.map(b => b.lines);
+        // Show fonts-editor-overlay modal when dropdown-fonts-edit-overlay is clicked
+        const fontsEditBtn = document.getElementById('dropdown-fonts-edit-overlay');
+        const fontsEditorOverlay = document.querySelector<HTMLElement>('.fonts-editor-overlay');
 
-          let innerHtml = '<div>';
-          titleLines.forEach(title => {
-            innerHtml += `<div style="font-weight:bold;margin-bottom:4px;">${title}</div>`;
+        if (fontsEditBtn && fontsEditorOverlay) {
+          fontsEditBtn.addEventListener('click', function () {
+            fontsEditorOverlay.style.display = 'block';
           });
-          bodyLines.forEach((body, i) => {
-            const color = tooltip.labelColors[i].backgroundColor;
-            innerHtml += `<div style="margin-bottom:2px;">
-              <span style="display:inline-block;width:10px;height:10px;background:${color};border-radius:2px;margin-right:8px;vertical-align:middle;"></span>
-              ${body}
-            </div>`;
-          });
-          innerHtml += '</div>';
-          tooltipEl.innerHTML = innerHtml;
         }
 
-        const position = this._chart.canvas.getBoundingClientRect();
-        tooltipEl.style.left = position.left + window.pageXOffset + tooltip.caretX + 'px';
-        tooltipEl.style.top = position.top + window.pageYOffset + tooltip.caretY + 'px';
-      }
+        // Optional: close the overlay when clicking the close button inside it
+        const fontsEditorCloseBtn = document.querySelector<HTMLButtonElement>('.fonts-editor-overlay .close-button');
+        if (fontsEditorCloseBtn && fontsEditorOverlay) {
+          fontsEditorCloseBtn.addEventListener('click', function () {
+            fontsEditorOverlay.style.display = 'none';
+          });
+        }
 
-      var xValues = ["Q1", "Q2", "Q3", "Q4"];
-      var yValues1 = [65, 45, 75, 55]; // First bar values
-      var yValues2 = [45, 55, 35, 65]; // Second bar values
-      var barColors1 = "rgb(68, 114, 196)";
-      var barColors2 = "rgb(237, 125, 49)";
-      window.barChart = new Chart("bar-chart", {
-        type: "bar",
-        data: {
-          labels: xValues,
-          datasets: [
-            {
-              label: "Series 1",
-              backgroundColor: barColors1,
-              data: yValues1
-            },
-            {
-              label: "Series 2",
-              backgroundColor: barColors2,
-              data: yValues2
-            }
-          ]
-        },
-        options: {
-          legend: { display: true },
-          responsive: true,
-          maintainAspectRatio: false,
-          title: {
-            display: true,
-            text: "Sales Performance"
-          },
-          tooltips: {
-            enabled: true,
-            callbacks: {
-              title: function(tooltipItems, data) {
-                // Show the label (e.g., Q1)
-                return data.labels[tooltipItems[0].index];
-              },
-              label: function(tooltipItem, data) {
-                // Show both series values for the hovered label
-                const idx = tooltipItem.index;
-                const s1 = data.datasets[0].data[idx];
-                const s2 = data.datasets[1].data[idx];
-                return [
-                  'Series 1: ' + s1,
-                  'Series 2: ' + s2
-                ];
-              }
-            }
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                min: 0,
-                max: 80
-              }
-            }]
+        function customTooltip(tooltip) {
+          let tooltipEl = document.getElementById('chartjs-tooltip');
+          if (!tooltipEl) {
+            tooltipEl = document.createElement('div');
+            tooltipEl.id = 'chartjs-tooltip';
+            tooltipEl.className = 'chartjs-tooltip hidden';
+            document.body.appendChild(tooltipEl);
           }
+
+          // Hide if no tooltip
+          if (tooltip.opacity === 0) {
+            tooltipEl.classList.add('hidden');
+            return;
+          }
+
+          // Set caret Position
+          tooltipEl.classList.remove('hidden');
+
+          if (tooltip.body) {
+            const titleLines = tooltip.title || [];
+            const bodyLines = tooltip.body.map(b => b.lines);
+
+            let innerHtml = '<div>';
+            titleLines.forEach(title => {
+              innerHtml += `<div style="font-weight:bold;margin-bottom:4px;">${title}</div>`;
+            });
+            bodyLines.forEach((body, i) => {
+              const color = tooltip.labelColors[i].backgroundColor;
+              innerHtml += `<div style="margin-bottom:2px;">
+                <span style="display:inline-block;width:10px;height:10px;background:${color};border-radius:2px;margin-right:8px;vertical-align:middle;"></span>
+                ${body}
+              </div>`;
+            });
+            innerHtml += '</div>';
+            tooltipEl.innerHTML = innerHtml;
+          }
+
+          const position = this._chart.canvas.getBoundingClientRect();
+          tooltipEl.style.left = position.left + window.pageXOffset + tooltip.caretX + 'px';
+          tooltipEl.style.top = position.top + window.pageYOffset + tooltip.caretY + 'px';
         }
-      });
 
-      const xValuesForLine = ["Jan", "Feb", "Mar", "Apr", "May"];
-
-      window.lineChart = new Chart("line-chart", {
-        type: "line",
-        data: {
-          labels: xValuesForLine,
-          datasets: [{
-            label: "Series 1",
-            data: [40, 45, 55, 60, 75],
-            borderColor: barColors1,
-            fill: false
-          },{
-            label: "Series 2",
-            data: [30, 50, 45, 65, 70],
-            borderColor: barColors2,
-            fill: false
-          }]
-        },
-
-        options: {
-          legend: { display: true },
-          responsive: true,
-          maintainAspectRatio: false,
-          title: {
-            display: true,
-            text: "Monthly trends"
+        var xValues = ["Q1", "Q2", "Q3", "Q4"];
+        var yValues1 = [65, 45, 75, 55]; // First bar values
+        var yValues2 = [45, 55, 35, 65]; // Second bar values
+        var barColors1 = "rgb(68, 114, 196)";
+        var barColors2 = "rgb(237, 125, 49)";
+        window.barChart = new Chart("bar-chart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [
+              {
+                label: "Series 1",
+                backgroundColor: barColors1,
+                data: yValues1
+              },
+              {
+                label: "Series 2",
+                backgroundColor: barColors2,
+                data: yValues2
+              }
+            ]
           },
+          options: {
+            legend: { display: true },
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: "Sales Performance"
+            },
             tooltips: {
               enabled: true,
               callbacks: {
@@ -1834,64 +3878,262 @@ Breakdown of market share across different products.
                 }
               }
             },
-          scales: {
-            yAxes: [{
-              ticks: {
-                min: 0,
-                max: 80,
-                stepSize: 20 // 0, 20, 40, 60, 80 (4 steps)
-              }
-            }]
-          }
-        }
-      });
-
-      var xValuesForPie = ["Product A", "Product B", "Product C", "Product D", "Product E"];
-        var yValuesForPie = [35, 25, 20, 15, 5];
-        var barColorsForPie = [
-          "rgb(68, 114, 196)",
-          "rgb(237, 125, 49)",
-          "rgb(165, 165, 165)",
-          "rgb(255, 192, 0)",
-          "rgb(91, 155, 213)"
-        ];
-
-        window.pieChart = new Chart("pie-chart", {
-          type: "pie",
-          data: {
-            labels: xValuesForPie,
-            datasets: [{
-              backgroundColor: barColorsForPie,
-              data: yValuesForPie
-            }]
-          },
-          tooltips: {
-            enabled: false, // Disable the default tooltip
-            custom: customTooltip,
-            mode: 'index',
-            intersect: false,
-            animation: {
-              duration: 200
-            }
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-              display: true,
-              text: "Market Distribution"
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: 80
+                }
+              }]
             }
           }
         });
 
-        var yValuesForExample = [10, 20, 30, 25, 15, 5];
-
-        var barColorsForExample = ["#4472C4", "#ED7D31","#A5A5A5","#FFC000","#5B9BD5", "#70AD47"];
-
-        window.exampleChart = new Chart("example-chart", {
+        window.barChartOnEdit = new Chart("bar-chart-on-edit", {
           type: "bar",
           data: {
-            labels: ["A", "B", "C", "D", "E", "F"],
+            labels: xValues,
+            datasets: [
+              {
+                label: "Series 1",
+                backgroundColor: barColors1,
+                data: yValues1
+              },
+              {
+                label: "Series 2",
+                backgroundColor: barColors2,
+                data: yValues2
+              }
+            ]
+          },
+          options: {
+            legend: { display: true },
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: "Sales Performance"
+            },
+            tooltips: {
+              enabled: true,
+              callbacks: {
+                title: function(tooltipItems, data) {
+                  // Show the label (e.g., Q1)
+                  return data.labels[tooltipItems[0].index];
+                },
+                label: function(tooltipItem, data) {
+                  // Show both series values for the hovered label
+                  const idx = tooltipItem.index;
+                  const s1 = data.datasets[0].data[idx];
+                  const s2 = data.datasets[1].data[idx];
+                  return [
+                    'Series 1: ' + s1,
+                    'Series 2: ' + s2
+                  ];
+                }
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: 80
+                }
+              }]
+            }
+          }
+        });
+
+        const xValuesForLine = ["Jan", "Feb", "Mar", "Apr", "May"];
+
+        window.lineChart = new Chart("line-chart", {
+          type: "line",
+          data: {
+            labels: xValuesForLine,
+            datasets: [{
+              label: "Series 1",
+              data: [40, 45, 55, 60, 75],
+              borderColor: barColors1,
+              fill: false
+            },{
+              label: "Series 2",
+              data: [30, 50, 45, 65, 70],
+              borderColor: barColors2,
+              fill: false
+            }]
+          },
+
+          options: {
+            legend: { display: true },
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: "Monthly trends"
+            },
+              tooltips: {
+                enabled: true,
+                callbacks: {
+                  title: function(tooltipItems, data) {
+                    // Show the label (e.g., Q1)
+                    return data.labels[tooltipItems[0].index];
+                  },
+                  label: function(tooltipItem, data) {
+                    // Show both series values for the hovered label
+                    const idx = tooltipItem.index;
+                    const s1 = data.datasets[0].data[idx];
+                    const s2 = data.datasets[1].data[idx];
+                    return [
+                      'Series 1: ' + s1,
+                      'Series 2: ' + s2
+                    ];
+                  }
+                }
+              },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: 80,
+                  stepSize: 20 // 0, 20, 40, 60, 80 (4 steps)
+                }
+              }]
+            }
+          }
+        });
+
+
+        window.lineChartOnEdit = new Chart("line-chart-on-edit", {
+          type: "line",
+          data: {
+            labels: xValuesForLine,
+            datasets: [{
+              label: "Series 1",
+              data: [40, 45, 55, 60, 75],
+              borderColor: barColors1,
+              fill: false
+            },{
+              label: "Series 2",
+              data: [30, 50, 45, 65, 70],
+              borderColor: barColors2,
+              fill: false
+            }]
+          },
+
+          options: {
+            legend: { display: true },
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: "Monthly trends"
+            },
+              tooltips: {
+                enabled: true,
+                callbacks: {
+                  title: function(tooltipItems, data) {
+                    // Show the label (e.g., Q1)
+                    return data.labels[tooltipItems[0].index];
+                  },
+                  label: function(tooltipItem, data) {
+                    // Show both series values for the hovered label
+                    const idx = tooltipItem.index;
+                    const s1 = data.datasets[0].data[idx];
+                    const s2 = data.datasets[1].data[idx];
+                    return [
+                      'Series 1: ' + s1,
+                      'Series 2: ' + s2
+                    ];
+                  }
+                }
+              },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: 80,
+                  stepSize: 20 // 0, 20, 40, 60, 80 (4 steps)
+                }
+              }]
+            }
+          }
+        });
+
+        var xValuesForPie = ["Product A", "Product B", "Product C", "Product D", "Product E"];
+          var yValuesForPie = [35, 25, 20, 15, 5];
+          var barColorsForPie = [
+            "rgb(68, 114, 196)",
+            "rgb(237, 125, 49)",
+            "rgb(165, 165, 165)",
+            "rgb(255, 192, 0)",
+            "rgb(91, 155, 213)"
+          ];
+
+          window.pieChart = new Chart("pie-chart", {
+            type: "pie",
+            data: {
+              labels: xValuesForPie,
+              datasets: [{
+                backgroundColor: barColorsForPie,
+                data: yValuesForPie
+              }]
+            },
+            tooltips: {
+              enabled: false, // Disable the default tooltip
+              custom: customTooltip,
+              mode: 'index',
+              intersect: false,
+              animation: {
+                duration: 200
+              }
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              title: {
+                display: true,
+                text: "Market Distribution"
+              }
+            }
+          });
+
+
+          window.pieChartOnEdit = new Chart("pie-chart-on-edit", {
+            type: "pie",
+            data: {
+              labels: xValuesForPie,
+              datasets: [{
+                backgroundColor: barColorsForPie,
+                data: yValuesForPie
+              }]
+            },
+            tooltips: {
+              enabled: false, // Disable the default tooltip
+              custom: customTooltip,
+              mode: 'index',
+              intersect: false,
+              animation: {
+                duration: 200
+              }
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              title: {
+                display: true,
+                text: "Market Distribution"
+              }
+            }
+          });
+
+          var yValuesForExample = [10, 20, 30, 25, 15, 5];
+
+          var barColorsForExample = ["#4472C4", "#ED7D31","#A5A5A5","#FFC000","#5B9BD5", "#70AD47"];
+
+          window.exampleChart = new Chart("example-chart", {
+            type: "bar",
+            data: {
+              labels: ["A", "B", "C", "D", "E", "F"],
             datasets: [{
               backgroundColor: barColorsForExample,
               data: yValuesForExample
@@ -1940,6 +4182,8 @@ Breakdown of market share across different products.
             }
           }
         });
+
+      });
     </script>
     <script>
       // Transpile TypeScript to JavaScript
