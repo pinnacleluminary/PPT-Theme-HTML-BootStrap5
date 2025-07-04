@@ -140,9 +140,9 @@
                             ></i>
                           </button>
                           <div
-                            class="dropdown-menu show position-absolute w-100"
+                            class="dropdown-menu show position-absolute"
                             style="display: none"
-                            style="min-width: 250px"
+                            style="min-width: 300px"
                           >
                             <button
                               class="dropdown-item d-flex align-items-center gap-2"
@@ -305,7 +305,7 @@
                                       class="btn btn-cancel"
                                     >
                                       Cancel</button
-                                    ><button type="submit" class="btn btn-save">
+                                    ><button type="submit" class="btn btn-save save-fonts">
                                       <i
                                         class="icon-save"
                                         style="font-size: 24px"
@@ -429,7 +429,7 @@
                     </div>
                     <div class="editor-content">
                       <div class="slides-sidebar">
-                        <div class="slide-thumbnail new-slide-thumbnail">
+                        <div class="new-slide-thumbnail">
                           <div
                             class="thumbnail-preview"
                             style="
@@ -518,7 +518,8 @@
                                 overflow: auto;
                                 resize: vertical;
                               "
-                            >This chart shows quarterly sales performance comparison.
+                            >
+This chart shows quarterly sales performance comparison.
                             </textarea>
                             <div
                               class="chart-container"
@@ -526,7 +527,24 @@
                             >
                               <div class="chart-editor preview-mode card mb-3">
                                 <div class="card-body">
-                                  <canvas id="bar-chart" style="width:100%;max-width:100%"></canvas>
+                                  <div
+                                    class="d-flex justify-content-between align-items-center mb-3"
+                                  >
+                                    <h5
+                                      class="card-title mb-0"
+                                      style="
+                                        color: rgb(68, 84, 106);
+                                        transition: color 0.3s;
+                                      "
+                                    >
+                                      Sales Performance
+                                    </h5>
+                                  </div>
+                                  <canvas
+                                    id="bar-chart"
+                                    width="300"
+                                    height="250"
+                                  ></canvas>
                                 </div>
                               </div>
                             </div>
@@ -558,14 +576,34 @@
                                 overflow: auto;
                                 resize: vertical;
                               "
-                            >Visualizing the monthly growth trends across different series.
+                            >
+Visualizing the monthly growth trends across different series.
                             </textarea>
                             <div
                               class="chart-container"
                               style="width: 100%; height: 75%"
                             >
                               <div class="chart-editor preview-mode card mb-3">
-                                <div class="card-body"></div>
+                                <div class="card-body">
+                                  <div
+                                    class="d-flex justify-content-between align-items-center mb-3"
+                                  >
+                                    <h5
+                                      class="card-title mb-0"
+                                      style="
+                                        color: rgb(68, 84, 106);
+                                        transition: color 0.3s;
+                                      "
+                                    >
+                                      Monthly Trends
+                                    </h5>
+                                  </div>
+                                  <canvas
+                                    id="line-chart"
+                                    width="370"
+                                    height="300"
+                                  ></canvas>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -596,14 +634,34 @@
                                 overflow: auto;
                                 resize: vertical;
                               "
-                            >Breakdown of market share across different products.
+                            >
+Breakdown of market share across different products.
                             </textarea>
                             <div
                               class="chart-container"
                               style="width: 100%; height: 75%"
                             >
                               <div class="chart-editor preview-mode card mb-3">
-                                <div class="card-body"></div>
+                                <div class="card-body">
+                                  <div
+                                    class="d-flex justify-content-between align-items-center mb-3"
+                                  >
+                                    <h5
+                                      class="card-title mb-0"
+                                      style="
+                                        color: rgb(68, 84, 106);
+                                        transition: color 0.3s;
+                                      "
+                                    >
+                                      Market Describution
+                                    </h5>
+                                  </div>
+                                  <canvas
+                                    id="pie-chart"
+                                    width="370"
+                                    height="300"
+                                  ></canvas>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -651,7 +709,7 @@
                                       Links Colors
                                     </button>
                                   </div>
-                                  <div class="color-inputs">
+                                  <div class="color-inputs" id="text-colors">
                                     <div class="color-input-group">
                                       <label class="color-label"
                                         >Text Dark1</label
@@ -717,6 +775,124 @@
                                       </div>
                                     </div>
                                   </div>
+                                  <div class="color-inputs" style="display: none" id="account-colors">
+                                    <div class="color-input-group">
+                                      <label class="color-label">Accent1</label>
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#4472C4"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#4472C4"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label">Accent2</label>
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#ED7D31"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#ED7D31"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label">Accent3</label>
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#A5A5A5"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#A5A5A5"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label">Accent4</label>
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#FFC000"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#FFC000"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label">Accent5</label>
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#5B9BD5"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#5B9BD5"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label">Accent6</label>
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#70AD47"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#70AD47"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="color-inputs"  style="display: none" id="links-colors">
+                                    <div class="color-input-group">
+                                      <label class="color-label">Hyperlink</label>
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#0563C1"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#0563C1"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="color-input-group">
+                                      <label class="color-label"
+                                        >Followed Hyperlink</label
+                                      >
+                                      <div class="color-input-wrapper">
+                                        <input
+                                          class="color-input"
+                                          type="color"
+                                          value="#954F72"
+                                        /><input
+                                          class="color-text-input"
+                                          type="text"
+                                          value="#954F72"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="theme-name-input">
                                   <label>Theme Name</label
@@ -763,7 +939,17 @@
                                                 max-height: 100px;
                                                 max-width: 344px;
                                               "
-                                            ></div>
+                                            >
+                                              <canvas
+                                                id="example-chart"
+                                                width="370"
+                                                height="100"
+                                                style="
+                                                  width: 100%;
+                                                  height: 300px;
+                                                "
+                                              ></canvas>
+                                            </div>
                                           </div>
                                         </div>
                                         <div style="color: rgb(5, 99, 193)">
@@ -805,7 +991,17 @@
                                                 max-height: 100px;
                                                 max-width: 344px;
                                               "
-                                            ></div>
+                                            >
+                                              <canvas
+                                                id="example-chart-1"
+                                                width="370"
+                                                height="100"
+                                                style="
+                                                  width: 100%;
+                                                  height: 300px;
+                                                "
+                                              ></canvas>
+                                            </div>
                                           </div>
                                         </div>
                                         <div style="color: rgb(5, 99, 193)">
@@ -831,8 +1027,11 @@
                             </button>
                             <div class="footer-actions">
                               <button class="btn btn-cancel">Cancel</button
-                              ><button class="btn btn-save">
-                                <i class="lucide-save" style="font-size: 16px;"></i>
+                              ><button class="btn btn-save save-theme">
+                                <i
+                                  class="lucide-save"
+                                  style="font-size: 16px"
+                                ></i>
                                 Save Theme
                               </button>
                             </div>
@@ -856,7 +1055,7 @@
               </button>
               <button type="button" class="btn btn-primary">
                 <i class="icon-save" style="font-size: 24px"></i>
-                Save Changes
+                Save Settings
               </button>
             </div>
           </div>
@@ -866,6 +1065,262 @@
 
     <script type="text/typescript">
       document.addEventListener("DOMContentLoaded", function () {
+        function handleThemeBtnClick(this: HTMLButtonElement) {
+          // Remove active from all
+          document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+          // Add active to clicked
+          this.classList.add('active');
+
+          // Get background color from theme button
+          const bgColor = this.style.backgroundColor;
+
+          // Get theme-title and theme-content colors from inside the button
+          const themeTitleDiv = this.querySelector('.theme-title') as HTMLElement | null;
+          const themeContentDiv = this.querySelector('.theme-content') as HTMLElement | null;
+          const themeTitleColor = themeTitleDiv ? themeTitleDiv.style.color : '';
+          const themeContentColor = themeContentDiv ? themeContentDiv.style.color : '';
+
+          // Set color-picker input and span
+          const colorPickerInput = document.querySelector<HTMLInputElement>(".color-picker input[type='color']");
+          const colorPickerSpan = document.querySelector<HTMLSpanElement>(".color-picker span");
+          if (colorPickerInput && colorPickerSpan) {
+            function rgbToHex(rgb: string) {
+              if (!rgb) return '#ffffff';
+              if (rgb.startsWith('#')) return rgb;
+              const result = rgb.match(/\d+/g);
+              if (!result) return '#ffffff';
+              return (
+                '#' +
+                result
+                  .slice(0, 3)
+                  .map(x => ('0' + parseInt(x).toString(16)).slice(-2))
+                  .join('')
+              );
+            }
+            colorPickerInput.value = rgbToHex(bgColor);
+            colorPickerSpan.textContent = rgbToHex(bgColor).toUpperCase();
+          }
+
+          // Set background color of all .slide-content
+          document.querySelectorAll<HTMLElement>('.slide-content').forEach(sc => {
+            sc.style.backgroundColor = bgColor;
+          });
+
+          // Set color of all .slide-title
+          document.querySelectorAll<HTMLInputElement>('.slide-title').forEach(st => {
+            if (themeTitleColor) st.style.color = themeTitleColor;
+          });
+
+          // Set color of all .slide-body
+          document.querySelectorAll<HTMLTextAreaElement>('.slide-body').forEach(sb => {
+            if (themeContentColor) sb.style.color = themeContentColor;
+          });
+
+            // Set background color of .new-slide-thumbnail and first .slide-thumbnail
+          const newSlide = document.querySelector<HTMLElement>('.new-slide-thumbnail .thumbnail-preview');
+            console.log("newslide", newslide)
+          if (newSlide) {
+            newSlide.style.backgroundColor = bgColor;
+          }
+          const firstSlide = document.querySelector<HTMLElement>('.slide-thumbnail .thumbnail-preview');
+          if (firstSlide) {
+            firstSlide[0].style.backgroundColor = bgColor;
+          }
+        }
+
+
+
+        // Pagination functionality for slides
+        function updatePagination() {
+          const slideThumbnails = document.querySelectorAll('.slide-thumbnail');
+          const pagination = document.querySelector('.slide-counter');
+          // Find the active slide index (1-based)
+          let activeIndex = 1;
+          slideThumbnails.forEach((thumb, idx) => {
+            if (thumb.classList.contains('active')) {
+              activeIndex = idx + 1;
+            }
+          });
+          if (pagination) pagination.textContent = `${activeIndex} / ${slideThumbnails.length}`;
+
+          // Enable/disable prev/next buttons
+          const prevBtn = document.querySelector<HTMLButtonElement>('.toolbar-section .toolbar-btn:nth-child(1)');
+          const nextBtn = document.querySelector<HTMLButtonElement>('.toolbar-section .toolbar-btn:nth-child(3)');
+          if (prevBtn) prevBtn.disabled = activeIndex === 1;
+          if (nextBtn) nextBtn.disabled = activeIndex === slideThumbnails.length;
+        }
+
+        // Set active slide and update pagination on click
+        function setSlideClickHandlers() {
+          const slideThumbnails = document.querySelectorAll('.slide-thumbnail');
+          slideThumbnails.forEach((thumb, idx) => {
+            thumb.addEventListener('click', function () {
+              slideThumbnails.forEach(t => t.classList.remove('active'));
+              thumb.classList.add('active');
+              updatePagination();
+            });
+          });
+        }
+
+        // Initial setup
+        updatePagination();
+        setSlideClickHandlers();
+
+
+        // Toolbar navigation for slides
+        const prevBtn = document.querySelector<HTMLButtonElement>('.toolbar-section .toolbar-btn:nth-child(1)');
+        const nextBtn = document.querySelector<HTMLButtonElement>('.toolbar-section .toolbar-btn:nth-child(3)');
+
+        function moveSlide(direction: 'prev' | 'next') {
+          const slideThumbnails = Array.from(document.querySelectorAll<HTMLDivElement>('.slide-thumbnail'));
+          const currentIdx = slideThumbnails.findIndex(t => t.classList.contains('active'));
+          if (currentIdx === -1) return;
+
+          let newIdx = currentIdx;
+          if (direction === 'prev' && currentIdx > 0) newIdx = currentIdx - 1;
+          if (direction === 'next' && currentIdx < slideThumbnails.length - 1) newIdx = currentIdx + 1;
+
+          if (newIdx !== currentIdx) {
+            slideThumbnails.forEach(t => t.classList.remove('active'));
+            slideThumbnails[newIdx].classList.add('active');
+            updatePagination();
+          }
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function () {
+            moveSlide('prev');
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function () {
+            moveSlide('next');
+          });
+        }
+
+
+        // Sync font-info text and preview-text font-family when selects change in fonts-editor-body
+        document.querySelectorAll<HTMLSelectElement>('.fonts-editor-body select').forEach(select => {
+          select.addEventListener('change', function () {
+            // Find the closest .font-group
+            const fontGroup = select.closest('.font-group');
+            if (!fontGroup) return;
+
+            // Update font-info text
+            const fontInfoName = fontGroup.querySelector<HTMLElement>('.font-info .font-name');
+            if (fontInfoName) fontInfoName.textContent = select.value;
+
+            // Update preview-text font-family
+            const previewText = fontGroup.querySelector<HTMLElement>('.preview-text');
+            if (previewText) previewText.style.fontFamily = select.value;
+          });
+        });
+
+
+        const saveFontsBtn = document.querySelector<HTMLButtonElement>('.btn-save.save-fonts');
+        const fontsEditorOverlay = document.querySelector<HTMLElement>('.fonts-editor-overlay');
+        const fontsEditorBody = document.querySelector<HTMLElement>('.fonts-editor-body');
+        const dropdownMenu = document.querySelector<HTMLElement>('.dropdown-menu.show.position-absolute');
+
+        if (saveFontsBtn && fontsEditorOverlay && fontsEditorBody && dropdownMenu) {
+          saveFontsBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Get theme name from input in fonts-editor-body
+            const themeNameInput = fontsEditorBody.querySelector<HTMLInputElement>('input[type="text"]');
+            const themeName = themeNameInput ? themeNameInput.value.trim() : 'Custom Fonts';
+
+            // Get all select values as font names
+            const selectValues = Array.from(fontsEditorBody.querySelectorAll<HTMLSelectElement>('select'))
+              .map(sel => sel.value)
+              .join(' / ');
+
+            // Create new dropdown item
+            const item = document.createElement('button');
+            item.className = 'dropdown-item d-flex align-items-center gap-2 select-font';
+            item.type = 'button';
+            item.innerHTML = `
+              <i class="icon-type" style="font-size: 16px"></i><br>
+              <span><strong>${themeName}</strong> &mdash; ${selectValues}</span>
+            `;
+
+            dropdownMenu.prepend(item);
+
+            // Handle click on font theme dropdown items to apply fonts to slides
+            document.querySelectorAll<HTMLButtonElement>('.dropdown-item.d-flex.align-items-center.gap-2.select-font').forEach(item => {
+              item.addEventListener('click', function () {
+                // Get the text content inside the span, e.g. "ThemeName — Font1 / Font2"
+                const span = item.querySelector('span');
+                if (!span) return;
+                // Extract font names from the text (after the em dash)
+                const match = span.textContent?.split('—');
+                if (!match || match.length < 2) return;
+                const fonts = match[1].trim().split(' / ');
+                const titleFont = fonts[0]?.trim() || 'Arial';
+                const bodyFont = fonts[1]?.trim() || 'Calibri';
+                console.log(`Applying fonts: Title - ${titleFont}, Body - ${bodyFont}`);
+
+                // Set font-family of input and textarea in all .slide-content
+                document.querySelectorAll<HTMLElement>('.slide-content').forEach(sc => {
+                  const input = sc.querySelector<HTMLInputElement>('input.slide-title');
+                  const textarea = sc.querySelector<HTMLTextAreaElement>('textarea.slide-body');
+                  if (input) input.style.fontFamily = titleFont;
+                  if (textarea) textarea.style.fontFamily = bodyFont;
+
+                      // Close the dropdown menu
+                const dropdownMenu = item.closest('.dropdown-menu');
+                if (dropdownMenu) {
+                  (dropdownMenu as HTMLElement).style.display = 'none';
+                }
+                });
+              });
+            });
+
+
+            // Close the fonts-editor-overlay modal
+            fontsEditorOverlay.style.display = 'none';
+          });
+        }
+
+
+
+
+
+        // When adding a new slide, update pagination and handlers
+        const newSlideBtn = document.querySelector<HTMLDivElement>(".new-slide-thumbnail");
+        const slidesSidebar = document.querySelector<HTMLElement>(".slides-sidebar");
+        let num = document.querySelectorAll('.slide-thumbnail').length + 1;
+        if (newSlideBtn && slidesSidebar) {
+          newSlideBtn.addEventListener("click", function () {
+            // Create new slide-thumbnail div
+            const slide = document.createElement("div");
+
+              slide.className = "slide-thumbnail";
+              slide.innerHTML = `
+                <div class="thumbnail-preview" style="background-color: #fff; cursor: pointer;">
+                  <div class="thumbnail-content" data-editing="false" style="color: #000;">
+                    <div class="thumbnail-title">Sales Performance</div>
+                    <div class="thumbnail-text" style="color: #333;">This chart shows quarterly sales pe...</div>
+                  </div>
+                </div>
+                <div class="thumbnail-footer">
+                  <div class="thumbnail-number">Theme ${num}</div>
+                  <button class="edit-button">
+                    <i class="icon-pen" style="font-size: 16px"></i>
+                  </button>
+                </div>
+              `;
+              num++;
+              slidesSidebar.appendChild(slide);
+            // Remove active from all, set new as active
+            document.querySelectorAll('.slide-thumbnail').forEach(t => t.classList.remove('active'));
+            slide.classList.add('active');
+
+            updatePagination();
+            setSlideClickHandlers();
+          });
+        }
+
         const toggleBtn = document.getElementById("toggleSettingsBtn") as HTMLButtonElement | null;
         const panel = document.getElementById("settingsPanel") as HTMLElement | null;
         if (toggleBtn && panel) {
@@ -874,6 +1329,15 @@
               panel.style.display === "none" || panel.style.display === ""
                 ? "block"
                 : "none";
+            if (panel.style.display === "block") {
+              // @ts-ignore
+              if (window.barChart) window.barChart.resize();
+              // @ts-ignore
+              if (window.lineChart) window.lineChart.resize();
+              // @ts-ignore
+              if (window.pieChart) window.pieChart.resize();
+              // Add more if you have more charts
+            }
           });
         }
         // Theme picker overlay toggle
@@ -895,79 +1359,392 @@
             overlay.style.display = "none";
           });
         }
-        // Add slide functionality
-        const newSlideBtn = document.querySelector<HTMLButtonElement>(".new-slide-thumbnail");
-        const slidesSidebar = document.querySelector<HTMLElement>(".slides-sidebar");
-        let num = 2;
-        if (newSlideBtn && slidesSidebar) {
-          newSlideBtn.addEventListener("click", function () {
-            // Create new slide-thumbnail div
-            const slide = document.createElement("div");
-            slide.className = "slide-thumbnail";
-            slide.innerHTML = `
-              <div class="thumbnail-preview" style="background-color: #fff; cursor: pointer;">
-                <div class="thumbnail-content" data-editing="false" style="color: #000;">
-                  <div class="thumbnail-title">Sales Performance</div>
-                  <div class="thumbnail-text" style="color: #333;">This chart shows quarterly sales pe...</div>
-                </div>
-              </div>
-              <div class="thumbnail-footer">
-                <div class="thumbnail-number">Theme ${num}</div>
-                <button class="edit-button">
-                  <i class="icon-pen" style="font-size: 16px"></i>
-                </button>
-              </div>
-            `;
-            num++;
-            slidesSidebar.appendChild(slide);
+
+
+        // Section tabs toggle logic
+        document.querySelectorAll<HTMLButtonElement>('.section-tab').forEach((tab, idx, tabs) => {
+          tab.addEventListener('click', function () {
+            // Remove active from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+            // Add active to clicked tab
+            tab.classList.add('active');
+
+            // Show only the corresponding .color-inputs, hide others
+            const colorInputs = document.querySelectorAll<HTMLElement>('.color-inputs');
+            colorInputs.forEach((ci, i) => {
+              ci.style.display = (i === idx) ? 'block' : 'none';
+            });
           });
-        }
-          // Theme fonts dropdown mouseover/mouseout
-        const fontsDropdown = document.querySelector('.theme-fonts-dropdown') as HTMLElement | null;
-        const dropdownMenu = fontsDropdown?.querySelector('.dropdown-menu') as HTMLElement | null;
-        if (fontsDropdown && dropdownMenu) {
-          fontsDropdown.addEventListener('mouseenter', function () {
-            dropdownMenu.style.display = 'block';
+        });
+
+        // On load, show only the first .color-inputs, hide others
+        document.addEventListener('DOMContentLoaded', function () {
+          const colorInputs = document.querySelectorAll<HTMLElement>('.color-inputs');
+          colorInputs.forEach((ci, i) => {
+            ci.style.display = (i === 0) ? 'block' : 'none';
           });
-          fontsDropdown.addEventListener('mouseleave', function () {
-            dropdownMenu.style.display = 'none';
+        });
+
+        // Theme button click: set active, update color-picker
+        const themeButtons = document.querySelectorAll<HTMLButtonElement>(".theme-btn");
+        const colorPickerInput = document.querySelector<HTMLInputElement>(".color-picker input[type='color']");
+        const colorPickerSpan = document.querySelector<HTMLSpanElement>(".color-picker span");
+
+        themeButtons.forEach(btn => {
+          btn.addEventListener('click', function () {
+            // Remove active from all
+            themeButtons.forEach(b => b.classList.remove('active'));
+            // Add active to clicked
+            btn.classList.add('active');
+
+            // Get background color from theme button
+            const bgColor = btn.style.backgroundColor;
+
+            // Get theme-title and theme-content colors from inside the button
+            const themeTitleDiv = btn.querySelector('.theme-title') as HTMLElement | null;
+            const themeContentDiv = btn.querySelector('.theme-content') as HTMLElement | null;
+            const themeTitleColor = themeTitleDiv ? themeTitleDiv.style.color : '';
+            const themeContentColor = themeContentDiv ? themeContentDiv.style.color : '';
+
+            // Set color-picker input and span
+            if (colorPickerInput && colorPickerSpan) {
+              function rgbToHex(rgb: string) {
+                if (!rgb) return '#ffffff';
+                if (rgb.startsWith('#')) return rgb;
+                const result = rgb.match(/\d+/g);
+                if (!result) return '#ffffff';
+                return (
+                  '#' +
+                  result
+                    .slice(0, 3)
+                    .map(x => ('0' + parseInt(x).toString(16)).slice(-2))
+                    .join('')
+                );
+              }
+              colorPickerInput.value = rgbToHex(bgColor);
+              colorPickerSpan.textContent = rgbToHex(bgColor).toUpperCase();
+            }
+
+            const newSlide = document.querySelector<HTMLElement>('.new-slide-thumbnail .thumbnail-preview');
+            if (newSlide) {
+              newSlide.style.backgroundColor = bgColor;
+              const newContentIcon = newSlide.querySelector('.new-slide-content > i') as HTMLElement | null;
+              const newContentSpan = newSlide.querySelector('.new-slide-content > span') as HTMLElement | null;
+              if (newContentIcon) newContentIcon.style.color = themeContentColor;
+              if (newContentSpan) newContentSpan.style.color = themeContentColor;
+            }
+            const firstSlide = document.querySelector<HTMLElement>('.slide-thumbnail .thumbnail-preview');
+            if (firstSlide) {
+              firstSlide.style.backgroundColor = bgColor;
+              const firstSlideTitle = firstSlide.querySelector('.thumbnail-content .thumbnail-title') as HTMLElement | null;
+              const firstSlideContent = firstSlide.querySelector('.thumbnail-content .thumbnail-text') as HTMLElement | null;
+
+              firstSlideTitle.style.color = themeTitleColor;
+              firstSlideContent.style.color = themeContentColor;
+            }
+
+            // Set background color of all .slide-content
+            document.querySelectorAll<HTMLElement>('.slide-content').forEach(sc => {
+              sc.style.backgroundColor = bgColor;
+            });
+
+            // Set color of all .slide-title
+            document.querySelectorAll<HTMLInputElement>('.slide-title').forEach(st => {
+              if (themeTitleColor) st.style.color = themeTitleColor;
+            });
+
+            // Set color of all .slide-body
+            document.querySelectorAll<HTMLTextAreaElement>('.slide-body').forEach(sb => {
+              if (themeContentColor) sb.style.color = themeContentColor;
+            });
+          });
+        });
+
+
+        // Sync color input and preview bar colors for account-colors
+        const accountColorsDiv = document.getElementById('account-colors');
+        if (accountColorsDiv) {
+          const colorInputs = accountColorsDiv.querySelectorAll<HTMLInputElement>('input[type="color"]');
+          const textInputs = accountColorsDiv.querySelectorAll<HTMLInputElement>('input[type="text"]');
+
+          colorInputs.forEach((colorInput, idx) => {
+            colorInput.addEventListener('input', function () {
+              // Update the corresponding text input value
+              if (textInputs[idx]) textInputs[idx].value = colorInput.value;
+
+              // Update the bar color in both preview charts
+              // @ts-ignore
+              if (window.exampleChart) {
+                // @ts-ignore
+                window.exampleChart.data.datasets[0].backgroundColor[idx] = colorInput.value;
+                // @ts-ignore
+                window.exampleChart.update();
+              }
+              // @ts-ignore
+              if (window.exampleChart1) {
+                // @ts-ignore
+                window.exampleChart1.data.datasets[0].backgroundColor[idx] = colorInput.value;
+                // @ts-ignore
+                window.exampleChart1.update();
+              }
+            });
           });
         }
 
-          // Show fonts-editor-overlay when clicking the Create New Theme Fonts button
-        const createFontsBtn = document.querySelector<HTMLButtonElement>('#dropdown-fonts-edit-overlay');
-        const fontsOverlay = document.querySelector<HTMLElement>('.fonts-editor-overlay');
-        if (createFontsBtn && fontsOverlay) {
-          createFontsBtn.addEventListener('click', function () {
-            fontsOverlay.style.display = 'block';
+
+        const saveThemeBtn = document.querySelector<HTMLButtonElement>('.btn-save.save-theme');
+        const themeGrid = document.querySelector<HTMLElement>('.theme-grid');
+        const textColorsDiv = document.getElementById('text-colors');
+        const themePickerOverlay = document.getElementById('themePickerOverlay');
+        const themeNameInput = document.querySelector<HTMLInputElement>('.theme-name-input input');
+
+        if (saveThemeBtn && themeGrid && textColorsDiv && themePickerOverlay && themeNameInput) {
+          saveThemeBtn.addEventListener('click', function () {
+            // Get color values from text-colors inputs
+            const colorInputs = textColorsDiv.querySelectorAll<HTMLInputElement>('input[type="color"]');
+            if (colorInputs.length < 2) return; // Need at least two colors
+
+            const titleColor = colorInputs[0].value; // First color input
+            const bgColor = colorInputs[1].value;    // Second color input
+            const themeName = themeNameInput.value || "Custom"; // Get theme name input
+
+            // Create new theme button
+            const btn = document.createElement('button');
+            btn.className = 'theme-btn';
+            btn.style.backgroundColor = bgColor;
+            btn.style.color = titleColor;
+            btn.innerHTML = `
+              <div class="theme-preview">
+                <div class="theme-title" style="color: ${titleColor}">${themeName}</div>
+                <div class="theme-content" style="color: #333">Sample Text</div>
+              </div>
+            `;
+
+            // Add click event to behave like other theme buttons
+            btn.addEventListener('click', function () {
+              document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              // You can add the same logic as your other theme-btn click here if needed
+            });
+
+            // For new buttons (when creating)
+            btn.addEventListener('click', handleThemeBtnClick);
+            themeGrid.appendChild(btn);
+
+            // Close the theme-picker-overlay modal
+            themePickerOverlay.style.display = "none";
           });
-          // Optional: close overlay when clicking the close button inside overlay
-          const closeFontsBtn = fontsOverlay.querySelector<HTMLButtonElement>('.close-button');
-          if (closeFontsBtn) {
-            closeFontsBtn.addEventListener('click', function () {
-              fontsOverlay.style.display = 'none';
+        }
+
+        // Close themePickerOverlay when btn-cancel is clicked inside it
+        const themePickerOverlay = document.getElementById('themePickerOverlay');
+        if (themePickerOverlay) {
+          const cancelBtn = themePickerOverlay.querySelector<HTMLButtonElement>('.btn-cancel');
+          if (cancelBtn) {
+            cancelBtn.addEventListener('click', function () {
+              themePickerOverlay.style.display = 'none';
             });
           }
         }
-      });
-      var xValues = ["Q1", "Q2", "Q3", "Q4"];
-      var yValues1 = [55, 49, 44, 24]; // First bar values
-      var yValues2 = [35, 40, 30, 20]; // Second bar values (example)
-      var barColors1 = "rgb(68, 114, 196)";
-      var barColors2 = "rgb(231, 76, 60)";
 
-      new Chart("bar-chart", {
+        // Sync color input and preview link colors for links-colors
+        const linksColorsDiv = document.getElementById('links-colors');
+        if (linksColorsDiv) {
+          const colorInputs = linksColorsDiv.querySelectorAll<HTMLInputElement>('input[type="color"]');
+          const textInputs = linksColorsDiv.querySelectorAll<HTMLInputElement>('input[type="text"]');
+          // Get all .preview-item > div (the main preview blocks)
+          const previewBlocks = document.querySelectorAll<HTMLElement>('.preview-item > div');
+
+          colorInputs.forEach((colorInput, idx) => {
+            colorInput.addEventListener('input', function () {
+              // Update the corresponding text input value
+              if (textInputs[idx]) textInputs[idx].value = colorInput.value;
+
+              // For each preview block, update the color of the 3rd and 4th divs (Hyperlink and Followed Hyperlink)
+              previewBlocks.forEach(block => {
+                const innerDivs = block.querySelectorAll<HTMLElement>('div');
+                  console.log("inter-div -------->"innerDivs,)
+                // 3rd div (index 2) and 4th div (index 3) are the link color targets
+                if (innerDivs[3 + idx]) {
+                  innerDivs[4 + idx].style.color = colorInput.value;
+                }
+              });
+            });
+          });
+        }
+
+
+      // Store initial values of all color and text inputs in .color-inputs
+      const colorInputsGroups = document.querySelectorAll<HTMLElement>('.color-inputs');
+      const initialInputValues: {color: string[], text: string[]}[] = [];
+
+      colorInputsGroups.forEach(group => {
+        const colorInputs = Array.from(group.querySelectorAll<HTMLInputElement>('input[type="color"]')).map(input => input.value);
+        const textInputs = Array.from(group.querySelectorAll<HTMLInputElement>('input[type="text"]')).map(input => input.value);
+        initialInputValues.push({ color: colorInputs, text: textInputs });
+      });
+
+      // Reset button logic
+      const resetBtn = document.querySelector<HTMLButtonElement>('.btn-reset');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          colorInputsGroups.forEach((group, groupIdx) => {
+            const colorInputs = group.querySelectorAll<HTMLInputElement>('input[type="color"]');
+            const textInputs = group.querySelectorAll<HTMLInputElement>('input[type="text"]');
+            // Restore initial values
+            colorInputs.forEach((input, idx) => {
+              input.value = initialInputValues[groupIdx].color[idx];
+              input.dispatchEvent(new Event('input')); // Trigger input event to update preview
+            });
+            textInputs.forEach((input, idx) => {
+              input.value = initialInputValues[groupIdx].text[idx];
+            });
+          });
+        });
+      }
+
+
+      // Toggle dropdown menu on hover for the theme fonts button
+      const fontsDropdownBtn = document.querySelector<HTMLButtonElement>('.btn.btn-primary.d-flex.align-items-center.gap-1');
+      const dropdownMenu = document.querySelector<HTMLElement>('.dropdown-menu.show.position-absolute');
+
+      if (fontsDropdownBtn && dropdownMenu) {
+        let dropdownTimeout: number | undefined;
+
+        // Show dropdown on button hover
+        fontsDropdownBtn.addEventListener('mouseenter', () => {
+          if (dropdownTimeout) clearTimeout(dropdownTimeout);
+          dropdownMenu.style.display = 'block';
+        });
+
+        // Hide dropdown when mouse leaves button (but wait in case mouse enters menu)
+        fontsDropdownBtn.addEventListener('mouseleave', () => {
+          dropdownTimeout = window.setTimeout(() => {
+            if (!dropdownMenu.matches(':hover')) {
+              dropdownMenu.style.display = 'none';
+            }
+          }, 150);
+        });
+
+        // Keep dropdown open when mouse is over the menu
+        dropdownMenu.addEventListener('mouseenter', () => {
+          if (dropdownTimeout) clearTimeout(dropdownTimeout);
+          dropdownMenu.style.display = 'block';
+        });
+
+        // Hide dropdown when mouse leaves the menu
+        dropdownMenu.addEventListener('mouseleave', () => {
+          dropdownTimeout = window.setTimeout(() => {
+            dropdownMenu.style.display = 'none';
+          }, 150);
+        });
+      }
+
+      // Sync color input and preview background for text-colors
+      const textColorsDiv = document.getElementById('text-colors');
+      if (textColorsDiv) {
+        const colorInputs = textColorsDiv.querySelectorAll<HTMLInputElement>('input[type="color"]');
+        const textInputs = textColorsDiv.querySelectorAll<HTMLInputElement>('input[type="text"]');
+        const previewItems = document.querySelectorAll<HTMLElement>('.preview-item>div');
+
+        colorInputs.forEach((colorInput, idx) => {
+          colorInput.addEventListener('input', function () {
+            // Update the corresponding text input value
+            if (textInputs[idx]) textInputs[idx].value = colorInput.value;
+
+            // Update the background color of the corresponding preview item
+            if (previewItems[idx]) {
+              previewItems[idx].style.backgroundColor = colorInput.value;
+              if (idx === 0) {
+                // Update text color for the first preview item
+                previewItems[idx + 1].style.color = colorInput.value;
+              } 
+              if (idx === 1) {
+                previewItems[idx - 1].style.color = colorInput.value;
+              }
+            }
+          });
+        });
+      }
+
+
+      // Show fonts-editor-overlay modal when dropdown-fonts-edit-overlay is clicked
+      const fontsEditBtn = document.getElementById('dropdown-fonts-edit-overlay');
+      const fontsEditorOverlay = document.querySelector<HTMLElement>('.fonts-editor-overlay');
+
+      if (fontsEditBtn && fontsEditorOverlay) {
+        fontsEditBtn.addEventListener('click', function () {
+          fontsEditorOverlay.style.display = 'block';
+        });
+      }
+
+      // Optional: close the overlay when clicking the close button inside it
+      const fontsEditorCloseBtn = document.querySelector<HTMLButtonElement>('.fonts-editor-overlay .close-button');
+      if (fontsEditorCloseBtn && fontsEditorOverlay) {
+        fontsEditorCloseBtn.addEventListener('click', function () {
+          fontsEditorOverlay.style.display = 'none';
+        });
+      }
+
+      function customTooltip(tooltip) {
+        let tooltipEl = document.getElementById('chartjs-tooltip');
+        if (!tooltipEl) {
+          tooltipEl = document.createElement('div');
+          tooltipEl.id = 'chartjs-tooltip';
+          tooltipEl.className = 'chartjs-tooltip hidden';
+          document.body.appendChild(tooltipEl);
+        }
+
+        // Hide if no tooltip
+        if (tooltip.opacity === 0) {
+          tooltipEl.classList.add('hidden');
+          return;
+        }
+
+        // Set caret Position
+        tooltipEl.classList.remove('hidden');
+
+        if (tooltip.body) {
+          const titleLines = tooltip.title || [];
+          const bodyLines = tooltip.body.map(b => b.lines);
+
+          let innerHtml = '<div>';
+          titleLines.forEach(title => {
+            innerHtml += `<div style="font-weight:bold;margin-bottom:4px;">${title}</div>`;
+          });
+          bodyLines.forEach((body, i) => {
+            const color = tooltip.labelColors[i].backgroundColor;
+            innerHtml += `<div style="margin-bottom:2px;">
+              <span style="display:inline-block;width:10px;height:10px;background:${color};border-radius:2px;margin-right:8px;vertical-align:middle;"></span>
+              ${body}
+            </div>`;
+          });
+          innerHtml += '</div>';
+          tooltipEl.innerHTML = innerHtml;
+        }
+
+        const position = this._chart.canvas.getBoundingClientRect();
+        tooltipEl.style.left = position.left + window.pageXOffset + tooltip.caretX + 'px';
+        tooltipEl.style.top = position.top + window.pageYOffset + tooltip.caretY + 'px';
+      }
+
+      var xValues = ["Q1", "Q2", "Q3", "Q4"];
+      var yValues1 = [65, 45, 75, 55]; // First bar values
+      var yValues2 = [45, 55, 35, 65]; // Second bar values
+      var barColors1 = "rgb(68, 114, 196)";
+      var barColors2 = "rgb(237, 125, 49)";
+      window.barChart = new Chart("bar-chart", {
         type: "bar",
         data: {
           labels: xValues,
           datasets: [
             {
-              label: "Product A",
+              label: "Series 1",
               backgroundColor: barColors1,
               data: yValues1
             },
             {
-              label: "Product B",
+              label: "Series 2",
               backgroundColor: barColors2,
               data: yValues2
             }
@@ -975,12 +1752,194 @@
         },
         options: {
           legend: { display: true },
+          responsive: true,
+          maintainAspectRatio: false,
           title: {
             display: true,
-            text: "World Wine Production 2018"
+            text: "Sales Performance"
+          },
+          tooltips: {
+            enabled: true,
+            callbacks: {
+              title: function(tooltipItems, data) {
+                // Show the label (e.g., Q1)
+                return data.labels[tooltipItems[0].index];
+              },
+              label: function(tooltipItem, data) {
+                // Show both series values for the hovered label
+                const idx = tooltipItem.index;
+                const s1 = data.datasets[0].data[idx];
+                const s2 = data.datasets[1].data[idx];
+                return [
+                  'Series 1: ' + s1,
+                  'Series 2: ' + s2
+                ];
+              }
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                min: 0,
+                max: 80
+              }
+            }]
           }
         }
       });
+
+      const xValuesForLine = ["Jan", "Feb", "Mar", "Apr", "May"];
+
+      window.lineChart = new Chart("line-chart", {
+        type: "line",
+        data: {
+          labels: xValuesForLine,
+          datasets: [{
+            label: "Series 1",
+            data: [40, 45, 55, 60, 75],
+            borderColor: barColors1,
+            fill: false
+          },{
+            label: "Series 2",
+            data: [30, 50, 45, 65, 70],
+            borderColor: barColors2,
+            fill: false
+          }]
+        },
+
+        options: {
+          legend: { display: true },
+          responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: "Monthly trends"
+          },
+            tooltips: {
+              enabled: true,
+              callbacks: {
+                title: function(tooltipItems, data) {
+                  // Show the label (e.g., Q1)
+                  return data.labels[tooltipItems[0].index];
+                },
+                label: function(tooltipItem, data) {
+                  // Show both series values for the hovered label
+                  const idx = tooltipItem.index;
+                  const s1 = data.datasets[0].data[idx];
+                  const s2 = data.datasets[1].data[idx];
+                  return [
+                    'Series 1: ' + s1,
+                    'Series 2: ' + s2
+                  ];
+                }
+              }
+            },
+          scales: {
+            yAxes: [{
+              ticks: {
+                min: 0,
+                max: 80,
+                stepSize: 20 // 0, 20, 40, 60, 80 (4 steps)
+              }
+            }]
+          }
+        }
+      });
+
+      var xValuesForPie = ["Product A", "Product B", "Product C", "Product D", "Product E"];
+        var yValuesForPie = [35, 25, 20, 15, 5];
+        var barColorsForPie = [
+          "rgb(68, 114, 196)",
+          "rgb(237, 125, 49)",
+          "rgb(165, 165, 165)",
+          "rgb(255, 192, 0)",
+          "rgb(91, 155, 213)"
+        ];
+
+        window.pieChart = new Chart("pie-chart", {
+          type: "pie",
+          data: {
+            labels: xValuesForPie,
+            datasets: [{
+              backgroundColor: barColorsForPie,
+              data: yValuesForPie
+            }]
+          },
+          tooltips: {
+            enabled: false, // Disable the default tooltip
+            custom: customTooltip,
+            mode: 'index',
+            intersect: false,
+            animation: {
+              duration: 200
+            }
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: "Market Distribution"
+            }
+          }
+        });
+
+        var yValuesForExample = [10, 20, 30, 25, 15, 5];
+
+        var barColorsForExample = ["#4472C4", "#ED7D31","#A5A5A5","#FFC000","#5B9BD5", "#70AD47"];
+
+        window.exampleChart = new Chart("example-chart", {
+          type: "bar",
+          data: {
+            labels: ["A", "B", "C", "D", "E", "F"],
+            datasets: [{
+              backgroundColor: barColorsForExample,
+              data: yValuesForExample
+            }]
+          },
+          options: {
+            legend: { display: false },
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: { enabled: false },   // disable tooltip
+            scales: {
+              xAxes: [{
+                display: false,            // Hide x-axis
+                gridLines: { display: false }
+              }],
+              yAxes: [{
+                display: false,            // Hide y-axis
+                gridLines: { display: false }
+              }]
+            }
+          }
+        });
+        window.exampleChart1 = new Chart("example-chart-1", {
+          type: "bar",
+          data: {
+            labels: ["A", "B", "C", "D", "E", "F"],
+            datasets: [{
+              backgroundColor: barColorsForExample,
+              data: yValuesForExample
+            }]
+          },
+          options: {
+            legend: { display: false },
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: { enabled: false },   // disable tooltip
+            scales: {
+              xAxes: [{
+                display: false,            // Hide x-axis
+                gridLines: { display: false }
+              }],
+              yAxes: [{
+                display: false,            // Hide y-axis
+                gridLines: { display: false }
+              }]
+            }
+          }
+        });
     </script>
     <script>
       // Transpile TypeScript to JavaScript

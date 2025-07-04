@@ -231,8 +231,43 @@
       padding: 20px;
     }
   }
-  div.card-body {
-    width: 373px;
-    height: 366px;
-  }
-  
+.card-body {
+  height: 364px; /* or any height you prefer */
+  width: 370px;
+  position: relative;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.chart-container {
+  height: 100%;
+  min-height: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-container canvas {
+  width: 90% !important;
+  height: 90% !important;
+  display: block;
+}
+
+.fonts-editor-body input,
+.fonts-editor-body select {
+  background-color: #212529 !important;
+  color: #fff !important;
+  border: none;
+}
+
+.fonts-editor-body input::placeholder {
+  color: #e2e8f0 !important;
+  opacity: 1;
+}
+
+.dropdown-menu.show.position-absolute {
+  min-width: 250px;
+  max-width: 320px;
+  width: 280px; /* Set your desired fixed width */
+}
