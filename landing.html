@@ -1213,8 +1213,9 @@ Breakdown of market share across different products.
                               <div class="d-flex align-items-center gap-2">
                                 <input
                                   class="form-control form-control-color"
+                                  id="slide-background-color"
                                   type="color"
-                                  value="#f0f3f4"
+                                  value="#ffffff"
                                   style="width: 50px; height: 38px"
                                 />
                                 <div
@@ -1222,7 +1223,7 @@ Breakdown of market share across different products.
                                   style="
                                     width: 30px;
                                     height: 30px;
-                                    background-color: rgb(240, 243, 244);
+                                    background-color: #ffffff;
                                     border: 1px solid rgb(221, 221, 221);
                                     border-radius: 4px;
                                   "
@@ -1233,7 +1234,7 @@ Breakdown of market share across different products.
                               <input
                                 class="font-monospace form-control"
                                 type="text"
-                                value="#f0f3f4"
+                                value="#ffffff"
                                 style="font-size: 0.875rem"
                               />
                             </div>
@@ -1250,7 +1251,8 @@ Breakdown of market share across different products.
                                 <input
                                   class="form-control form-control-color"
                                   type="color"
-                                  value="#c25b5b"
+                                  id="title-color"
+                                  value="#000000"
                                   style="width: 50px; height: 38px"
                                 />
                                 <div
@@ -1258,7 +1260,7 @@ Breakdown of market share across different products.
                                   style="
                                     width: 30px;
                                     height: 30px;
-                                    background-color: rgb(194, 91, 91);
+                                    background-color: #000000;
                                     border: 1px solid rgb(221, 221, 221);
                                     border-radius: 4px;
                                   "
@@ -1269,7 +1271,7 @@ Breakdown of market share across different products.
                               <input
                                 class="font-monospace form-control"
                                 type="text"
-                                value="#c25b5b"
+                                value="#000000"
                                 style="font-size: 0.875rem"
                               />
                             </div>
@@ -1287,7 +1289,7 @@ Breakdown of market share across different products.
                                 <input
                                   class="form-control form-control-color"
                                   type="color"
-                                  value="#2c3e50"
+                                  value="#333333"
                                   style="width: 50px; height: 38px"
                                 />
                                 <div
@@ -1295,7 +1297,7 @@ Breakdown of market share across different products.
                                   style="
                                     width: 30px;
                                     height: 30px;
-                                    background-color: rgb(44, 62, 80);
+                                    background-color: #333333;
                                     border: 1px solid rgb(221, 221, 221);
                                     border-radius: 4px;
                                   "
@@ -1306,7 +1308,7 @@ Breakdown of market share across different products.
                               <input
                                 class="font-monospace form-control"
                                 type="text"
-                                value="#2c3e50"
+                                value="#333333"
                                 style="font-size: 0.875rem"
                               />
                             </div>
@@ -1577,8 +1579,9 @@ Breakdown of market share across different products.
                               <div class="d-flex align-items-center gap-2">
                                 <input
                                   class="form-control form-control-color"
+                                  id="primary-text"
                                   type="color"
-                                  value="#c25b5b"
+                                  value="#44546A"
                                   style="width: 50px; height: 38px"
                                 />
                                 <div
@@ -1586,7 +1589,7 @@ Breakdown of market share across different products.
                                   style="
                                     width: 30px;
                                     height: 30px;
-                                    background-color: rgb(194, 91, 91);
+                                    background-color: #44546A;
                                     border: 1px solid rgb(221, 221, 221);
                                     border-radius: 4px;
                                   "
@@ -1597,7 +1600,7 @@ Breakdown of market share across different products.
                               <input
                                 class="font-monospace form-control"
                                 type="text"
-                                value="#c25b5b"
+                                value="#44546A"
                                 style="font-size: 0.875rem"
                               />
                             </div>
@@ -1613,6 +1616,7 @@ Breakdown of market share across different products.
                               <div class="d-flex align-items-center gap-2">
                                 <input
                                   class="form-control form-control-color"
+                                  id="primary-color"
                                   type="color"
                                   value="#FFFFFF"
                                   style="width: 50px; height: 38px"
@@ -2003,7 +2007,7 @@ Breakdown of market share across different products.
                     <form class="">
                       <div class="mb-3">
                         <label class="form-label">Title Font</label
-                        ><select class="form-select">
+                        ><select class="form-select" id="titleFontForEdit">
                           <option value="Arial">Arial</option>
                           <option value="Helvetica">Helvetica</option>
                           <option value="Times New Roman">
@@ -2016,7 +2020,7 @@ Breakdown of market share across different products.
                       </div>
                       <div>
                         <label class="form-label">Body Font</label
-                        ><select class="form-select">
+                        ><select class="form-select" id="bodyFontForEdit">
                           <option value="Calibri">Calibri</option>
                           <option value="Arial">Arial</option>
                           <option value="Georgia">Georgia</option>
@@ -2375,6 +2379,654 @@ Breakdown of market share across different products.
 
     <script type="text/typescript">
       document.addEventListener("DOMContentLoaded", function () {
+
+          // Sync #primary-text <-> #title-color
+          const primaryTextInput = document.getElementById('primary-text') as HTMLInputElement | null;
+          const titleColorInput = document.getElementById('title-color') as HTMLInputElement | null;
+
+          if (primaryTextInput && titleColorInput) {
+            // When #primary-text changes, update #title-color
+            primaryTextInput.addEventListener('input', function () {
+              titleColorInput.value = primaryTextInput.value;
+              titleColorInput.dispatchEvent(new Event('input'));
+            });
+            // When #title-color changes, update #primary-text
+            titleColorInput.addEventListener('input', function () {
+              primaryTextInput.value = titleColorInput.value;
+              primaryTextInput.dispatchEvent(new Event('input'));
+            });
+          }
+
+
+            // Sync #slide-background-color <-> #primary-color
+            const slideBgInput = document.getElementById('slide-background-color') as HTMLInputElement | null;
+            const primaryColorInput = document.getElementById('primary-color') as HTMLInputElement | null;
+
+            if (slideBgInput && primaryColorInput) {
+              // When #slide-background-color changes, update #primary-color
+              slideBgInput.addEventListener('input', function () {
+                primaryColorInput.value = slideBgInput.value;
+                primaryColorInput.dispatchEvent(new Event('input'));
+              });
+              // When #primary-color changes, update #slide-background-color
+              primaryColorInput.addEventListener('input', function () {
+                slideBgInput.value = primaryColorInput.value;
+                slideBgInput.dispatchEvent(new Event('input'));
+              });
+            }
+
+
+        // 1. Define the theme type and array
+        type Theme = {
+          name: string;
+          titleFont: string;
+          bodyFont: string;
+          background: string;
+          titleColor: string;
+          contentColor: string;
+          colors: {
+            background: string;
+            titleColor: string;
+            contentColor: string;
+            textDark1: string;
+            textLight1: string;
+            textDark2: string;
+            textLight2: string;
+            accent1: string;
+            accent2: string;
+            accent3: string;
+            accent4: string;
+            accent5: string;
+            accent6: string;
+            hyperlink: string;
+            followedHyperlink: string;
+          };
+          logo: string | null;
+        };
+
+        const themes: Theme[] = [];
+
+        // 2. Example default theme object (copy from your JSON)
+        const defaultTheme: Theme = {
+          name: "Default",
+          background: "rgb(255, 255, 255)",
+          titleFont: "Arial",
+          bodyFont: "Calibri",
+          titleColor: "rgb(0, 0, 0)",
+          contentColor: "rgb(51, 51, 51)",
+          colors: {
+            background: "#f0f3f4",
+            titleColor: "#c25b5b",
+            contentColor: "#2c3e50",
+            textDark1: "#c25b5b",
+            textLight1: "#ffffff",
+            textDark2: "#44546a",
+            textLight2: "#e7e6e6",
+            accent1: "#4472c4",
+            accent2: "#ed7d31",
+            accent3: "#a5a5a5",
+            accent4: "#ffc000",
+            accent5: "#5b9bd5",
+            accent6: "#70ad47",
+            hyperlink: "#0563c1",
+            followedHyperlink: "#954f72"
+          },
+          logo: null
+        };
+
+        // 3. Push default theme on load (optional)
+        themes.push(defaultTheme);
+
+        // 4. Add new theme when new-slide-thumbnail is clicked
+        const newSlideBtn = document.querySelector<HTMLDivElement>(".new-slide-thumbnail");
+        if (newSlideBtn) {
+          newSlideBtn.addEventListener("click", function () {
+            // Find the active slide-thumbnail index
+            const slideThumbnails = Array.from(document.querySelectorAll('.slide-thumbnail'));
+            const activeIdx = slideThumbnails.findIndex(t => t.classList.contains('active'));
+            // Use the theme of the active slide, or defaultTheme if none active
+            const baseTheme = themes[activeIdx] ? JSON.parse(JSON.stringify(themes[activeIdx])) : JSON.parse(JSON.stringify(defaultTheme));
+            baseTheme.name = `Theme ${themes.length + 1}`;
+            themes.push(baseTheme);
+            setSlideClickHandlers(); // Re-attach handlers if needed
+          });
+        }
+
+
+        function setSlideClickHandlers() {
+          const slideThumbnails = document.querySelectorAll('.slide-thumbnail');
+          const slideContents = document.querySelectorAll<HTMLElement>('.slide-content');
+          slideThumbnails.forEach((thumb, idx) => {
+            thumb.addEventListener('click', function () {
+              // Set active class
+              slideThumbnails.forEach(t => t.classList.remove('active'));
+              thumb.classList.add('active');
+              updatePagination();
+
+              // Get the theme object for this slide
+              const theme = themes[idx] || themes[0];
+
+              // Apply theme to all .slide-content elements
+              slideContents.forEach(sc => {
+                // Background
+                sc.style.backgroundColor = theme.background;
+
+                // Title (input or editable div)
+                const titleInput = sc.querySelector<HTMLInputElement>('.slide-title');
+                const editableTitle = sc.querySelector<HTMLElement>('.editable-title');
+                if (titleInput) {
+                  titleInput.style.color = theme.titleColor;
+                  titleInput.style.fontFamily = theme.titleFont;
+                }
+                if (editableTitle) {
+                  editableTitle.style.color = theme.titleColor;
+                  editableTitle.style.fontFamily = theme.titleFont;
+                }
+
+                // Content (textarea or editable div)
+                const bodyTextarea = sc.querySelector<HTMLTextAreaElement>('.slide-body');
+                const editableContent = sc.querySelector<HTMLElement>('.editable-content');
+                if (bodyTextarea) {
+                  bodyTextarea.style.color = theme.contentColor;
+                  bodyTextarea.style.fontFamily = theme.bodyFont;
+                }
+                if (editableContent) {
+                  editableContent.style.color = theme.contentColor;
+                  editableContent.style.fontFamily = theme.bodyFont;
+                }
+              });
+              // Update chart colors to match theme accents
+              if (window.barChart && window.barChart.data && window.barChart.data.datasets) {
+                // Bar chart: use accent1, accent2, etc.
+                const barDatasets = window.barChart.data.datasets;
+                if (barDatasets[0]) barDatasets[0].backgroundColor = theme.colors.accent1 || "#4472c4";
+                if (barDatasets[1]) barDatasets[1].backgroundColor = theme.colors.accent2 || "#ed7d31";
+                window.barChart.update();
+              }
+              if (window.barChartOnEdit && window.barChartOnEdit.data && window.barChartOnEdit.data.datasets) {
+                const barEditDatasets = window.barChartOnEdit.data.datasets;
+                if (barEditDatasets[0]) barEditDatasets[0].backgroundColor = theme.colors.accent1 || "#4472c4";
+                if (barEditDatasets[1]) barEditDatasets[1].backgroundColor = theme.colors.accent2 || "#ed7d31";
+                window.barChartOnEdit.update();
+              }
+              if (window.lineChart && window.lineChart.data && window.lineChart.data.datasets) {
+                // Line chart: use accent1, accent2 for borderColor
+                const lineDatasets = window.lineChart.data.datasets;
+                if (lineDatasets[0]) lineDatasets[0].borderColor = theme.colors.accent1 || "#4472c4";
+                if (lineDatasets[1]) lineDatasets[1].borderColor = theme.colors.accent2 || "#ed7d31";
+                window.lineChart.update();
+              }
+              if (window.lineChartOnEdit && window.lineChartOnEdit.data && window.lineChartOnEdit.data.datasets) {
+                const lineEditDatasets = window.lineChartOnEdit.data.datasets;
+                if (lineEditDatasets[0]) lineEditDatasets[0].borderColor = theme.colors.accent1 || "#4472c4";
+                if (lineEditDatasets[1]) lineEditDatasets[1].borderColor = theme.colors.accent2 || "#ed7d31";
+                window.lineChartOnEdit.update();
+              }
+              if (window.pieChart && window.pieChart.data && window.pieChart.data.datasets[0]) {
+                // Pie chart: use accent1~accent6
+                window.pieChart.data.datasets[0].backgroundColor = [
+                  theme.colors.accent1 || "#4472c4",
+                  theme.colors.accent2 || "#ed7d31",
+                  theme.colors.accent3 || "#a5a5a5",
+                  theme.colors.accent4 || "#ffc000",
+                  theme.colors.accent5 || "#5b9bd5",
+                  theme.colors.accent6 || "#70ad47"
+                ];
+                window.pieChart.update();
+              }
+              if (window.pieChartOnEdit && window.pieChartOnEdit.data && window.pieChartOnEdit.data.datasets[0]) {
+                window.pieChartOnEdit.data.datasets[0].backgroundColor = [
+                  theme.colors.accent1 || "#4472c4",
+                  theme.colors.accent2 || "#ed7d31",
+                  theme.colors.accent3 || "#a5a5a5",
+                  theme.colors.accent4 || "#ffc000",
+                  theme.colors.accent5 || "#5b9bd5",
+                  theme.colors.accent6 || "#70ad47"
+                ];
+                window.pieChartOnEdit.update();
+              }
+            });
+          });
+          
+        }
+
+
+        function setEditButtonHandlers() {
+        // Show settingModal above staticBackdrop when edit-button is clicked
+        document.querySelectorAll<HTMLButtonElement>('.edit-button').forEach(btn => {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Show settingModal
+            const settingModal = document.getElementById('settingModal');
+              // Sync color input changes in #colors-form
+              const colorsForm = document.getElementById('colors-form');
+              if (colorsForm) {
+                // For every color input in colors-form
+                colorsForm.querySelectorAll<HTMLInputElement>('input[type="color"]').forEach(colorInput => {
+                  colorInput.addEventListener('input', function () {
+                    // Set background of next .color-preview
+                    const colorPreview = colorInput.parentElement?.querySelector<HTMLElement>('.color-preview');
+                    if (colorPreview) {
+                      colorPreview.style.backgroundColor = colorInput.value;
+                    }
+                    // Set value of input[type="text"] in the next sibling div of the parent of parent
+                    const parentDiv = colorInput.parentElement?.parentElement;
+                    const nextDiv = parentDiv?.nextElementSibling as HTMLElement | null;
+                    const textInput = nextDiv?.querySelector<HTMLInputElement>('input[type="text"]');
+                    if (textInput) {
+                      textInput.value = colorInput.value;
+                    }
+                  });
+                });
+
+                // Sync font-family when selects in fonts-form change
+                const fontsForm = document.getElementById('fonts-form');
+                if (fontsForm) {
+                  const selects = fontsForm.querySelectorAll<HTMLSelectElement>('select.form-select');
+                  // 1. Title font
+                  if (selects[0]) {
+                    selects[0].addEventListener('change', function () {
+                      const font = selects[0].value;
+                      document.querySelectorAll<HTMLElement>('.editable-title').forEach(el => {
+                        el.style.fontFamily = font;
+                      });
+                      document.querySelectorAll<HTMLInputElement>('.slide-title').forEach(el => {
+                        el.style.fontFamily = font;
+                      });
+                    });
+                  }
+                  // 2. Body font
+                  if (selects[1]) {
+                    selects[1].addEventListener('change', function () {
+                      const font = selects[1].value;
+                      document.querySelectorAll<HTMLElement>('.editable-content').forEach(el => {
+                        el.style.fontFamily = font;
+                      });
+                      document.querySelectorAll<HTMLTextAreaElement>('.slide-body').forEach(el => {
+                        el.style.fontFamily = font;
+                      });
+                    });
+                  }
+                }
+
+                  // Slide size logic
+                  const generalForm = document.getElementById('general-form');
+                  const previewSizeInfo = document.querySelector<HTMLElement>('.preview-size-info');
+                  const slideContent = document.querySelector<HTMLElement>('.slide-content');
+                    console.log('slide-content', slideContent)
+                  if (generalForm && previewSizeInfo && slideContent) {
+                    const select = generalForm.querySelector<HTMLSelectElement>('select.mb-2.form-select');
+                    const customSizeDiv = generalForm.querySelector<HTMLDivElement>('.gap-3.mt-2');
+                    if (select && customSizeDiv) {
+                      const widthInput = customSizeDiv.querySelectorAll<HTMLInputElement>('input')[0];
+                      const heightInput = customSizeDiv.querySelectorAll<HTMLInputElement>('input')[1];
+
+                      // Helper to update slide-content height
+                      function updateSlideContentHeight() {
+                        const width = Number(widthInput.value);
+                        let height = 0;
+                        if (select.value === 'standard') {
+                          height = Math.round(width / 4 * 3);
+                        } else if (select.value === 'widescreen') {
+                          height = Math.round(width / 16 * 9);
+                        } else if (select.value === 'custom') {
+                          const customWidth = Number(widthInput.value);
+                          const customHeight = Number(heightInput.value);
+                          if (customWidth > 0 && customHeight > 0) {
+                            height = Math.round(width / customWidth * customHeight);
+                          }
+                        }
+                        if (height > 0) {
+                          slideContent.style.height = `${height}px`;
+                        }
+                      }
+
+                      // Helper to update preview-size-info text
+                      function updatePreviewSizeInfo() {
+                        const w = widthInput.value;
+                        const h = heightInput.value;
+                        previewSizeInfo.textContent = `${w} x ${h}px`;
+                      }
+
+                      // On select change
+                      select.addEventListener('change', function () {
+                        updateSlideContentHeight();
+                      });
+
+                      // On width/height input change
+                      widthInput.addEventListener('input', function () {
+                        updateSlideContentHeight();
+                        updatePreviewSizeInfo();
+                      });
+                      heightInput.addEventListener('input', function () {
+                        updateSlideContentHeight();
+                        updatePreviewSizeInfo();
+                      });
+
+                      // Initial set
+                      updateSlideContentHeight();
+                      updatePreviewSizeInfo();
+                    }
+                  }
+
+                    // Get the forth mb-4 card (Accent Colors)
+                  const accentColorsCard = colorsForm.querySelectorAll('.mb-4.card')[3];
+                  if (accentColorsCard) {
+                    const colorInputs = accentColorsCard.querySelectorAll<HTMLInputElement>('input[type="color"]');
+                    colorInputs.forEach((colorInput, idx) => {
+                      colorInput.addEventListener('input', function () {
+                        // Update bar chart colors (exampleChart, exampleChart1, barChart, barChartOnEdit)
+                        const colorValue = colorInput.value;
+
+                        // Update exampleChart and exampleChart1 (preview bar charts)
+                        if (window.exampleChart && window.exampleChart.data && window.exampleChart.data.datasets[0].backgroundColor) {
+                          window.exampleChart.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.exampleChart.update();
+                        }
+                        if (window.exampleChart1 && window.exampleChart1.data && window.exampleChart1.data.datasets[0].backgroundColor) {
+                          window.exampleChart1.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.exampleChart1.update();
+                        }
+
+                        // Update pieChart and pieChartOnEdit (preview pie charts)
+                        if (window.pieChart && window.pieChart.data && window.pieChart.data.datasets[0].backgroundColor) {
+                          console.log('1------------------->', window.pieChart.data.datasets[0].backgroundColor[idx])
+                          window.pieChart.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.pieChart.update();
+                        }
+                        if (window.pieChartOnEdit && window.pieChartOnEdit.data && window.pieChartOnEdit.data.datasets[0].backgroundColor) {
+                          
+                          window.pieChartOnEdit.data.datasets[0].backgroundColor[idx] = colorValue;
+                          window.pieChartOnEdit.update();
+                        }
+
+                      
+                        // Update barChart and barChartOnEdit (main bar charts, if you want to sync them)
+                        if (window.barChart && window.barChart.data && window.barChart.data.datasets[idx].backgroundColor) {
+                          window.barChart.data.datasets[idx].backgroundColor = colorValue;
+                          window.barChart.update();
+                        }
+                        if (window.barChartOnEdit && window.barChartOnEdit.data && window.barChartOnEdit.data.datasets[idx].backgroundColor) {
+                          window.barChartOnEdit.data.datasets[idx].backgroundColor = colorValue;
+                          window.barChartOnEdit.update();
+                        }
+
+                        // Update lineChart and lineChartOnEdit (lines color)
+                        if (window.lineChart && window.lineChart.data && window.lineChart.data.datasets[idx]) {
+                          window.lineChart.data.datasets[idx].borderColor = colorValue;
+                          window.lineChart.update();
+                        }
+                        if (window.lineChartOnEdit && window.lineChartOnEdit.data && window.lineChartOnEdit.data.datasets[idx]) {
+                          window.lineChartOnEdit.data.datasets[idx].borderColor = colorValue;
+                          window.lineChartOnEdit.update();
+                        }
+                      });
+                    });
+                  }
+              }
+              if (colorsForm) {
+              // Get the first mb-4 card (Slide Colors)
+              const slideColorsCard = colorsForm.querySelector('.mb-4.card');
+              if (slideColorsCard) {
+                const colorInputs = slideColorsCard.querySelectorAll<HTMLInputElement>('input[type="color"]');
+                // 1. Background color (first input)
+                if (colorInputs[0]) {
+                  colorInputs[0].addEventListener('input', function () {
+                    document.querySelectorAll<HTMLElement>('.slide-content').forEach(sc => {
+                      sc.style.backgroundColor = colorInputs[0].value;
+                    });
+                    const activeThumb = document.querySelector('.slide-thumbnail.active .thumbnail-preview') as HTMLElement | null;
+                    if (activeThumb) {
+                      activeThumb.style.backgroundColor = colorInputs[0].value;
+                    }
+                  });
+                }
+                // 2. Title color (second input)
+                if (colorInputs[1]) {
+                  colorInputs[1].addEventListener('input', function () {
+                    document.querySelector<HTMLInputElement>('#primary-text').value = colorInputs[1].value;
+                    document.querySelectorAll<HTMLElement>('.editable-title').forEach(title => {
+                      title.style.color = colorInputs[1].value;
+                    });
+                    document.querySelectorAll<HTMLElement>('.slide-title').forEach(title => {
+                      title.style.color = colorInputs[1].value;
+                    });
+                    const activeTitle = document.querySelector('.slide-thumbnail.active .thumbnail-title') as HTMLElement | null;
+                    if (activeTitle) {
+                      activeTitle.style.color = colorInputs[1].value;
+                    }
+                  });
+                }
+                // 3. Content color (third input)
+                if (colorInputs[2]) {
+                  colorInputs[2].addEventListener('input', function () {
+                    document.querySelectorAll<HTMLElement>('.editable-content').forEach(content => {
+                      content.style.color = colorInputs[2].value;
+                    });
+                    document.querySelectorAll<HTMLElement>('.slide-body').forEach(title => {
+                      title.style.color = colorInputs[1].value;
+                    });
+                    const activeContent = document.querySelector('.slide-thumbnail.active .thumbnail-text') as HTMLElement | null;
+                    if (activeContent) {
+                      activeContent.style.color = colorInputs[2].value;
+                    }
+                  });
+                }
+              }
+            }
+
+              // Save Settings button in settingModal: close settingModal and show staticBackdrop
+              const settingModal = document.getElementById('settingModal');
+              const staticBackdrop = document.getElementById('staticBackdrop');
+              if (settingModal && staticBackdrop) {
+                const saveBtn = settingModal.querySelector<HTMLButtonElement>('.modal-footer .btn.btn-primary');
+                if (saveBtn) {
+                  saveBtn.addEventListener('click', function () {
+                    // Use Bootstrap's modal API if available
+                    // @ts-ignore
+                    if (window.bootstrap && window.bootstrap.Modal) {
+                      // Hide settingModal
+                      // @ts-ignore
+                      const bsModal = window.bootstrap.Modal.getOrCreateInstance(settingModal);
+                      bsModal.hide();
+
+                      // Show staticBackdrop
+                      // @ts-ignore
+                      const staticBackdropModal = window.bootstrap.Modal.getOrCreateInstance(staticBackdrop);
+                      staticBackdropModal && staticBackdropModal.show();
+                    } else {
+                      // Fallback: manual show/hide
+                      settingModal.style.display = 'none';
+                      settingModal.classList.remove('show');
+                      settingModal.setAttribute('aria-hidden', 'true');
+                      staticBackdrop.style.display = 'block';
+                      staticBackdrop.classList.add('show');
+                      staticBackdrop.removeAttribute('aria-hidden');
+                    }
+                  });
+                }
+              }
+
+
+              const logoInput = document.querySelector<HTMLInputElement>('input[type="file"]');
+              const logoPreview = document.querySelector<HTMLElement>('.logo-preview');
+              const logoPositionSelect = logoInput?.closest('.d-flex')?.parentElement?.querySelector('select.form-select');
+              const previewWrappers = document.querySelectorAll<HTMLElement>('.preview-wrapper');
+              const slideContents = document.querySelectorAll<HTMLElement>('.slide-content.mb-4');
+
+              // Helper to update logo position class for all logo images in preview
+              function updateLogoPositionClass(position: string) {
+                previewWrappers.forEach(wrapper => {
+                  const logoDiv = wrapper.querySelector('.logo-container');
+                  if (logoDiv) {
+                    logoDiv.className = `logo-container logo-${position}`;
+                  }
+                });
+                slideContents.forEach(content => {
+                  const logoDiv = content.querySelector('.logo-container');
+                  if (logoDiv) {
+                    logoDiv.className = `logo-container logo-${position}`;
+                  }
+                });
+              }
+
+              if (logoInput && logoPreview && logoPositionSelect && previewWrappers.length > 0 && slideContents.length > 0) {
+                logoInput.addEventListener('change', function () {
+                  const file = logoInput.files && logoInput.files[0];
+                  if (!file) return;
+
+                  const reader = new FileReader();
+                  reader.onload = function (event) {
+                    const base64 = event.target?.result as string;
+                    // Show image in logo-preview
+                    logoPreview.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:100%;max-height:100%;">`;
+
+                    // Remove any existing logo-container in all preview-wrappers
+                    previewWrappers.forEach(wrapper => {
+                      const oldLogo = wrapper.querySelector('.logo-container');
+                      if (oldLogo) oldLogo.remove();
+
+                      // Get logo position (default to top-left if not found)
+                      const posValue = logoPositionSelect.value || 'top-left';
+                      const logoDiv = document.createElement('div');
+                      logoDiv.className = `logo-container logo-${posValue}`;
+                      logoDiv.style.position = 'absolute';
+                      // You can add more position logic here if needed
+                      logoDiv.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:80px;max-height:80px;">`;
+                      wrapper.prepend(logoDiv);
+                    });
+                    // Remove any existing logo-container in all slide-contents
+                    slideContents.forEach(wrapper => {
+                      const oldLogo = wrapper.querySelector('.logo-container');
+                      if (oldLogo) oldLogo.remove();
+
+                      // Get logo position (default to top-left if not found)
+                      const posValue = logoPositionSelect.value || 'top-left';
+                      const logoDiv = document.createElement('div');
+                      logoDiv.className = `logo-container logo-${posValue}`;
+                      logoDiv.style.position = 'absolute';
+                      // You can add more position logic here if needed
+                      logoDiv.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:80px;max-height:80px;">`;
+                      wrapper.prepend(logoDiv);
+                    });
+                  };
+                  reader.readAsDataURL(file);
+                });
+
+                // When logo position select changes, update class for all logo images in preview
+                logoPositionSelect.addEventListener('change', function () {
+                  const posValue = logoPositionSelect.value || 'top-left';
+                  updateLogoPositionClass(posValue);
+                });
+              }
+
+            if (settingModal) {
+              // Use Bootstrap's modal API if available
+              // @ts-ignore
+              if (window.bootstrap && window.bootstrap.Modal) {
+                // Hide staticBackdrop but keep it in DOM
+                // @ts-ignore
+                const staticBackdropModal = window.bootstrap.Modal.getOrCreateInstance(document.getElementById('staticBackdrop'));
+                staticBackdropModal && staticBackdropModal.hide();
+
+                // Show settingModal
+                // @ts-ignore
+                const bsModal = window.bootstrap.Modal.getOrCreateInstance(settingModal);
+                bsModal.show();
+              } else {
+                // Fallback: manual show/hide
+                settingModal.style.display = 'block';
+                settingModal.classList.add('show');
+                settingModal.removeAttribute('aria-hidden');
+              }
+            }
+          });
+        });
+      }
+
+        const settingModalSaveBtn = document.querySelector<HTMLButtonElement>('#settingModal .btn.btn-primary');
+        if (settingModalSaveBtn) {
+          settingModalSaveBtn.addEventListener('click', function () {
+            // Find the active slide-thumbnail index
+            const slideThumbnails = Array.from(document.querySelectorAll('.slide-thumbnail'));
+            const activeIdx = slideThumbnails.findIndex(t => t.classList.contains('active'));
+            if (activeIdx === -1) return;
+
+            // Gather values from inputs in settingModal
+            // Theme name
+            const themeNameInput = document.querySelector<HTMLInputElement>('#themeName');
+            const themeName = themeNameInput?.value || `Theme ${activeIdx + 1}`;
+
+            // Fonts
+            const titleFontSelect = document.querySelector<HTMLSelectElement>('#titleFontForEdit');
+            const bodyFontSelect = document.querySelector<HTMLSelectElement>('#bodyFontForEdit');
+            const titleFont = titleFontSelect?.value || "Arial";
+            const bodyFont = bodyFontSelect?.value || "Calibri";
+
+            // Colors (from colors-form)
+            const colorsForm = document.getElementById('colors-form');
+            let themeColors: any = {};
+            if (colorsForm) {
+              const colorInputs = colorsForm.querySelectorAll<HTMLInputElement>('input[type="color"]');
+              const colorKeys = [
+                "background", "titleColor", "contentColor",
+                "textDark1", "textLight1", "textDark2", "textLight2",
+                "accent1", "accent2", "accent3", "accent4", "accent5", "accent6",
+                "hyperlink", "followedHyperlink"
+              ];
+              colorInputs.forEach((input, i) => {
+                if (colorKeys[i]) themeColors[colorKeys[i]] = input.value;
+              });
+            }
+
+            // Main colors
+            const background = themeColors.background || "#ffffff";
+            const titleColor = themeColors.titleColor || "#000000";
+            const contentColor = themeColors.contentColor || "#333333";
+
+            // Update the theme object in the array
+            themes[activeIdx] = {
+              ...themes[activeIdx],
+              name: themeName,
+              background,
+              titleFont,
+              bodyFont,
+              titleColor,
+              contentColor,
+              colors: themeColors,
+              logo: themes[activeIdx]?.logo || null
+            };
+            console.log('theme-------------->', themes[activeIdx])
+            // Optionally, update all .slide-content styles immediately
+            document.querySelectorAll<HTMLElement>('.slide-content').forEach(sc => {
+              sc.style.backgroundColor = background;
+              const title = sc.querySelector<HTMLInputElement>('.slide-title');
+              if (title) {
+                title.style.color = titleColor;
+                title.style.fontFamily = titleFont;
+              }
+              const editableTitle = sc.querySelector<HTMLElement>('.editable-title');
+              if (editableTitle) {
+                editableTitle.style.color = titleColor;
+                editableTitle.style.fontFamily = titleFont;
+              }
+              const body = sc.querySelector<HTMLTextAreaElement>('.slide-body');
+              if (body) {
+                body.style.color = contentColor;
+                body.style.fontFamily = bodyFont;
+              }
+              const editableContent = sc.querySelector<HTMLElement>('.editable-content');
+              if (editableContent) {
+                editableContent.style.color = contentColor;
+                editableContent.style.fontFamily = bodyFont;
+              }
+              // Chart titles
+              sc.querySelectorAll<HTMLElement>('.card-title, .text-center.mb-3').forEach(el => {
+                el.style.color = themeColors.textDark1 || titleColor;
+              });
+            });
+          });
+        }
 
         // Toast utility (simple, similar to react-toastify)
         function showToast(message: string, type: 'success' | 'error' = 'success') {
@@ -3298,357 +3950,8 @@ Breakdown of market share across different products.
           });
         }
 
-        // Show settingModal above staticBackdrop when edit-button is clicked
-        document.querySelectorAll<HTMLButtonElement>('.edit-button').forEach(btn => {
-          btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Show settingModal
-            const settingModal = document.getElementById('settingModal');
-              // Sync color input changes in #colors-form
-              const colorsForm = document.getElementById('colors-form');
-              if (colorsForm) {
-                // For every color input in colors-form
-                colorsForm.querySelectorAll<HTMLInputElement>('input[type="color"]').forEach(colorInput => {
-                  colorInput.addEventListener('input', function () {
-                    // Set background of next .color-preview
-                    const colorPreview = colorInput.parentElement?.querySelector<HTMLElement>('.color-preview');
-                    if (colorPreview) {
-                      colorPreview.style.backgroundColor = colorInput.value;
-                    }
-                    // Set value of input[type="text"] in the next sibling div of the parent of parent
-                    const parentDiv = colorInput.parentElement?.parentElement;
-                    const nextDiv = parentDiv?.nextElementSibling as HTMLElement | null;
-                    const textInput = nextDiv?.querySelector<HTMLInputElement>('input[type="text"]');
-                    if (textInput) {
-                      textInput.value = colorInput.value;
-                    }
-                  });
-                });
-
-                // Sync font-family when selects in fonts-form change
-                const fontsForm = document.getElementById('fonts-form');
-                if (fontsForm) {
-                  const selects = fontsForm.querySelectorAll<HTMLSelectElement>('select.form-select');
-                  // 1. Title font
-                  if (selects[0]) {
-                    selects[0].addEventListener('change', function () {
-                      const font = selects[0].value;
-                      document.querySelectorAll<HTMLElement>('.editable-title').forEach(el => {
-                        el.style.fontFamily = font;
-                      });
-                      document.querySelectorAll<HTMLInputElement>('.slide-title').forEach(el => {
-                        el.style.fontFamily = font;
-                      });
-                    });
-                  }
-                  // 2. Body font
-                  if (selects[1]) {
-                    selects[1].addEventListener('change', function () {
-                      const font = selects[1].value;
-                      document.querySelectorAll<HTMLElement>('.editable-content').forEach(el => {
-                        el.style.fontFamily = font;
-                      });
-                      document.querySelectorAll<HTMLTextAreaElement>('.slide-body').forEach(el => {
-                        el.style.fontFamily = font;
-                      });
-                    });
-                  }
-                }
-
-                  // Slide size logic
-                  const generalForm = document.getElementById('general-form');
-                  const previewSizeInfo = document.querySelector<HTMLElement>('.preview-size-info');
-                  const slideContent = document.querySelector<HTMLElement>('.slide-content');
-                    console.log('slide-content', slideContent)
-                  if (generalForm && previewSizeInfo && slideContent) {
-                    const select = generalForm.querySelector<HTMLSelectElement>('select.mb-2.form-select');
-                    const customSizeDiv = generalForm.querySelector<HTMLDivElement>('.gap-3.mt-2');
-                    if (select && customSizeDiv) {
-                      const widthInput = customSizeDiv.querySelectorAll<HTMLInputElement>('input')[0];
-                      const heightInput = customSizeDiv.querySelectorAll<HTMLInputElement>('input')[1];
-
-                      // Helper to update slide-content height
-                      function updateSlideContentHeight() {
-                        const width = Number(widthInput.value);
-                        let height = 0;
-                        if (select.value === 'standard') {
-                          height = Math.round(width / 4 * 3);
-                        } else if (select.value === 'widescreen') {
-                          height = Math.round(width / 16 * 9);
-                        } else if (select.value === 'custom') {
-                          const customWidth = Number(widthInput.value);
-                          const customHeight = Number(heightInput.value);
-                          if (customWidth > 0 && customHeight > 0) {
-                            height = Math.round(width / customWidth * customHeight);
-                          }
-                        }
-                        if (height > 0) {
-                          slideContent.style.height = `${height}px`;
-                        }
-                      }
-
-                      // Helper to update preview-size-info text
-                      function updatePreviewSizeInfo() {
-                        const w = widthInput.value;
-                        const h = heightInput.value;
-                        previewSizeInfo.textContent = `${w} x ${h}px`;
-                      }
-
-                      // On select change
-                      select.addEventListener('change', function () {
-                        updateSlideContentHeight();
-                      });
-
-                      // On width/height input change
-                      widthInput.addEventListener('input', function () {
-                        updateSlideContentHeight();
-                        updatePreviewSizeInfo();
-                      });
-                      heightInput.addEventListener('input', function () {
-                        updateSlideContentHeight();
-                        updatePreviewSizeInfo();
-                      });
-
-                      // Initial set
-                      updateSlideContentHeight();
-                      updatePreviewSizeInfo();
-                    }
-                  }
-
-                    // Get the forth mb-4 card (Accent Colors)
-                  const accentColorsCard = colorsForm.querySelectorAll('.mb-4.card')[3];
-                  if (accentColorsCard) {
-                    const colorInputs = accentColorsCard.querySelectorAll<HTMLInputElement>('input[type="color"]');
-                    colorInputs.forEach((colorInput, idx) => {
-                      colorInput.addEventListener('input', function () {
-                        // Update bar chart colors (exampleChart, exampleChart1, barChart, barChartOnEdit)
-                        const colorValue = colorInput.value;
-
-                        // Update exampleChart and exampleChart1 (preview bar charts)
-                        if (window.exampleChart && window.exampleChart.data && window.exampleChart.data.datasets[0].backgroundColor) {
-                          window.exampleChart.data.datasets[0].backgroundColor[idx] = colorValue;
-                          window.exampleChart.update();
-                        }
-                        if (window.exampleChart1 && window.exampleChart1.data && window.exampleChart1.data.datasets[0].backgroundColor) {
-                          window.exampleChart1.data.datasets[0].backgroundColor[idx] = colorValue;
-                          window.exampleChart1.update();
-                        }
-
-                        // Update pieChart and pieChartOnEdit (preview pie charts)
-                        if (window.pieChart && window.pieChart.data && window.pieChart.data.datasets[0].backgroundColor) {
-                          console.log('1------------------->', window.pieChart.data.datasets[0].backgroundColor[idx])
-                          window.pieChart.data.datasets[0].backgroundColor[idx] = colorValue;
-                          window.pieChart.update();
-                        }
-                        if (window.pieChartOnEdit && window.pieChartOnEdit.data && window.pieChartOnEdit.data.datasets[0].backgroundColor) {
-                          
-                          window.pieChartOnEdit.data.datasets[0].backgroundColor[idx] = colorValue;
-                          window.pieChartOnEdit.update();
-                        }
-
-                      
-                        // Update barChart and barChartOnEdit (main bar charts, if you want to sync them)
-                        if (window.barChart && window.barChart.data && window.barChart.data.datasets[idx].backgroundColor) {
-                          window.barChart.data.datasets[idx].backgroundColor = colorValue;
-                          window.barChart.update();
-                        }
-                        if (window.barChartOnEdit && window.barChartOnEdit.data && window.barChartOnEdit.data.datasets[idx].backgroundColor) {
-                          window.barChartOnEdit.data.datasets[idx].backgroundColor = colorValue;
-                          window.barChartOnEdit.update();
-                        }
-
-                        // Update lineChart and lineChartOnEdit (lines color)
-                        if (window.lineChart && window.lineChart.data && window.lineChart.data.datasets[idx]) {
-                          window.lineChart.data.datasets[idx].borderColor = colorValue;
-                          window.lineChart.update();
-                        }
-                        if (window.lineChartOnEdit && window.lineChartOnEdit.data && window.lineChartOnEdit.data.datasets[idx]) {
-                          window.lineChartOnEdit.data.datasets[idx].borderColor = colorValue;
-                          window.lineChartOnEdit.update();
-                        }
-                      });
-                    });
-                  }
-              }
-
-              if (colorsForm) {
-              // Get the first mb-4 card (Slide Colors)
-              const slideColorsCard = colorsForm.querySelector('.mb-4.card');
-              if (slideColorsCard) {
-                const colorInputs = slideColorsCard.querySelectorAll<HTMLInputElement>('input[type="color"]');
-                // 1. Background color (first input)
-                if (colorInputs[0]) {
-                  colorInputs[0].addEventListener('input', function () {
-                    document.querySelectorAll<HTMLElement>('.slide-content').forEach(sc => {
-                      sc.style.backgroundColor = colorInputs[0].value;
-                    });
-                    const activeThumb = document.querySelector('.slide-thumbnail.active .thumbnail-preview') as HTMLElement | null;
-                    if (activeThumb) {
-                      activeThumb.style.backgroundColor = colorInputs[0].value;
-                    }
-                  });
-                }
-                // 2. Title color (second input)
-                if (colorInputs[1]) {
-                  colorInputs[1].addEventListener('input', function () {
-                    document.querySelectorAll<HTMLElement>('.editable-title').forEach(title => {
-                      title.style.color = colorInputs[1].value;
-                    });
-                    document.querySelectorAll<HTMLElement>('.slide-title').forEach(title => {
-                      title.style.color = colorInputs[1].value;
-                    });
-                    const activeTitle = document.querySelector('.slide-thumbnail.active .thumbnail-title') as HTMLElement | null;
-                    if (activeTitle) {
-                      activeTitle.style.color = colorInputs[1].value;
-                    }
-                  });
-                }
-                // 3. Content color (third input)
-                if (colorInputs[2]) {
-                  colorInputs[2].addEventListener('input', function () {
-                    document.querySelectorAll<HTMLElement>('.editable-content').forEach(content => {
-                      content.style.color = colorInputs[2].value;
-                    });
-                    document.querySelectorAll<HTMLElement>('.slide-body').forEach(title => {
-                      title.style.color = colorInputs[1].value;
-                    });
-                    const activeContent = document.querySelector('.slide-thumbnail.active .thumbnail-text') as HTMLElement | null;
-                    if (activeContent) {
-                      activeContent.style.color = colorInputs[2].value;
-                    }
-                  });
-                }
-              }
-            }
-
-              // Save Settings button in settingModal: close settingModal and show staticBackdrop
-              const settingModal = document.getElementById('settingModal');
-              const staticBackdrop = document.getElementById('staticBackdrop');
-              if (settingModal && staticBackdrop) {
-                const saveBtn = settingModal.querySelector<HTMLButtonElement>('.modal-footer .btn.btn-primary');
-                if (saveBtn) {
-                  saveBtn.addEventListener('click', function () {
-                    // Use Bootstrap's modal API if available
-                    // @ts-ignore
-                    if (window.bootstrap && window.bootstrap.Modal) {
-                      // Hide settingModal
-                      // @ts-ignore
-                      const bsModal = window.bootstrap.Modal.getOrCreateInstance(settingModal);
-                      bsModal.hide();
-
-                      // Show staticBackdrop
-                      // @ts-ignore
-                      const staticBackdropModal = window.bootstrap.Modal.getOrCreateInstance(staticBackdrop);
-                      staticBackdropModal && staticBackdropModal.show();
-                    } else {
-                      // Fallback: manual show/hide
-                      settingModal.style.display = 'none';
-                      settingModal.classList.remove('show');
-                      settingModal.setAttribute('aria-hidden', 'true');
-                      staticBackdrop.style.display = 'block';
-                      staticBackdrop.classList.add('show');
-                      staticBackdrop.removeAttribute('aria-hidden');
-                    }
-                  });
-                }
-              }
-
-
-              const logoInput = document.querySelector<HTMLInputElement>('input[type="file"]');
-              const logoPreview = document.querySelector<HTMLElement>('.logo-preview');
-              const logoPositionSelect = logoInput?.closest('.d-flex')?.parentElement?.querySelector('select.form-select');
-              const previewWrappers = document.querySelectorAll<HTMLElement>('.preview-wrapper');
-              const slideContents = document.querySelectorAll<HTMLElement>('.slide-content.mb-4');
-
-              // Helper to update logo position class for all logo images in preview
-              function updateLogoPositionClass(position: string) {
-                previewWrappers.forEach(wrapper => {
-                  const logoDiv = wrapper.querySelector('.logo-container');
-                  if (logoDiv) {
-                    logoDiv.className = `logo-container logo-${position}`;
-                  }
-                });
-                slideContents.forEach(content => {
-                  const logoDiv = content.querySelector('.logo-container');
-                  if (logoDiv) {
-                    logoDiv.className = `logo-container logo-${position}`;
-                  }
-                });
-              }
-
-              if (logoInput && logoPreview && logoPositionSelect && previewWrappers.length > 0 && slideContents.length > 0) {
-                logoInput.addEventListener('change', function () {
-                  const file = logoInput.files && logoInput.files[0];
-                  if (!file) return;
-
-                  const reader = new FileReader();
-                  reader.onload = function (event) {
-                    const base64 = event.target?.result as string;
-                    // Show image in logo-preview
-                    logoPreview.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:100%;max-height:100%;">`;
-
-                    // Remove any existing logo-container in all preview-wrappers
-                    previewWrappers.forEach(wrapper => {
-                      const oldLogo = wrapper.querySelector('.logo-container');
-                      if (oldLogo) oldLogo.remove();
-
-                      // Get logo position (default to top-left if not found)
-                      const posValue = logoPositionSelect.value || 'top-left';
-                      const logoDiv = document.createElement('div');
-                      logoDiv.className = `logo-container logo-${posValue}`;
-                      logoDiv.style.position = 'absolute';
-                      // You can add more position logic here if needed
-                      logoDiv.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:80px;max-height:80px;">`;
-                      wrapper.prepend(logoDiv);
-                    });
-                    // Remove any existing logo-container in all slide-contents
-                    slideContents.forEach(wrapper => {
-                      const oldLogo = wrapper.querySelector('.logo-container');
-                      if (oldLogo) oldLogo.remove();
-
-                      // Get logo position (default to top-left if not found)
-                      const posValue = logoPositionSelect.value || 'top-left';
-                      const logoDiv = document.createElement('div');
-                      logoDiv.className = `logo-container logo-${posValue}`;
-                      logoDiv.style.position = 'absolute';
-                      // You can add more position logic here if needed
-                      logoDiv.innerHTML = `<img src="${base64}" alt="Logo" style="max-width:80px;max-height:80px;">`;
-                      wrapper.prepend(logoDiv);
-                    });
-                  };
-                  reader.readAsDataURL(file);
-                });
-
-                // When logo position select changes, update class for all logo images in preview
-                logoPositionSelect.addEventListener('change', function () {
-                  const posValue = logoPositionSelect.value || 'top-left';
-                  updateLogoPositionClass(posValue);
-                });
-              }
-
-            if (settingModal) {
-              // Use Bootstrap's modal API if available
-              // @ts-ignore
-              if (window.bootstrap && window.bootstrap.Modal) {
-                // Hide staticBackdrop but keep it in DOM
-                // @ts-ignore
-                const staticBackdropModal = window.bootstrap.Modal.getOrCreateInstance(document.getElementById('staticBackdrop'));
-                staticBackdropModal && staticBackdropModal.hide();
-
-                // Show settingModal
-                // @ts-ignore
-                const bsModal = window.bootstrap.Modal.getOrCreateInstance(settingModal);
-                bsModal.show();
-              } else {
-                // Fallback: manual show/hide
-                settingModal.style.display = 'block';
-                settingModal.classList.add('show');
-                settingModal.removeAttribute('aria-hidden');
-              }
-            }
-          });
-        });
-
+        
+      
         
         const settingModal = document.getElementById('settingModal');
         const staticBackdrop = document.getElementById('staticBackdrop');
@@ -3965,18 +4268,6 @@ Breakdown of market share across different products.
           if (nextBtn) nextBtn.disabled = activeIndex === slideThumbnails.length;
         }
 
-        // Set active slide and update pagination on click
-        function setSlideClickHandlers() {
-          const slideThumbnails = document.querySelectorAll('.slide-thumbnail');
-          slideThumbnails.forEach((thumb, idx) => {
-            thumb.addEventListener('click', function () {
-              slideThumbnails.forEach(t => t.classList.remove('active'));
-              thumb.classList.add('active');
-              updatePagination();
-            });
-          });
-        }
-
         // Initial setup
         updatePagination();
         setSlideClickHandlers();
@@ -4165,36 +4456,51 @@ Breakdown of market share across different products.
         const newSlideBtn = document.querySelector<HTMLDivElement>(".new-slide-thumbnail");
         const slidesSidebar = document.querySelector<HTMLElement>(".slides-sidebar");
         let num = document.querySelectorAll('.slide-thumbnail').length + 1;
+
         if (newSlideBtn && slidesSidebar) {
           newSlideBtn.addEventListener("click", function () {
+            // Find the active slide-thumbnail index
+            const slideThumbnails = Array.from(document.querySelectorAll('.slide-thumbnail'));
+            const activeIdx = slideThumbnails.findIndex(t => t.classList.contains('active'));
+            // Use the theme of the active slide, or defaultTheme if none active
+            const theme = themes[activeIdx] ? themes[activeIdx] : defaultTheme;
+
+            // Add new theme object to themes array (deep copy)
+            const newTheme = JSON.parse(JSON.stringify(theme));
+            newTheme.name = `Theme ${themes.length + 1}`;
+            themes.push(newTheme);
+
             // Create new slide-thumbnail div
             const slide = document.createElement("div");
+            slide.className = "slide-thumbnail active";
+            slide.innerHTML = `
+              <div class="thumbnail-preview" style="background-color: ${theme.background}; cursor: pointer;">
+                <div class="thumbnail-content" data-editing="false" style="color: ${theme.titleColor};">
+                  <div class="thumbnail-title" style="color: ${theme.titleColor}; font-family: ${theme.titleFont};">Sales Performance</div>
+                  <div class="thumbnail-text" style="color: ${theme.contentColor}; font-family: ${theme.bodyFont};">This chart shows quarterly sales pe...</div>
+                </div>
+              </div>
+              <div class="thumbnail-footer">
+                <div class="thumbnail-number">Theme ${num}</div>
+                <button class="edit-button" data-bs-toggle="modal" data-bs-target="#settingModal">
+                  <i class="icon-pen" style="font-size: 16px"></i>
+                </button>
+              </div>
+            `;
+            num++;
+            slidesSidebar.appendChild(slide);
 
-              slide.className = "slide-thumbnail";
-              slide.innerHTML = `
-                <div class="thumbnail-preview" style="background-color: #fff; cursor: pointer;">
-                  <div class="thumbnail-content" data-editing="false" style="color: #000;">
-                    <div class="thumbnail-title">Sales Performance</div>
-                    <div class="thumbnail-text" style="color: #333;">This chart shows quarterly sales pe...</div>
-                  </div>
-                </div>
-                <div class="thumbnail-footer">
-                  <div class="thumbnail-number">Theme ${num}</div>
-                  <button class="edit-button" data-bs-toggle="modal" data-bs-target="#settingModal">
-                    <i class="icon-pen" style="font-size: 16px"></i>
-                  </button>
-                </div>
-              `;
-              num++;
-              slidesSidebar.appendChild(slide);
             // Remove active from all, set new as active
             document.querySelectorAll('.slide-thumbnail').forEach(t => t.classList.remove('active'));
             slide.classList.add('active');
 
             updatePagination();
             setSlideClickHandlers();
+            setEditButtonHandlers();
           });
         }
+
+        setEditButtonHandlers();
 
         const toggleBtn = document.getElementById("toggleSettingsBtn") as HTMLButtonElement | null;
         const panel = document.getElementById("settingsPanel") as HTMLElement | null;
